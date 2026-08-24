@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
+import { PageBanner } from "@/app/_components/PageBanner";
 import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 
 export const metadata: Metadata = {
@@ -127,13 +128,20 @@ const process = [
 export default function DesignConsultingPage() {
   return (
     <>
+      <PageBanner
+        image="/images/banners/design-consulting-banner.png"
+        imagePosition="50% 53%"
+        title="想　設計"
+        align="left"
+      />
+
       <section className="bg-black/[0.03] py-20">
         <Container>
-          <h1 className="text-3xl font-bold text-ink md:text-4xl">
+          <h2 className="text-3xl font-bold text-brand-green md:text-4xl">
             把你的議題
             <br />
             設計成能參與的遊戲體驗
-          </h1>
+          </h2>
           <p className="mt-6 max-w-2xl text-ink/70">
             阿普蛙協助基金會、公部門、學校、企業與內容團隊，將教育議題、倡議理念、地方文化或組織需求，轉化為桌遊、實境遊戲、遊戲化活動與推廣教材。我們設計遊戲，也能夠協助完成視覺設計、印刷製作、課程應用與後續推廣，讓一個好概念真正落地被使用。
           </p>

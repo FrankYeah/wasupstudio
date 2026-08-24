@@ -7,7 +7,13 @@ import NextImage, { type ImageProps } from "next/image";
 // 之後正式上 Cloudflare（跑在 wasupstudio.com 根目錄）basePath 會是空字串，這層直接不生效，不用拆掉。
 const basePath = process.env.GITHUB_PAGES === "true" ? "/wasupstudio" : "";
 
+// 給非 next/image 的用法用（例如 CSS background-image: url(...)），邏輯跟下面 SiteImage 一致，
+// 抽出來共用避免兩處各自維護一份 basePath 判斷。
+export function withBasePath(src: string) {
+  return src.startsWith("/") ? `${basePath}${src}` : src;
+}
+
 export function SiteImage({ src, ...rest }: ImageProps) {
-  const resolvedSrc = typeof src === "string" && src.startsWith("/") ? `${basePath}${src}` : src;
+  const resolvedSrc = typeof src === "string" ? withBasePath(src) : src;
   return <NextImage src={resolvedSrc} {...rest} />;
 }

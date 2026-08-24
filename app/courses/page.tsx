@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
+import { PageBanner } from "@/app/_components/PageBanner";
 import { courseNav } from "@/app/_lib/site-data";
 
 export const metadata: Metadata = {
@@ -36,6 +37,10 @@ const features = [
 export default function CoursesPage() {
   return (
     <>
+      {/* 原站這個 banner 底圖沒有畫標題文字進去（跟首頁／想設計／買桌遊總覽不同，量測 DOM 發現
+          wsite-section-elements 是空的），純粹是裝飾用的窄版底圖，所以不傳 title。 */}
+      <PageBanner image="/images/banners/courses-banner.png" imagePosition="center" className="h-[140px] md:h-[220px]" />
+
       <section className="bg-black/[0.03] py-20">
         <Container className="grid gap-10 md:grid-cols-2 md:items-center">
           <div>

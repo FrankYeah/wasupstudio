@@ -52,7 +52,8 @@ export default function HomePage() {
       {/* Hero */}
       {/* 原站首頁 header banner 其實是一張 2000×1001 的合成底圖（灰底+蛙圖+標題文字全部畫在圖裡），
           量測後背景是純色 #e6e6e6（不是漸層），蛙圖貼齊瀏覽器左邊緣、被裁掉一截，標題文字是深灰
-          （約 #3f3f3f）中等字重，跟站內其他標題的黑色粗體不是同一套樣式。這裡標題文字保留成真正的
+          （約 #3f3f3f）中等字重＋斜體，跟站內其他標題（正常字重、無斜體，見 DESIGN-SPEC.md）不是
+          同一套樣式——這是首頁 hero 專屬的一次性裝飾排版，不是全站字體規則。這裡標題文字保留成真正的
           DOM 文字（SEO 考量，原站是圖片、不是文字，這是新站故意不照抄的地方），視覺上比照顏色/字重還原；
           header 是透明疊在這個區塊上面（見 Header.tsx 的 overlay 模式），所以要留 padding-top 讓內容
           不被導覽列蓋到。
@@ -67,7 +68,7 @@ export default function HomePage() {
             <Image src="/images/brand/hero-bg.png" alt="阿普蛙" fill className="object-contain" priority />
           </div>
           <div className="md:ml-[38%] md:w-[62%]">
-            <h1 className="text-lg leading-snug font-medium text-[#3f3f3f] sm:text-2xl md:text-3xl lg:text-4xl">
+            <h1 className="text-lg leading-snug font-medium text-[#3f3f3f] italic sm:text-2xl md:text-3xl lg:text-4xl">
               我們把重要但不容易說的事
               <br />
               設計成可以玩的學習體驗

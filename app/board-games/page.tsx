@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import Link from "next/link";
 import { Container } from "@/app/_components/Container";
+import { PageBanner } from "@/app/_components/PageBanner";
 import { boardGames, soldOutBoardGames } from "@/app/_lib/site-data";
 
 export const metadata: Metadata = {
@@ -12,11 +13,12 @@ export const metadata: Metadata = {
 export default function BoardGamesPage() {
   return (
     <>
-      <section className="bg-black/[0.03] py-16">
-        <Container>
-          <h1 className="text-3xl font-bold text-ink md:text-4xl">桌遊 把議題變好玩了</h1>
-        </Container>
-      </section>
+      <PageBanner
+        image="/images/banners/board-games-banner.png"
+        imagePosition="50% 98%"
+        title="桌遊　把議題變好玩了"
+        align="right"
+      />
 
       {/* 新品主打：情緒謎語雙語版 */}
       <section className="py-16">
