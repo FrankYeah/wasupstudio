@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { useState } from "react";
 import { mainNav, boardGames, courseNav } from "@/app/_lib/site-data";
 

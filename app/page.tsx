@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage as Image } from "@/app/_components/SiteImage";
 import Link from "next/link";
 import { Container } from "@/app/_components/Container";
 
