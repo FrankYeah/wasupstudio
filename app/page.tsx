@@ -150,96 +150,109 @@ export default function HomePage() {
           </div>
         </Container>
 
-        {/* 全方位服務：原站是一個獨立的「color box」元件（品牌綠 #007854、只有上緣圓角
-            10px 10px 0 0、左邊蛙圖圖示、右邊白色大標題＋米黃色 #f8eaa9 副標題），不是重建站原本
-            那種純文字置中標題，量測 .colored-box-content 的 computed style 得到規格。 */}
+        {/* 從「全方位服務」到「見證」其實是同一個 colored-box 元件（原站量測 .colored-box-content
+            得到兩截：上半綠色 rgb(0,120,84)、只有上緣圓角 10px 10px 0 0；下半米白 rgb(244,247,248)
+            （#f4f7f8，不是純白也不是灰底！）、只有下緣圓角 0 0 10px 10px——兩截接在一起看起來是
+            一整張卡片，寬度等於 Container 扣掉自身 padding 後的內容寬（1120/1200），不用再另外內縮）。
+            重建站原本完全沒有這張卡片，商品亮點／三步驟圖／見證全部直接畫在外層 #cccccc 灰底上，
+            這是「畫面看起來不一樣」的主因之一，用 overflow-hidden + rounded-2xl 包住上下兩截還原。 */}
         <Container className="mt-16">
-          <div className="flex flex-col items-center gap-6 rounded-t-2xl bg-brand-green px-8 py-8 sm:flex-row sm:gap-10 sm:px-10">
-            <div className="relative h-28 w-28 shrink-0 sm:h-32 sm:w-32">
-              <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
-            </div>
-            <div className="text-center sm:text-left">
-              <h2 className="text-2xl font-bold text-white md:text-3xl">從設計到推廣的全方位服務</h2>
-              <p className="mt-2 text-[#f8eaa9]">從議題轉譯到教學推廣，阿普蛙陪你走整段路</p>
-            </div>
-          </div>
-        </Container>
-
-        {/* 商品亮點：情緒謎語 —— 原站這個區塊沒有自己的卡片背景，直接畫在灰底上，
-            右側商品資訊也一樣（原本 bg-black/[0.03] p-8 的卡片感是重建站自己加的，拿掉）。 */}
-        <Container className="grid items-center gap-10 py-20 md:grid-cols-2">
-          <div>
-            <h2 className="text-2xl font-bold text-ink">一款桌遊，如何讓孩子開始談情緒？</h2>
-            <div className="relative mt-6 aspect-square w-full max-w-xs overflow-hidden rounded-2xl">
-              <Image
-                src="/images/home/emotion-cards.jpg"
-                alt="孩子們一起指認情緒卡的照片"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <p className="mt-6 font-semibold text-brand-green">情緒很重要，卻不一定容易說出口</p>
-            <p className="mt-2 text-ink/70">
-              我們把情緒辨識、同理感受與人際互動，設計成孩子能遊玩的桌遊體驗，讓情緒教育從講解變成觀察、猜測、表達與討論。
-            </p>
-            <p className="mt-4 font-semibold text-brand-green">透過遊戲創造一個低壓力的討論環境</p>
-            <p className="mt-2 text-ink/70">
-              孩子可以從角色、情境和線索出發，慢慢說出自己的猜測，也聽見別人如何理解同一個情境。也許我們的感受與想法不一樣，透過遊戲我們有機會看見彼此的不一樣。
-            </p>
-          </div>
-          <div>
-            <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-white">
-              <Image
-                src="/images/home/riddle-me-feelings-box.png"
-                alt="情緒謎語（雙語版）桌遊封面"
-                fill
-                className="object-contain p-4"
-              />
-            </div>
-            <h3 className="mt-4 text-xl font-bold text-ink">情緒謎語</h3>
-            <p className="mt-1 text-xs font-semibold tracking-wide text-brand-green">SEL</p>
-            <p className="mt-3 text-sm text-ink/70">
-              這是一款將校園人際衝突與情緒理解，設計成可以觀察、推理與表達的雙語桌遊。孩子在遊戲中練習辨識情緒、理解他人反應，也讓老師能輕鬆把
-              SEL、人際溝通與表演活動帶進課堂。
-            </p>
-            <div className="mt-6 flex gap-3">
-              <Link
-                href="/board-games/riddle-me-feelings"
-                className="rounded-full bg-brand-green px-5 py-2 text-sm font-semibold text-white"
-              >
-                了解更多
-              </Link>
-              <a
-                href="https://forms.gle/EdEpqW4dK4GH5Pmg8"
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-ink px-5 py-2 text-sm font-semibold text-ink"
-              >
-                課程邀約
-              </a>
-            </div>
-          </div>
-        </Container>
-
-        {/* 情緒謎語的設計脈絡：從議題出發→轉化成遊戲→延伸到課堂 */}
-        <Container className="flex justify-center py-4">
-          <div className="relative aspect-[1123/540] w-full max-w-3xl">
-            <Image src="/images/home/design-process.png" alt="從議題出發、轉化成遊戲、延伸到課堂" fill className="object-contain" />
-          </div>
-        </Container>
-
-        {/* 見證：原站是純文字直接放在灰底上，沒有白色卡片／陰影，量測 computed style 確認過
-            從文字元素往上找不到任何非透明背景，拿掉重建站原本加的 bg-white/shadow-sm 卡片感。 */}
-        <Container className="grid gap-8 py-16 md:grid-cols-3">
-          {testimonials.map((t) => (
-            <blockquote key={t.name} className="text-center md:text-left">
-              <div className="relative mx-auto h-16 w-16 overflow-hidden rounded-full md:mx-0">
-                <Image src={t.avatar} alt="" fill className="object-cover" aria-hidden />
+          <div className="overflow-hidden rounded-2xl">
+            <div className="flex flex-col items-center gap-6 bg-brand-green px-8 py-8 sm:flex-row sm:gap-10 sm:px-10">
+              <div className="relative h-28 w-28 shrink-0 sm:h-32 sm:w-32">
+                <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
               </div>
-              <p className="mt-4 text-ink/80">「{t.quote}」</p>
-              <footer className="mt-4 text-sm font-semibold text-brand-green">{t.name}</footer>
-            </blockquote>
-          ))}
+              <div className="text-center sm:text-left">
+                <h2 className="text-2xl font-bold text-white md:text-3xl">從設計到推廣的全方位服務</h2>
+                <p className="mt-2 text-[#f8eaa9]">從議題轉譯到教學推廣，阿普蛙陪你走整段路</p>
+              </div>
+            </div>
+
+            <div className="bg-[#f4f7f8] px-6 pt-10 pb-16 sm:px-10">
+              {/* 商品亮點：情緒謎語 —— 原站是「欄」不是「列」：左欄由上而下＝標題＋兩段文字，
+                  右欄由上而下＝孩子指認情緒卡照片；下面另一列左欄＝商品封面照，右欄＝商品資訊＋按鈕。
+                  重建站原本把「標題＋照片＋文字」全塞進左欄、右欄整個換成商品卡，欄位配置整個是錯的，
+                  量測每個文字/圖片元素的 x 座標才抓到（照片 x 落在右欄範圍、不是左欄）。 */}
+              <div className="grid gap-x-10 gap-y-10 md:grid-cols-2">
+                <div>
+                  <h2 className="text-2xl font-bold text-ink">一款桌遊，如何讓孩子開始談情緒？</h2>
+                  <p className="mt-6 font-semibold text-brand-green">情緒很重要，卻不一定容易說出口</p>
+                  <p className="mt-2 text-ink/70">
+                    我們把情緒辨識、同理感受與人際互動，設計成孩子能遊玩的桌遊體驗，讓情緒教育從講解變成觀察、猜測、表達與討論。
+                  </p>
+                  <p className="mt-4 font-semibold text-brand-green">透過遊戲創造一個低壓力的討論環境</p>
+                  <p className="mt-2 text-ink/70">
+                    孩子可以從角色、情境和線索出發，慢慢說出自己的猜測，也聽見別人如何理解同一個情境。也許我們的感受與想法不一樣，透過遊戲我們有機會看見彼此的不一樣。
+                  </p>
+                </div>
+                <div>
+                  <div className="relative aspect-square w-full max-w-xs overflow-hidden rounded-2xl">
+                    <Image
+                      src="/images/home/emotion-cards.jpg"
+                      alt="孩子們一起指認情緒卡的照片"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-white">
+                    <Image
+                      src="/images/home/riddle-me-feelings-box.png"
+                      alt="情緒謎語（雙語版）桌遊封面"
+                      fill
+                      className="object-contain p-4"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-ink">情緒謎語</h3>
+                  <p className="mt-1 text-xs font-semibold tracking-wide text-brand-green">SEL</p>
+                  <p className="mt-3 text-sm text-ink/70">
+                    這是一款將校園人際衝突與情緒理解，設計成可以觀察、推理與表達的雙語桌遊。孩子在遊戲中練習辨識情緒、理解他人反應，也讓老師能輕鬆把
+                    SEL、人際溝通與表演活動帶進課堂。
+                  </p>
+                  <div className="mt-6 flex gap-3">
+                    <Link
+                      href="/board-games/riddle-me-feelings"
+                      className="rounded-full bg-brand-green px-5 py-2 text-sm font-semibold text-white"
+                    >
+                      了解更多
+                    </Link>
+                    <a
+                      href="https://forms.gle/EdEpqW4dK4GH5Pmg8"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full border border-ink px-5 py-2 text-sm font-semibold text-ink"
+                    >
+                      課程邀約
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* 情緒謎語的設計脈絡：從議題出發→轉化成遊戲→延伸到課堂 */}
+              <div className="mt-10 flex justify-center">
+                <div className="relative aspect-[1123/540] w-full max-w-3xl">
+                  <Image src="/images/home/design-process.png" alt="從議題出發、轉化成遊戲、延伸到課堂" fill className="object-contain" />
+                </div>
+              </div>
+
+              {/* 見證：這三則量測起來確實在同一張米白卡片裡（跟卡片外的灰底是兩個不同背景），
+                  但文字本身沒有另外包白色小卡片／陰影，維持直接放在卡片背景上。 */}
+              <div className="mt-10 grid gap-8 md:grid-cols-3">
+                {testimonials.map((t) => (
+                  <blockquote key={t.name} className="text-center md:text-left">
+                    <div className="relative mx-auto h-16 w-16 overflow-hidden rounded-full md:mx-0">
+                      <Image src={t.avatar} alt="" fill className="object-cover" aria-hidden />
+                    </div>
+                    <p className="mt-4 text-ink/80">「{t.quote}」</p>
+                    <footer className="mt-4 text-sm font-semibold text-brand-green">{t.name}</footer>
+                  </blockquote>
+                ))}
+              </div>
+            </div>
+          </div>
         </Container>
       </section>
 
