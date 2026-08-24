@@ -78,7 +78,9 @@ export default function HomePage() {
       </section>
 
       {/* 議題變成可參與的學習現場 */}
-      <section className="py-20">
+      {/* 原站這一段背景是 linear-gradient(白 0% → #e6e6e6 100%)，量測 .wsite-section 的
+          computed backgroundImage 得到，不是純白（見 DESIGN-SPEC.md）。 */}
+      <section className="bg-gradient-to-b from-white to-[#e6e6e6] py-20">
         <Container>
           <h2 className="text-center text-2xl font-bold text-ink md:text-3xl">
             「議題」變成可參與的學習現場
@@ -101,9 +103,11 @@ export default function HomePage() {
                     </span>
                   ))}
                 </p>
+                {/* 原站這顆按鈕（wsite-button-highlight）預設就是黑底白字、直角，不是外框、
+                    也不是 hover 才變黑——量測 computed style 得到，跟站內其他圓角按鈕是不同樣式。 */}
                 <Link
                   href={a.href}
-                  className="mt-4 rounded-full border border-ink px-5 py-2 text-sm font-semibold text-ink transition hover:bg-ink hover:text-white"
+                  className="mt-4 bg-black px-[30px] py-3.5 text-sm font-bold text-white transition hover:bg-ink/80"
                 >
                   {a.cta}
                 </Link>
@@ -113,12 +117,12 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* 如何把議題變成可以玩的學習體驗？ */}
-      <section className="relative overflow-hidden bg-black/[0.03] py-20">
-        <div className="absolute -right-10 -bottom-10 h-56 w-56 opacity-10 md:h-72 md:w-72">
-          <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
-        </div>
-        <Container className="relative">
+      {/* 原站從「如何把議題變成可以玩的學習體驗？」一路到「見證」，其實是同一個 wsite-section，
+          共用同一片純色 #cccccc 灰底（量測得到，不是漸層也不是 bg-black/[0.03] 這種極淡的疊色），
+          底下這幾個區塊改成同一個 <section> 底下的多個 <Container>，不要拆成各自獨立、背景各異的
+          section，不然接縫處的顏色落差看得出來。 */}
+      <section className="relative overflow-hidden bg-[#cccccc] py-20">
+        <Container>
           <h2 className="text-center text-2xl font-bold text-ink md:text-3xl">
             如何把議題變成可以玩的學習體驗？
           </h2>
@@ -145,21 +149,25 @@ export default function HomePage() {
             ))}
           </div>
         </Container>
-      </section>
 
-      {/* 全方位服務 */}
-      <section className="py-20">
-        <Container>
-          <h2 className="text-center text-2xl font-bold text-ink md:text-3xl">
-            從設計到推廣的全方位服務
-          </h2>
-          <p className="mt-3 text-center text-ink/70">從議題轉譯到教學推廣，阿普蛙陪你走整段路</p>
+        {/* 全方位服務：原站是一個獨立的「color box」元件（品牌綠 #007854、只有上緣圓角
+            10px 10px 0 0、左邊蛙圖圖示、右邊白色大標題＋米黃色 #f8eaa9 副標題），不是重建站原本
+            那種純文字置中標題，量測 .colored-box-content 的 computed style 得到規格。 */}
+        <Container className="mt-16">
+          <div className="flex flex-col items-center gap-6 rounded-t-2xl bg-brand-green px-8 py-8 sm:flex-row sm:gap-10 sm:px-10">
+            <div className="relative h-28 w-28 shrink-0 sm:h-32 sm:w-32">
+              <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
+            </div>
+            <div className="text-center sm:text-left">
+              <h2 className="text-2xl font-bold text-white md:text-3xl">從設計到推廣的全方位服務</h2>
+              <p className="mt-2 text-[#f8eaa9]">從議題轉譯到教學推廣，阿普蛙陪你走整段路</p>
+            </div>
+          </div>
         </Container>
-      </section>
 
-      {/* 商品亮點：情緒謎語 */}
-      <section className="py-20">
-        <Container className="grid items-center gap-10 md:grid-cols-2">
+        {/* 商品亮點：情緒謎語 —— 原站這個區塊沒有自己的卡片背景，直接畫在灰底上，
+            右側商品資訊也一樣（原本 bg-black/[0.03] p-8 的卡片感是重建站自己加的，拿掉）。 */}
+        <Container className="grid items-center gap-10 py-20 md:grid-cols-2">
           <div>
             <h2 className="text-2xl font-bold text-ink">一款桌遊，如何讓孩子開始談情緒？</h2>
             <div className="relative mt-6 aspect-square w-full max-w-xs overflow-hidden rounded-2xl">
@@ -179,7 +187,7 @@ export default function HomePage() {
               孩子可以從角色、情境和線索出發，慢慢說出自己的猜測，也聽見別人如何理解同一個情境。也許我們的感受與想法不一樣，透過遊戲我們有機會看見彼此的不一樣。
             </p>
           </div>
-          <div className="rounded-2xl bg-black/[0.03] p-8">
+          <div>
             <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-white">
               <Image
                 src="/images/home/riddle-me-feelings-box.png"
@@ -212,23 +220,20 @@ export default function HomePage() {
             </div>
           </div>
         </Container>
-      </section>
 
-      {/* 情緒謎語的設計脈絡：從議題出發→轉化成遊戲→延伸到課堂 */}
-      <section className="py-4">
-        <Container className="flex justify-center">
+        {/* 情緒謎語的設計脈絡：從議題出發→轉化成遊戲→延伸到課堂 */}
+        <Container className="flex justify-center py-4">
           <div className="relative aspect-[1123/540] w-full max-w-3xl">
             <Image src="/images/home/design-process.png" alt="從議題出發、轉化成遊戲、延伸到課堂" fill className="object-contain" />
           </div>
         </Container>
-      </section>
 
-      {/* 見證 */}
-      <section className="bg-black/[0.03] py-20">
-        <Container className="grid gap-8 md:grid-cols-3">
+        {/* 見證：原站是純文字直接放在灰底上，沒有白色卡片／陰影，量測 computed style 確認過
+            從文字元素往上找不到任何非透明背景，拿掉重建站原本加的 bg-white/shadow-sm 卡片感。 */}
+        <Container className="grid gap-8 py-16 md:grid-cols-3">
           {testimonials.map((t) => (
-            <blockquote key={t.name} className="rounded-xl bg-white p-6 shadow-sm">
-              <div className="relative mx-auto h-16 w-16 overflow-hidden rounded-full">
+            <blockquote key={t.name} className="text-center md:text-left">
+              <div className="relative mx-auto h-16 w-16 overflow-hidden rounded-full md:mx-0">
                 <Image src={t.avatar} alt="" fill className="object-cover" aria-hidden />
               </div>
               <p className="mt-4 text-ink/80">「{t.quote}」</p>
@@ -238,38 +243,36 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* CTA */}
-      <section className="relative overflow-hidden py-24">
+      {/* CTA ＋ 合作夥伴：原站這兩塊也是同一個 wsite-section，純色亮綠 #00ab84 底、白字，
+          按鈕是透明底＋白色外框＋直角（不是重建站原本的實心綠／黑框圓角），「合作夥伴」標題
+          也在同一片綠底上，不是獨立的白底 section——都是量測 computed style 得到，不是憑印象。 */}
+      <section className="relative overflow-hidden bg-[#00ab84] py-24 text-white">
         <Container className="relative text-center">
           <div className="relative mx-auto h-20 w-20">
             <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
           </div>
-          <h2 className="mt-4 text-2xl font-bold text-ink md:text-3xl">有個重要但不容易說的議題？</h2>
-          <p className="mt-3 text-ink/70">讓我們一起把它設計成可以玩的學習體驗</p>
-          <p className="mt-1 text-ink/70">你可以從一堂課、一款桌遊，或一個完整的教育推廣專案開始</p>
+          <h2 className="mt-4 text-2xl font-bold text-white md:text-3xl">有個重要但不容易說的議題？</h2>
+          <p className="mt-3 text-white/90">讓我們一起把它設計成可以玩的學習體驗</p>
+          <p className="mt-1 text-white/90">你可以從一堂課、一款桌遊，或一個完整的教育推廣專案開始</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
               href="https://forms.gle/gipvxKXwpi1iFizs8"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full bg-brand-green px-8 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
+              className="border border-white px-8 py-3 font-semibold text-white transition hover:bg-white hover:text-brand-green-bright"
             >
               聊聊你的議題
             </a>
-            <Link
-              href="/design-consulting"
-              className="rounded-full border border-ink px-8 py-3 font-semibold text-ink"
-            >
+            <Link href="/design-consulting" className="border border-white px-8 py-3 font-semibold text-white transition hover:bg-white hover:text-brand-green-bright">
               了解設計流程
             </Link>
           </div>
         </Container>
-      </section>
 
-      {/* 合作夥伴 */}
-      <section className="py-16">
-        <Container>
-          <h2 className="text-center text-2xl font-bold text-ink md:text-3xl">合作夥伴</h2>
+        {/* logo 圖檔本身是透明背景，原站量測確認是直接放在綠底上、沒有另外包白卡，
+            照抄不加白底卡片。 */}
+        <Container className="relative mt-20">
+          <h2 className="text-center text-2xl font-bold text-white md:text-3xl">合作夥伴</h2>
           <div className="relative mx-auto mt-10 aspect-[946/528] w-full max-w-4xl">
             <Image src="/images/home/partners.png" alt="合作夥伴：為台灣而教、台灣主婦聯盟生活消費合作社、國立臺灣圖書館、小公視、家扶基金會、台灣股票博物館、基隆市文化觀光局、台少盟、公視兒少、公視主題之夜SHOW、勵馨基金會、彭婉如文教基金會、AIC、金車文教基金會、康軒文教事業、臺南市政府文化局、翰林出版" fill className="object-contain" />
           </div>
