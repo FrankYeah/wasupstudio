@@ -1,26 +1,43 @@
 @import "tailwindcss";
 
+/*
+ * 品牌設計 token，從原站（Weebly）的 main_style.css 與頁面內嵌樣式擷取。
+ * 詳見 /Users/frank/all/web/weebly-move/00-plan/MIGRATION-PLAN.md 的「技術架構決定」與視覺參考章節。
+ */
 :root {
+  --color-brand-green: #007854; /* 主要品牌綠：按鈕、卡片背景 */
+  --color-brand-green-bright: #00ab84; /* 亮綠：強調/hover */
+  --color-ink: #2a2a2a; /* 內文深色，非純黑 */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
+  --color-brand-green: var(--color-brand-green);
+  --color-brand-green-bright: var(--color-brand-green-bright);
+  --color-ink: var(--color-ink);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-birdseye), "Birdseye", sans-serif;
+  --font-heading: var(--font-montserrat), "Montserrat", sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* 原站容器最大寬度 1200px（見 02-assets/css/main_style.css），純 CSS 寫死，不吃 Tailwind theme token 生成規則 */
+.container-content {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
