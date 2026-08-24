@@ -36,10 +36,13 @@ const galleryImages: GalleryImage[] = [
 export default function TalkNonsenseSdgsPage() {
   return (
     <Container className="py-16">
+      {/* 原站手機版是「文字先、圖庫在後」，桌機版才是圖庫在左；用 order- 讓兩種螢幕各自對齊原站順序 */}
       <div className="grid gap-12 md:grid-cols-2">
-        <ProductGallery images={galleryImages} />
+        <div className="order-2 md:order-1">
+          <ProductGallery images={galleryImages} />
+        </div>
 
-        <div>
+        <div className="order-1 md:order-2">
         <p className="text-sm font-semibold text-brand-green">SDGs 聯合國17項永續發展目標</p>
         <h1 className="mt-2 text-3xl font-bold text-ink">瞎掰王SDGs教育版</h1>
         <p className="mt-4 text-ink/70">

@@ -50,13 +50,16 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
+      {/* 原站在手機版 375px 寬時，蛙圖跟標題文字仍然是「並排」而不是上下堆疊，
+          蛙圖也小很多（~150px，不是滿版大圖）。這裡用 grid-cols-[auto_1fr] 讓手機版維持並排、
+          蛙圖跟著螢幕縮小；桌機版（md 以上）維持原本 grid-cols-2 的置中大圖排版不變。 */}
       <section className="relative overflow-hidden bg-gradient-to-b from-black/5 to-white">
-        <Container className="grid items-center gap-10 py-20 md:grid-cols-2 md:py-28">
-          <div className="relative mx-auto h-64 w-64 md:h-80 md:w-80">
+        <Container className="grid grid-cols-[auto_1fr] items-center gap-4 py-10 sm:gap-6 sm:py-14 md:grid-cols-2 md:gap-10 md:py-28">
+          <div className="relative h-24 w-24 shrink-0 sm:h-40 sm:w-40 md:mx-auto md:h-80 md:w-80">
             <Image src="/images/brand/hero-bg.png" alt="阿普蛙" fill className="object-contain" priority />
           </div>
           <div>
-            <h1 className="text-3xl leading-snug font-bold text-ink md:text-5xl">
+            <h1 className="text-lg leading-snug font-bold text-ink sm:text-2xl md:text-5xl">
               我們把重要但不容易說的事
               <br />
               設計成可以玩的學習體驗

@@ -20,8 +20,9 @@ const info = [
 export default function PlayALifetimePage() {
   return (
     <Container className="py-16">
+      {/* 原站手機版是「文字先、圖庫在後」，桌機版才是圖庫在左；用 order- 讓兩種螢幕各自對齊原站順序 */}
       <div className="grid gap-12 md:grid-cols-2">
-        <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.03]">
+        <div className="relative order-2 aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.03] md:order-1">
           <Image
             src="/images/products/play-a-lifetime.jpg"
             alt="玩一世人桌遊封面"
@@ -30,7 +31,7 @@ export default function PlayALifetimePage() {
           />
         </div>
 
-        <div>
+        <div className="order-1 md:order-2">
           <p className="text-sm font-semibold text-brand-green">佛法 × 人生觀</p>
           <h1 className="mt-2 text-3xl font-bold text-ink">玩一世人</h1>
           <p className="mt-4 text-ink/70">
