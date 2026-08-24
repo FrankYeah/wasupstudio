@@ -15,6 +15,7 @@ const courses = [
   {
     title: "議題思辨課",
     subtitle: "探索議題，啟發討論之樂趣！",
+    image: "/images/courses/inquiry-practice-1.jpg",
     grade: "國小高年級、國中、高中、大學",
     hours: "3 小時",
     goals: ["初步認識各式社會議題，喚起學生對議題的興趣。", "學習運用討論技巧，培養思辨力。"],
@@ -25,6 +26,7 @@ const courses = [
   {
     title: "議題探究與實作工作坊",
     subtitle: "激發行動力，引導實踐之路！",
+    image: "/images/courses/inquiry-practice-2.jpg",
     grade: "國小高年級、國中、高中、大學",
     hours: "18-36 小時，可依成員程度及課程需求彈性調整。",
     goals: [
@@ -81,6 +83,14 @@ export default function InquiryPracticePage() {
             key={course.title}
             className="rounded-2xl border border-black/5 p-6 shadow-sm md:p-8"
           >
+            <div className="relative mb-6 aspect-16/9 w-full overflow-hidden rounded-xl bg-black/[0.03]">
+              <Image
+                src={course.image}
+                alt={`《${course.title}》課程實況`}
+                fill
+                className="object-cover"
+              />
+            </div>
             <h2 className="text-xl font-bold text-ink">{course.title}</h2>
             <p className="mt-1 text-ink/70">{course.subtitle}</p>
 

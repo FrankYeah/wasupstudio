@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
 import { boardGames } from "@/app/_lib/site-data";
 
@@ -13,6 +14,7 @@ type Link_ = { label: string; href: string; external?: boolean };
 type Item = {
   name: string;
   kind?: string; // 例如「數位互動影片教材」，非桌遊時標註
+  image: string;
   theme: string;
   audience: string;
   experience: { label: string; desc: string }[];
@@ -39,6 +41,7 @@ const groups: Group[] = [
       {
         name: "《我們班的叢林法則》",
         kind: "數位互動影片教材",
+        image: "/images/courses/material-application-1.png",
         theme: "人際衝突與溝通、友善溝通、班級經營",
         audience: "國小、國一階段班級導師、輔導老師",
         experience: [
@@ -61,6 +64,7 @@ const groups: Group[] = [
       {
         name: "《情緒謎語》",
         kind: "桌遊",
+        image: "/images/courses/material-application-2.jpg",
         theme: "人際衝突與溝通、社會情緒學習、友善溝通、班級經營",
         audience: "國小、國中、高中、大學教師",
         experience: [
@@ -91,6 +95,7 @@ const groups: Group[] = [
       {
         name: "《練愛猜心》",
         kind: "桌遊",
+        image: "/images/courses/material-application-3.jpg",
         theme: "性別平等、情感教育",
         audience: "國小高年級、國中、高中、大學階段班級導師、輔導老師",
         experience: [
@@ -107,6 +112,7 @@ const groups: Group[] = [
       {
         name: "《家分題》",
         kind: "桌遊",
+        image: "/images/courses/material-application-4.jpg",
         theme: "家庭互動、拆解性別角色、創造平等共融家庭",
         audience: "國小中高年級、國中階段，社會、公民教師、班級導師、輔導老師",
         experience: [
@@ -127,6 +133,7 @@ const groups: Group[] = [
       {
         name: "《抓誑新聞》",
         kind: "桌遊",
+        image: "/images/courses/material-application-5.jpg",
         theme: "媒體識讀、資訊素養",
         audience: "國小高年級、國中、高中、大學階段，國文、社會、公民教師",
         experience: [
@@ -146,6 +153,7 @@ const groups: Group[] = [
       {
         name: "《犯罪現場》",
         kind: "桌遊",
+        image: "/images/courses/material-application-6.jpg",
         theme: "媒體識讀、資訊素養",
         audience: "國中、高中、大學階段，社會、公民教師",
         experience: [
@@ -169,6 +177,7 @@ const groups: Group[] = [
       {
         name: "《瞎掰王SDGs教育版》",
         kind: "桌遊",
+        image: "/images/courses/material-application-7.jpg",
         theme: "SDGs 聯合國 17 項目標",
         audience: "國中、高中、大學階段教師",
         experience: [
@@ -188,6 +197,7 @@ const groups: Group[] = [
       {
         name: "《我們的福爾摩沙》",
         kind: "桌遊",
+        image: "/images/courses/material-application-8.jpg",
         theme: "SDGs、環境、國際",
         audience: "國中、高中、大學階段，自然、社會、公民教師",
         experience: [
@@ -203,6 +213,7 @@ const groups: Group[] = [
       {
         name: "《碳排危機》",
         kind: "桌遊",
+        image: "/images/courses/material-application-9.png",
         theme: "減碳、SDGs、環境",
         audience: "國中、高中、大學階段教師",
         experience: [
@@ -224,6 +235,7 @@ const groups: Group[] = [
       {
         name: "《未來議會》",
         kind: "桌遊",
+        image: "/images/courses/material-application-10.jpg",
         theme: "兒童權利公約、校園議題討論",
         audience: "國小高年級、國中、高中教師及兒少工作者",
         experience: [
@@ -256,6 +268,7 @@ const groups: Group[] = [
 
 const debateCourse = {
   heading: "六、議題思辨課（不用購買教材）",
+  image: "/images/courses/material-application-11.jpg",
   theme: "可設定各種議題",
   audience: "國小、國中、高中、大學階段教師，自然、社會、公民教師",
   experience: [
@@ -281,52 +294,57 @@ const CTA_HREF =
 
 function ItemCard({ item }: { item: Item }) {
   return (
-    <div className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-      <div className="flex flex-wrap items-baseline gap-2">
-        {item.kind && <span className="text-xs font-semibold text-brand-green">{item.kind}</span>}
-        <h4 className="text-lg font-bold text-ink">{item.name}</h4>
+    <div className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm">
+      <div className="relative aspect-4/3 w-full bg-black/[0.04]">
+        <Image src={item.image} alt={item.name} fill className="object-cover" />
       </div>
-      <dl className="mt-3 space-y-1 text-sm text-ink/70">
-        <div>
-          <dt className="inline font-semibold text-ink">主題：</dt>
-          <dd className="inline">{item.theme}</dd>
+      <div className="p-6">
+        <div className="flex flex-wrap items-baseline gap-2">
+          {item.kind && <span className="text-xs font-semibold text-brand-green">{item.kind}</span>}
+          <h4 className="text-lg font-bold text-ink">{item.name}</h4>
         </div>
-        <div>
-          <dt className="inline font-semibold text-ink">適合對象：</dt>
-          <dd className="inline">{item.audience}</dd>
-        </div>
-      </dl>
+        <dl className="mt-3 space-y-1 text-sm text-ink/70">
+          <div>
+            <dt className="inline font-semibold text-ink">主題：</dt>
+            <dd className="inline">{item.theme}</dd>
+          </div>
+          <div>
+            <dt className="inline font-semibold text-ink">適合對象：</dt>
+            <dd className="inline">{item.audience}</dd>
+          </div>
+        </dl>
 
-      <h5 className="mt-4 text-sm font-bold text-ink">研習內容</h5>
-      <ul className="mt-1 space-y-2 text-sm text-ink/70">
-        {item.experience.map((e) => (
-          <li key={e.label}>
-            <span className="font-semibold text-ink">{e.label}：</span>
-            {e.desc}
-          </li>
-        ))}
-      </ul>
+        <h5 className="mt-4 text-sm font-bold text-ink">研習內容</h5>
+        <ul className="mt-1 space-y-2 text-sm text-ink/70">
+          {item.experience.map((e) => (
+            <li key={e.label}>
+              <span className="font-semibold text-ink">{e.label}：</span>
+              {e.desc}
+            </li>
+          ))}
+        </ul>
 
-      <h5 className="mt-4 text-sm font-bold text-ink">研習大綱</h5>
-      <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-ink/70">
-        {item.outline.map((o) => (
-          <li key={o.label}>
-            <span className="font-semibold text-ink">{o.label}：</span>
-            {o.desc}
-          </li>
-        ))}
-      </ul>
+        <h5 className="mt-4 text-sm font-bold text-ink">研習大綱</h5>
+        <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-ink/70">
+          {item.outline.map((o) => (
+            <li key={o.label}>
+              <span className="font-semibold text-ink">{o.label}：</span>
+              {o.desc}
+            </li>
+          ))}
+        </ul>
 
-      {item.link && (
-        <a
-          href={item.link.href}
-          target={item.link.external ? "_blank" : undefined}
-          rel={item.link.external ? "noreferrer" : undefined}
-          className="mt-5 inline-block rounded-full border border-brand-green px-5 py-2 text-sm font-semibold text-brand-green transition hover:bg-brand-green hover:text-white"
-        >
-          {item.link.label}
-        </a>
-      )}
+        {item.link && (
+          <a
+            href={item.link.href}
+            target={item.link.external ? "_blank" : undefined}
+            rel={item.link.external ? "noreferrer" : undefined}
+            className="mt-5 inline-block rounded-full border border-brand-green px-5 py-2 text-sm font-semibold text-brand-green transition hover:bg-brand-green hover:text-white"
+          >
+            {item.link.label}
+          </a>
+        )}
+      </div>
     </div>
   );
 }
@@ -372,35 +390,40 @@ export default function MaterialApplicationPage() {
       <section className="py-16">
         <Container>
           <h2 className="text-2xl font-bold text-ink">{debateCourse.heading}</h2>
-          <div className="mt-8 max-w-3xl rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-            <dl className="space-y-1 text-sm text-ink/70">
-              <div>
-                <dt className="inline font-semibold text-ink">主題：</dt>
-                <dd className="inline">{debateCourse.theme}</dd>
-              </div>
-              <div>
-                <dt className="inline font-semibold text-ink">適用對象：</dt>
-                <dd className="inline">{debateCourse.audience}</dd>
-              </div>
-            </dl>
-            <h5 className="mt-4 text-sm font-bold text-ink">研習內容</h5>
-            <ul className="mt-1 space-y-2 text-sm text-ink/70">
-              {debateCourse.experience.map((e) => (
-                <li key={e.label}>
-                  <span className="font-semibold text-ink">{e.label}：</span>
-                  {e.desc}
-                </li>
-              ))}
-            </ul>
-            <h5 className="mt-4 text-sm font-bold text-ink">研習大綱</h5>
-            <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-ink/70">
-              {debateCourse.outline.map((o) => (
-                <li key={o.label}>
-                  <span className="font-semibold text-ink">{o.label}：</span>
-                  {o.desc}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-8 max-w-4xl overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm md:grid md:grid-cols-[280px_1fr]">
+            <div className="relative aspect-4/3 w-full bg-black/[0.04] md:aspect-auto md:h-full">
+              <Image src={debateCourse.image} alt={debateCourse.heading} fill className="object-cover" />
+            </div>
+            <div className="p-6">
+              <dl className="space-y-1 text-sm text-ink/70">
+                <div>
+                  <dt className="inline font-semibold text-ink">主題：</dt>
+                  <dd className="inline">{debateCourse.theme}</dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold text-ink">適用對象：</dt>
+                  <dd className="inline">{debateCourse.audience}</dd>
+                </div>
+              </dl>
+              <h5 className="mt-4 text-sm font-bold text-ink">研習內容</h5>
+              <ul className="mt-1 space-y-2 text-sm text-ink/70">
+                {debateCourse.experience.map((e) => (
+                  <li key={e.label}>
+                    <span className="font-semibold text-ink">{e.label}：</span>
+                    {e.desc}
+                  </li>
+                ))}
+              </ul>
+              <h5 className="mt-4 text-sm font-bold text-ink">研習大綱</h5>
+              <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-ink/70">
+                {debateCourse.outline.map((o) => (
+                  <li key={o.label}>
+                    <span className="font-semibold text-ink">{o.label}：</span>
+                    {o.desc}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Container>
       </section>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { SiteImage as Image } from "@/app/_components/SiteImage";
+import { ProductGallery, type GalleryImage } from "@/app/_components/ProductGallery";
+import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 import { Container } from "@/app/_components/Container";
 
 export const metadata: Metadata = {
@@ -23,18 +24,19 @@ const info = [
   ["售價", "960 元（消費滿 2000 免運）"],
 ];
 
+const galleryImages: GalleryImage[] = [
+  { src: "/images/products/riddle-me-feelings.png", alt: "情緒謎語（雙語版）榮獲未來教育台灣100肯定" },
+  { src: "/images/products/riddle-me-feelings/gallery-1.jpg", alt: "情緒謎語（雙語版）桌遊實物照 1" },
+  { src: "/images/products/riddle-me-feelings/gallery-2.jpg", alt: "情緒謎語（雙語版）桌遊實物照 2" },
+  { src: "/images/products/riddle-me-feelings/gallery-3.jpg", alt: "情緒謎語（雙語版）桌遊實物照 3" },
+  { src: "/images/products/riddle-me-feelings/gallery-4.jpg", alt: "情緒謎語（雙語版）桌遊實物照 4" },
+];
+
 export default function RiddleMeFeelingsPage() {
   return (
     <Container className="py-16">
       <div className="grid gap-12 md:grid-cols-2">
-        <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.03]">
-          <Image
-            src="/images/products/riddle-me-feelings.png"
-            alt="情緒謎語（雙語版）桌遊封面"
-            fill
-            className="object-contain p-6"
-          />
-        </div>
+        <ProductGallery images={galleryImages} />
 
         <div>
           <p className="text-sm font-semibold text-brand-green">人際溝通 × 社會情緒學習（SEL） × 表演藝術</p>
@@ -86,6 +88,13 @@ export default function RiddleMeFeelingsPage() {
               課程邀約
             </a>
           </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-16 max-w-3xl">
+        <h2 className="text-lg font-bold text-ink">遊戲介紹影片</h2>
+        <div className="mt-4">
+          <YouTubeEmbed id="95HR5Kx4ohM" title="情緒謎語（雙語版）桌遊教學影片" />
         </div>
       </div>
     </Container>

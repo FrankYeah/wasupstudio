@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
+import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 
 export const metadata: Metadata = {
   title: "想設計",
@@ -16,22 +18,34 @@ const serviceScopes = [
       {
         title: "社會情緒與人際溝通",
         tags: ["情緒教育｜人際關係", "職場溝通｜家庭互動"],
-        clients: ["勵馨基金會｜桌遊", "勞動部｜桌遊"],
+        clients: [
+          { name: "勵馨基金會｜桌遊", photo: "/images/design-consulting/client-family-topics.png" },
+          { name: "勞動部｜桌遊", photo: "/images/design-consulting/client-honest-honor.png" },
+        ],
       },
       {
         title: "教育與人權",
         tags: ["兒童權利｜校園霸凌", "民主參與｜性別平等"],
-        clients: ["兒福聯盟｜桌遊", "RC 基金會｜數位教材"],
+        clients: [
+          { name: "兒福聯盟｜桌遊", photo: "/images/design-consulting/client-future-parliament.png" },
+          { name: "RC 基金會｜數位教材", photo: "/images/design-consulting/client-rc-digital.png" },
+        ],
       },
       {
         title: "環境永續與公共議題",
         tags: ["SDGs｜媒體識讀", "公民參與｜社會倡議"],
-        clients: ["金車文教基金會｜桌遊", "公視主題之夜 SHOW｜影視節目"],
+        clients: [
+          { name: "金車文教基金會｜桌遊", photo: "/images/design-consulting/client-workplace-crisis.png" },
+          { name: "公視主題之夜 SHOW｜影視節目", photo: "/images/design-consulting/client-political-correct.png" },
+        ],
       },
       {
         title: "地方文化與實境體驗",
         tags: ["地方文化｜城市探索", "實境遊戲｜展覽互動"],
-        clients: ["台南文化局｜桌遊", "星濱山共創工作室｜實境遊戲"],
+        clients: [
+          { name: "台南文化局｜桌遊", photo: "/images/design-consulting/client-pin-zhentou.png" },
+          { name: "星濱山共創工作室｜實境遊戲", photo: "/images/design-consulting/client-star-beach.png" },
+        ],
       },
     ],
   },
@@ -42,10 +56,41 @@ const serviceScopes = [
   },
 ];
 
+// 原站在「從一個想法，到一套能被使用的遊戲教材」深綠色區塊裡，用純圖片（web20/21/22_orig.png）
+// 呈現這 3 張服務範圍卡片，文字是畫在圖片裡的，擷取腳本抓不到，這裡依圖片內容重建成一般文字卡片。
+const pricingTiers = [
+  {
+    title: "議題桌遊設計",
+    desc: "將教育議題、倡議理念或培訓需求，轉化成可遊玩、可討論、可帶領的桌遊體驗。",
+    budget: "20 萬元起，完整開發與印刷製作多落在 40 萬元以上",
+    timeline: "3–6 個月起",
+    audience: "基金會、公部門、學校、社福組織、企業培訓、出版社、教育單位",
+  },
+  {
+    title: "實境遊戲與遊戲化活動",
+    desc: "依場域、故事、任務與參與者動線，設計展覽互動、地方探索、活動闖關或城市走讀體驗。",
+    budget: "15 萬元起，依場域、道具與互動規模調整",
+    timeline: "2–4 個月起",
+    audience: "文化單位、圖書館、博物館、學校、地方創生團隊、活動策畫單位",
+  },
+  {
+    title: "內容企劃與節目遊戲化",
+    desc: "協助內容團隊設計節目單元、互動橋段、遊戲規則、討論題與觀眾參與機制。",
+    budget: "單次企劃 5 萬元起，系列合作另行評估",
+    timeline: "2–8 週起",
+    audience: "電視台、Podcast、活動製作團隊、影音團隊、內容平台、教育媒體",
+  },
+];
+
+// 同一深綠色區塊裡，還有一組 7 步驟的工作流程（需求釐清→...→課程推廣），
+// 也是純圖片（web-23~29_orig.png），文字同樣是畫在圖片裡的，一併重建。
+const designSteps = ["需求釐清", "議題轉譯", "遊戲設計", "原型測試", "視覺美術", "印刷製作", "課程推廣"];
+
 const cases = [
   {
     title: "抓誑新聞",
     type: "媒體識讀桌遊",
+    image: "/images/design-consulting/case-crazy-news.png",
     stats: [
       { label: "桌遊銷售", value: "達 3000 盒" },
       { label: "授課場次", value: "200 場（含教師研習、入班授課、一般民眾媒體識讀課程）" },
@@ -59,6 +104,7 @@ const cases = [
   {
     title: "誰是政治正確王",
     type: "影視節目遊戲化企劃",
+    image: "/images/design-consulting/client-political-correct.png",
     stats: [
       { label: "第一集 YouTube 觀看次數", value: "27 萬" },
       { label: "第二集 YouTube 觀看次數", value: "6.7 萬" },
@@ -104,14 +150,75 @@ export default function DesignConsultingPage() {
 
       <section className="py-16">
         <Container>
-          <h2 className="text-2xl font-bold text-ink">你有個重要議題，卻不知道怎麼讓人靠近嗎？</h2>
-          <p className="mt-4 text-ink/70">
-            議題，有時候太抽象、太嚴肅，或太難在短時間內說清楚。阿普蛙擅長把內容轉化成有情境、有選擇、有互動的遊戲體驗，讓參與者不是被動接收資訊，而是在遊戲中理解、討論與產生感受。
-          </p>
-          <p className="mt-4 font-semibold text-ink">
-            從一個想法，到一套能被使用的遊戲教材——我們提供的不只是遊戲，而是一套讓議題落地的設計服務。
-          </p>
-          <p className="mt-4 text-sm text-ink/60">
+          <div className="grid gap-10 md:grid-cols-2 md:items-center">
+            <div>
+              <h2 className="text-2xl font-bold text-ink">你有個重要議題，卻不知道怎麼讓人靠近嗎？</h2>
+              <p className="mt-4 text-ink/70">
+                議題，有時候太抽象、太嚴肅，或太難在短時間內說清楚。阿普蛙擅長把內容轉化成有情境、有選擇、有互動的遊戲體驗，讓參與者不是被動接收資訊，而是在遊戲中理解、討論與產生感受。
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-2xl">
+              <Image
+                src="/images/design-consulting/banner-question.png"
+                alt="擔心受眾不容易理解議題？想開發教具、桌遊或好玩的機制？希望參與者有感？"
+                width={757}
+                height={413}
+                className="h-auto w-full"
+              />
+            </div>
+          </div>
+
+          <div className="mt-12">
+            <YouTubeEmbed id="TZBL1wHPi8Y" title="阿普蛙議題遊戲設計服務介紹影片" />
+          </div>
+        </Container>
+      </section>
+
+      {/* 從一個想法，到一套能被使用的遊戲教材（原站深綠色區塊：7 步驟流程 + 3 張服務範圍卡片，
+          內容全部畫在圖片裡，擷取腳本沒抓到文字，這裡依圖片內容重建） */}
+      <section className="bg-[#00573f] py-16 text-white">
+        <Container>
+          <h2 className="text-2xl font-bold md:text-3xl">從一個想法，到一套能被使用的遊戲教材</h2>
+
+          <ol className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2">
+            {designSteps.map((title, i) => (
+              <li key={title} className="border-b border-white/20 pb-3">
+                <span className="text-2xl font-bold text-[#f5cf7e]">{String(i + 1).padStart(2, "0")}</span>
+                <span className="ml-3 text-lg font-semibold text-[#f5cf7e]">{title}</span>
+              </li>
+            ))}
+          </ol>
+
+          <h2 className="mt-16 text-2xl font-bold md:text-3xl">我們提供的不只是遊戲，而是一套讓議題落地的設計服務</h2>
+
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {pricingTiers.map((t) => (
+              <div key={t.title} className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+                <h3 className="text-lg font-bold text-white">{t.title}</h3>
+                <p className="mt-2 text-sm text-white/70">{t.desc}</p>
+                <dl className="mt-4 space-y-2 text-sm">
+                  <div>
+                    <dt className="inline rounded border border-[#f5cf7e]/60 px-2 py-0.5 text-xs text-[#f5cf7e]">
+                      常見預算
+                    </dt>
+                    <dd className="mt-1 text-white/80">{t.budget}</dd>
+                  </div>
+                  <div>
+                    <dt className="inline rounded border border-[#f5cf7e]/60 px-2 py-0.5 text-xs text-[#f5cf7e]">
+                      常見時程
+                    </dt>
+                    <dd className="mt-1 text-white/80">{t.timeline}</dd>
+                  </div>
+                </dl>
+                <div className="mt-4 rounded-xl bg-black/20 p-4 text-sm">
+                  <p className="font-semibold text-white">適合對象：</p>
+                  <p className="mt-1 text-white/80">{t.audience}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-8 text-sm text-white/60">
             以上為常見合作區間，實際費用與時程會依議題複雜度、設計範圍、測試次數、視覺美術規格、印刷數量與推廣需求調整。若目前還不確定適合做成什麼形式，也歡迎先與我們討論。
           </p>
         </Container>
@@ -130,9 +237,14 @@ export default function DesignConsultingPage() {
               <div key={g.title} className="rounded-xl bg-white p-6 shadow-sm">
                 <h3 className="font-bold text-ink">{g.title}</h3>
                 <p className="mt-1 text-xs text-ink/50">{g.tags.join("　")}</p>
-                <ul className="mt-3 space-y-1 text-sm text-brand-green">
+                <ul className="mt-4 space-y-3">
                   {g.clients.map((c) => (
-                    <li key={c}>{c}</li>
+                    <li key={c.name} className="flex items-center gap-3">
+                      <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-black/5">
+                        <Image src={c.photo} alt={c.name} fill className="object-cover" />
+                      </span>
+                      <span className="text-sm text-brand-green">{c.name}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -147,30 +259,35 @@ export default function DesignConsultingPage() {
           <h2 className="text-2xl font-bold text-ink">代表案例</h2>
           <div className="mt-8 grid gap-8 md:grid-cols-2">
             {cases.map((c) => (
-              <div key={c.title} className="rounded-2xl border border-black/5 p-6">
-                <p className="text-xs font-semibold text-brand-green">{c.type}</p>
-                <h3 className="mt-1 text-xl font-bold text-ink">{c.title}</h3>
-                <p className="mt-1 text-sm text-ink/50">合作單位：{c.partner}</p>
-                <dl className="mt-4 space-y-1 text-sm text-ink/70">
-                  {c.stats.map((s) => (
-                    <div key={s.label}>
-                      <dt className="inline font-semibold text-ink">{s.label}：</dt>
-                      <dd className="inline">{s.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <p className="mt-4 text-sm text-ink/70">
-                  <span className="font-semibold text-ink">合作重點｜</span>
-                  {c.scope}
-                </p>
-                <p className="mt-2 text-sm text-ink/70">
-                  <span className="font-semibold text-ink">案例目標｜</span>
-                  {c.goal}
-                </p>
-                <p className="mt-2 text-sm text-ink/70">
-                  <span className="font-semibold text-ink">實際應用｜</span>
-                  {c.result}
-                </p>
+              <div key={c.title} className="overflow-hidden rounded-2xl border border-black/5">
+                <div className="relative aspect-video w-full bg-black/5">
+                  <Image src={c.image} alt={c.title} fill className="object-cover" />
+                </div>
+                <div className="p-6">
+                  <p className="text-xs font-semibold text-brand-green">{c.type}</p>
+                  <h3 className="mt-1 text-xl font-bold text-ink">{c.title}</h3>
+                  <p className="mt-1 text-sm text-ink/50">合作單位：{c.partner}</p>
+                  <dl className="mt-4 space-y-1 text-sm text-ink/70">
+                    {c.stats.map((s) => (
+                      <div key={s.label}>
+                        <dt className="inline font-semibold text-ink">{s.label}：</dt>
+                        <dd className="inline">{s.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <p className="mt-4 text-sm text-ink/70">
+                    <span className="font-semibold text-ink">合作重點｜</span>
+                    {c.scope}
+                  </p>
+                  <p className="mt-2 text-sm text-ink/70">
+                    <span className="font-semibold text-ink">案例目標｜</span>
+                    {c.goal}
+                  </p>
+                  <p className="mt-2 text-sm text-ink/70">
+                    <span className="font-semibold text-ink">實際應用｜</span>
+                    {c.result}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -219,6 +336,10 @@ export default function DesignConsultingPage() {
             <p className="mt-3 text-sm text-ink/60">
               曾協助舉辦過活動：公視主題之夜 SHOW 節目、桌上型密室脫逃、社區活動「天橋不見了」、實境遊戲「怪奇博物館」、社會科知識達人競賽等。
             </p>
+          </div>
+
+          <div className="md:col-span-2">
+            <YouTubeEmbed id="mtvM0cfxePY" title="阿普蛙桌遊設計服務介紹影片" />
           </div>
         </Container>
       </section>

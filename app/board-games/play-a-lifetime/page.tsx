@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import Link from "next/link";
 import { Container } from "@/app/_components/Container";
+import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 
 export const metadata: Metadata = {
   title: "玩一世人",
@@ -57,6 +58,13 @@ export default function PlayALifetimePage() {
               查看更多桌遊
             </Link>
           </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-16 max-w-3xl">
+        <h2 className="text-lg font-bold text-ink">遊戲介紹影片</h2>
+        <div className="mt-4">
+          <YouTubeEmbed id="_Jr39lCaxaU" title="玩一世人桌遊教學影片" />
         </div>
       </div>
 

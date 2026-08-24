@@ -14,30 +14,20 @@ export default function CorporateTrainingPage() {
   return (
     <>
       <section className="bg-black/[0.03] py-20">
-        <Container className="grid gap-10 md:grid-cols-2 md:items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-ink md:text-4xl">教育訓練</h1>
-            <p className="mt-2 font-semibold text-brand-green">提升團隊及個人溝通力</p>
-            <p className="mt-6 text-ink/70">
-              讓成員認識自己的學習風格，人與人之間的相處、合作容易發生衝突，主要是因為人接受訊息的方式及轉化訊息的行動不同，因此課程目標主要讓成員了解自己並理解他人。再透過遊戲的方式，成員會在遊戲中展現真實的自己，藉此可以理解自己的風格展現，並學習如何與他人互動。
-            </p>
-            <a
-              href={CTA_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-8 inline-block rounded-full bg-brand-green px-8 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-            >
-              邀約課程
-            </a>
-          </div>
-          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.05]">
-            <Image
-              src="/images/courses/corporate-training-1.jpg"
-              alt="教育訓練現場，學員分組進行溝通遊戲"
-              fill
-              className="object-cover"
-            />
-          </div>
+        <Container>
+          <h1 className="text-3xl font-bold text-ink md:text-4xl">教育訓練</h1>
+          <p className="mt-2 font-semibold text-brand-green">提升團隊及個人溝通力</p>
+          <p className="mt-6 max-w-2xl text-ink/70">
+            讓成員認識自己的學習風格，人與人之間的相處、合作容易發生衝突，主要是因為人接受訊息的方式及轉化訊息的行動不同，因此課程目標主要讓成員了解自己並理解他人。再透過遊戲的方式，成員會在遊戲中展現真實的自己，藉此可以理解自己的風格展現，並學習如何與他人互動。
+          </p>
+          <a
+            href={CTA_HREF}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 inline-block rounded-full bg-brand-green px-8 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
+          >
+            邀約課程
+          </a>
         </Container>
       </section>
 
@@ -75,8 +65,8 @@ export default function CorporateTrainingPage() {
           <div className="grid gap-10 md:grid-cols-2 md:items-start">
             <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.05] md:order-2">
               <Image
-                src="/images/courses/corporate-training-3.jpg"
-                alt="學員在白板上練習檢視自己的感受與觀點"
+                src="/images/courses/corporate-training-1.jpg"
+                alt="學員圍桌分組，運用卡牌進行溝通練習"
                 fill
                 className="object-cover"
               />
@@ -103,24 +93,36 @@ export default function CorporateTrainingPage() {
       </section>
 
       <section className="py-16">
-        <Container className="max-w-2xl">
-          <h2 className="text-2xl font-bold text-ink">主題三：用遊戲帶你有感表達</h2>
-          <h3 className="mt-6 text-sm font-bold text-ink">課程目的</h3>
-          <p className="mt-1 text-ink/70">
-            表達力是一種需要練習編排的技術，這門課程從理解不同人對一段「表達」——無論是對話、文字或肢體層面——帶來的感受出發練習做解讀，也帶領學員練習設計屬於自己的編排。
-          </p>
-          <h3 className="mt-6 text-sm font-bold text-ink">課程大綱</h3>
-          <p className="mt-1 text-ink/70">
-            用遊戲的方式讓學員體驗到好的表達讓接受的一方感受有很大的落差，無論是情緒或是內容的接受上都會有所不同，進一步與學員們深入探討過往自己的表達上面所缺乏的區塊，進一步完善具自己風格且有效有感的表達系統。
-          </p>
-          <a
-            href={CTA_HREF}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 inline-block rounded-full border border-brand-green px-6 py-2.5 text-sm font-semibold text-brand-green transition hover:bg-brand-green hover:text-white"
-          >
-            課程邀約
-          </a>
+        <Container>
+          <div className="grid gap-10 md:grid-cols-2 md:items-start">
+            <div>
+              <h2 className="text-2xl font-bold text-ink">主題三：用遊戲帶你有感表達</h2>
+              <h3 className="mt-6 text-sm font-bold text-ink">課程目的</h3>
+              <p className="mt-1 text-ink/70">
+                表達力是一種需要練習編排的技術，這門課程從理解不同人對一段「表達」——無論是對話、文字或肢體層面——帶來的感受出發練習做解讀，也帶領學員練習設計屬於自己的編排。
+              </p>
+              <h3 className="mt-6 text-sm font-bold text-ink">課程大綱</h3>
+              <p className="mt-1 text-ink/70">
+                用遊戲的方式讓學員體驗到好的表達讓接受的一方感受有很大的落差，無論是情緒或是內容的接受上都會有所不同，進一步與學員們深入探討過往自己的表達上面所缺乏的區塊，進一步完善具自己風格且有效有感的表達系統。
+              </p>
+              <a
+                href={CTA_HREF}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-block rounded-full border border-brand-green px-6 py-2.5 text-sm font-semibold text-brand-green transition hover:bg-brand-green hover:text-white"
+              >
+                課程邀約
+              </a>
+            </div>
+            <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.03]">
+              <Image
+                src="/images/courses/corporate-training-3.jpg"
+                alt="學員在白板前練習檢視自己的感受與觀點"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
         </Container>
       </section>
 

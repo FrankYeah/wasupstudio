@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { SiteImage as Image } from "@/app/_components/SiteImage";
+import { ProductGallery, type GalleryImage } from "@/app/_components/ProductGallery";
+import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 import { Container } from "@/app/_components/Container";
 
 export const metadata: Metadata = {
@@ -21,18 +22,22 @@ const info = [
   ["售價", "450元（消費滿2000免運）"],
 ];
 
+const galleryImages: GalleryImage[] = [
+  { src: "/images/products/pin-zhentou.png", alt: "拚陣頭回合流程說明卡" },
+  { src: "/images/products/pin-zhentou/gallery-1.jpg", alt: "拚陣頭桌遊實物照 1" },
+  { src: "/images/products/pin-zhentou/gallery-2.jpg", alt: "拚陣頭桌遊實物照 2" },
+  { src: "/images/products/pin-zhentou/gallery-3.jpg", alt: "拚陣頭桌遊實物照 3" },
+  { src: "/images/products/pin-zhentou/gallery-4.jpg", alt: "拚陣頭桌遊實物照 4" },
+  { src: "/images/products/pin-zhentou/gallery-5.jpg", alt: "拚陣頭桌遊實物照 5" },
+  { src: "/images/products/pin-zhentou/gallery-6.jpg", alt: "拚陣頭桌遊實物照 6" },
+  { src: "/images/products/pin-zhentou/gallery-7.jpg", alt: "拚陣頭桌遊實物照 7" },
+];
+
 export default function PinZhentouPage() {
   return (
     <Container className="py-16">
       <div className="grid gap-12 md:grid-cols-2">
-        <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.03]">
-          <Image
-            src="/images/products/pin-zhentou.png"
-            alt="拚陣頭桌遊封面"
-            fill
-            className="object-contain p-6"
-          />
-        </div>
+        <ProductGallery images={galleryImages} />
 
         <div>
           <p className="text-sm font-semibold text-brand-green">阿普蛙工作室 攜手 台南市文化局 年度文化力作！</p>
@@ -81,6 +86,13 @@ export default function PinZhentouPage() {
               邀約課程
             </a>
           </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-12 max-w-3xl">
+        <h2 className="text-lg font-bold text-ink">遊戲介紹影片</h2>
+        <div className="mt-4">
+          <YouTubeEmbed id="2KpXuVZKdnc" title="拚陣頭桌遊教學影片" />
         </div>
       </div>
 

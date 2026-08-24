@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import Link from "next/link";
 import { Container } from "@/app/_components/Container";
+import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 
 export const metadata: Metadata = {
   title: "教師研習",
@@ -146,6 +147,15 @@ export default function TeacherWorkshopPage() {
                 進一步了解課程
               </Link>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-16">
+        <Container className="max-w-3xl">
+          <h2 className="text-2xl font-bold text-ink">課程介紹影片</h2>
+          <div className="mt-6">
+            <YouTubeEmbed id="UWM4UCOjNHQ" title="阿普蛙教師研習課程介紹影片" />
           </div>
         </Container>
       </section>

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ProductGallery, type GalleryImage } from "@/app/_components/ProductGallery";
+import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 import { Container } from "@/app/_components/Container";
 
 export const metadata: Metadata = {
@@ -22,10 +24,25 @@ const info = [
   ["售價", "990元（消費滿2000元免運）"],
 ];
 
+const galleryImages: GalleryImage[] = [
+  { src: "/images/products/future-parliament/gallery-1.jpg", alt: "未來議會桌遊實物照 1" },
+  { src: "/images/products/future-parliament/gallery-2.jpg", alt: "未來議會桌遊實物照 2" },
+  { src: "/images/products/future-parliament/gallery-3.jpg", alt: "未來議會桌遊實物照 3" },
+  { src: "/images/products/future-parliament/gallery-4.jpg", alt: "未來議會桌遊實物照 4" },
+  { src: "/images/products/future-parliament/gallery-5.jpg", alt: "未來議會桌遊實物照 5" },
+  { src: "/images/products/future-parliament/gallery-6.jpg", alt: "未來議會桌遊實物照 6" },
+  { src: "/images/products/future-parliament/gallery-7.jpg", alt: "未來議會桌遊實物照 7" },
+  { src: "/images/products/future-parliament/gallery-8.jpg", alt: "未來議會桌遊實物照 8" },
+  { src: "/images/products/future-parliament/gallery-9.jpg", alt: "未來議會桌遊實物照 9" },
+];
+
 export default function FutureParliamentPage() {
   return (
     <Container className="py-16">
-      <div className="mx-auto max-w-2xl">
+      <div className="grid gap-12 md:grid-cols-2">
+        <ProductGallery images={galleryImages} />
+
+        <div>
         <p className="text-sm font-semibold text-brand-green">兒童人權 × 兒少生活議題 × 表達意見</p>
         <h1 className="mt-2 text-3xl font-bold text-ink">《未來議會｜兒少表意桌遊》</h1>
         <p className="mt-4 text-ink/70">
@@ -74,8 +91,11 @@ export default function FutureParliamentPage() {
             邀約課程
           </a>
         </div>
+        </div>
+      </div>
 
-        <h2 className="mt-12 text-lg font-bold text-ink">遊戲方式</h2>
+      <div className="mx-auto mt-16 max-w-2xl">
+        <h2 className="text-lg font-bold text-ink">遊戲方式</h2>
         <p className="mt-2 text-ink/70">
           遊戲以分組形式進行（最多為6組），時間約為2節課（約100分鐘）。參與者將化為不同黨派的成員，在未來議會裡進行2個回合的遊戲活動。
         </p>
@@ -89,6 +109,11 @@ export default function FutureParliamentPage() {
             參與者須對議題發表自己黨派的立場意見，盡量爭取不同黨派的理解來獲取分數，成為未來議會裡有影響力的政黨。
           </li>
         </ul>
+
+        <h2 className="mt-12 text-lg font-bold text-ink">遊戲介紹影片</h2>
+        <div className="mt-4">
+          <YouTubeEmbed id="IwaV9r-Buzw" title="未來議會桌遊教學影片" />
+        </div>
       </div>
     </Container>
   );

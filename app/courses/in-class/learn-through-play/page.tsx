@@ -15,6 +15,7 @@ type Course = {
   title: string;
   tag?: string;
   subtitle?: string;
+  image?: string;
   grade: string;
   hours: string;
   goals: string[];
@@ -33,6 +34,7 @@ const categories: Category[] = [
       {
         title: "我們班的叢林法則",
         subtitle: "班級挑戰，解密人際關係的叢林之謎！",
+        image: "/images/courses/learn-through-play-2.png",
         grade: "三年級至七年級",
         hours: "2-3 小時",
         goals: [
@@ -47,6 +49,7 @@ const categories: Category[] = [
       },
       {
         title: "情緒謎語",
+        image: "/images/courses/learn-through-play-3.jpg",
         grade: "國小三年級以上、國中、高中、大學",
         hours: "2-3 小時",
         goals: [
@@ -70,6 +73,7 @@ const categories: Category[] = [
         title: "練愛猜心",
         tag: "性別平等 × 情感教育",
         subtitle: "猜心遊戲，解鎖感情密碼！",
+        image: "/images/courses/learn-through-play-4.jpg",
         grade: "國小高年級、國中、高中、大學",
         hours: "2-3 小時",
         goals: [
@@ -86,6 +90,7 @@ const categories: Category[] = [
         title: "家分題",
         tag: "性別平等 × 家務分工",
         subtitle: "為家庭生活加分！",
+        image: "/images/courses/learn-through-play-5.jpg",
         grade: "國小中高年級、國中、高中、大學",
         hours: "3 小時",
         goals: [
@@ -106,6 +111,7 @@ const categories: Category[] = [
       {
         title: "抓誑新聞",
         subtitle: "識讀勇者的冒險！",
+        image: "/images/courses/learn-through-play-6.jpg",
         grade: "國小高年級、國中、高中、大學",
         hours: "3 小時",
         goals: [
@@ -120,6 +126,7 @@ const categories: Category[] = [
       {
         title: "童話村命案",
         subtitle: "探索真相的媒體大戰！",
+        image: "/images/courses/learn-through-play-7.jpg",
         grade: "國小高年級、國中、高中、大學",
         hours: "3 小時",
         goals: [
@@ -134,6 +141,7 @@ const categories: Category[] = [
       {
         title: "犯罪現場",
         subtitle: "媒體解謎的思辨之旅",
+        image: "/images/courses/learn-through-play-8.jpg",
         grade: "國中、高中、大學",
         hours: "3 小時",
         goals: [
@@ -153,6 +161,7 @@ const categories: Category[] = [
       {
         title: "CRC偵探事件簿",
         subtitle: "兒童權利偵探啟程！",
+        image: "/images/courses/learn-through-play-9.jpg",
         grade: "國中、高中、大學",
         hours: "3 小時",
         goals: [
@@ -167,6 +176,7 @@ const categories: Category[] = [
       {
         title: "CRC糾察隊",
         subtitle: "CRC 糾察特訓，守護兒童權利！",
+        image: "/images/courses/learn-through-play-10.jpg",
         grade: "國小、國中",
         hours: "2 小時",
         goals: [
@@ -180,6 +190,7 @@ const categories: Category[] = [
       },
       {
         title: "未來議會",
+        image: "/images/courses/learn-through-play-11.jpg",
         grade: "國小高年級、國中、高中",
         hours: "2-3 小時",
         goals: [
@@ -200,6 +211,7 @@ const categories: Category[] = [
       {
         title: "我們的福爾摩沙",
         subtitle: "融入聯合國 17 項指標，共創永續發展的未來！",
+        image: "/images/courses/learn-through-play-12.jpg",
         grade: "國小高年級、國中、高中、大學",
         hours: "3 小時",
         goals: [
@@ -213,6 +225,7 @@ const categories: Category[] = [
       {
         title: "碳排危機",
         subtitle: "體驗生活中的每個選擇，深刻了解減碳對生活和環境的影響！",
+        image: "/images/courses/learn-through-play-13.jpg",
         grade: "國中、高中、大學",
         hours: "3 小時",
         goals: [
@@ -226,6 +239,7 @@ const categories: Category[] = [
       {
         title: "紅黑戰爭",
         subtitle: "媒體處於戰爭陰影中的抉擇！",
+        image: "/images/courses/learn-through-play-14.jpg",
         grade: "國小高年級、國中、高中、大學",
         hours: "3 小時",
         goals: [
@@ -239,6 +253,7 @@ const categories: Category[] = [
       {
         title: "方塊國會議",
         subtitle: "決策與合作的思辨之旅！",
+        image: "/images/courses/learn-through-play-15.jpg",
         grade: "國小高年級、國中、高中、大學",
         hours: "3 小時",
         goals: [
@@ -257,6 +272,7 @@ const categories: Category[] = [
       {
         title: "拚陣頭",
         subtitle: "探索藝陣文化的熱血之旅！",
+        image: "/images/courses/learn-through-play-16.jpg",
         grade: "國小高年級、國中、高中、大學",
         hours: "2 小時",
         goals: [
@@ -270,6 +286,7 @@ const categories: Category[] = [
       {
         title: "鬥陣度中元",
         subtitle: "解密雞籠中元祭的智慧之旅！",
+        image: "/images/courses/learn-through-play-17.jpg",
         grade: "國小高年級、國中",
         hours: "2 小時",
         goals: [
@@ -341,6 +358,16 @@ export default function LearnThroughPlayPage() {
                   key={course.title}
                   className="rounded-2xl border border-black/5 p-6 shadow-sm md:p-8"
                 >
+                  {course.image && (
+                    <div className="relative mb-6 aspect-16/9 w-full overflow-hidden rounded-xl bg-black/[0.03]">
+                      <Image
+                        src={course.image}
+                        alt={`《${course.title}》遊戲實照`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
                   {course.tag && (
                     <p className="text-xs font-semibold text-brand-green">{course.tag}</p>
                   )}

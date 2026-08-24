@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { SiteImage as Image } from "@/app/_components/SiteImage";
+import { ProductGallery, type GalleryImage } from "@/app/_components/ProductGallery";
+import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 import { Container } from "@/app/_components/Container";
 
 export const metadata: Metadata = {
@@ -29,6 +30,23 @@ const info = [
   ["共同出版", "台灣少年權益與福利促進聯盟"],
 ];
 
+const galleryImages: GalleryImage[] = [
+  { src: "/images/products/crazy-news.png", alt: "抓誑新聞二刷修訂說明" },
+  { src: "/images/products/crazy-news/gallery-1.png", alt: "抓誑新聞桌遊實物照 1" },
+  { src: "/images/products/crazy-news/gallery-2.jpg", alt: "抓誑新聞桌遊實物照 2" },
+  { src: "/images/products/crazy-news/gallery-3.jpg", alt: "抓誑新聞桌遊實物照 3" },
+  { src: "/images/products/crazy-news/gallery-4.jpg", alt: "抓誑新聞桌遊實物照 4" },
+  { src: "/images/products/crazy-news/gallery-5.png", alt: "抓誑新聞桌遊實物照 5" },
+  { src: "/images/products/crazy-news/gallery-6.png", alt: "抓誑新聞桌遊實物照 6" },
+];
+
+const videos = [
+  "Hq73q3RjOMU",
+  "fGWV-wUCpHQ",
+  "kk9nf5SMw5A",
+  "ByQtfzyXpX0",
+];
+
 export default function CrazyNewsPage() {
   return (
     <Container className="py-16">
@@ -43,13 +61,8 @@ export default function CrazyNewsPage() {
           遊戲中，你將成為「識讀者」同盟的一員，聆聽報導並破除藏匿其中的四大毒物！在媒體徹底誑化之前，號召你的夥伴升級各種特殊技、打擊怪獸，一起讓誑化的媒體恢復正常！
         </p>
 
-        <div className="relative mt-8 aspect-2/1 overflow-hidden rounded-2xl bg-black/[0.03]">
-          <Image
-            src="/images/products/crazy-news.png"
-            alt="抓誑新聞 Crazy News 桌遊"
-            fill
-            className="object-contain p-4"
-          />
+        <div className="mt-8 max-w-md">
+          <ProductGallery images={galleryImages} />
         </div>
 
         <ul className="mt-8 space-y-1 text-ink/70">
@@ -110,6 +123,13 @@ export default function CrazyNewsPage() {
             </div>
           ))}
         </dl>
+
+        <h2 className="mt-12 text-lg font-bold text-ink">遊戲介紹影片</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {videos.map((id, i) => (
+            <YouTubeEmbed key={id} id={id} title={`抓誑新聞 Crazy News 介紹影片 ${i + 1}`} />
+          ))}
+        </div>
       </div>
     </Container>
   );

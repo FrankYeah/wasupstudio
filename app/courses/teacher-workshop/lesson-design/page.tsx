@@ -174,41 +174,61 @@ export default function LessonDesignPage() {
       </section>
 
       <section className="bg-black/[0.03] py-16">
-        <Container>
-          <h2 className="text-2xl font-bold text-ink">{workshop.title}</h2>
-          <InfoRow audience={workshop.audience} subject={workshop.subject} hours={workshop.hours} />
-          <p className="mt-4 text-ink/70">{workshop.lead}</p>
+        <Container className="grid gap-8 md:grid-cols-[280px_1fr] md:items-start">
+          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.05]">
+            <Image
+              src="/images/courses/lesson-design-2.jpg"
+              alt="教師分組進行遊戲化教案工作坊實作練習"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-ink">{workshop.title}</h2>
+            <InfoRow audience={workshop.audience} subject={workshop.subject} hours={workshop.hours} />
+            <p className="mt-4 text-ink/70">{workshop.lead}</p>
 
-          <h3 className="mt-6 text-sm font-bold text-ink">研習內容</h3>
-          <ul className="mt-1 space-y-2 text-sm text-ink/70">
-            {workshop.experience.map((e) => (
-              <li key={e.label}>
-                <span className="font-semibold text-ink">{e.label}：</span>
-                {e.desc}
-              </li>
-            ))}
-          </ul>
+            <h3 className="mt-6 text-sm font-bold text-ink">研習內容</h3>
+            <ul className="mt-1 space-y-2 text-sm text-ink/70">
+              {workshop.experience.map((e) => (
+                <li key={e.label}>
+                  <span className="font-semibold text-ink">{e.label}：</span>
+                  {e.desc}
+                </li>
+              ))}
+            </ul>
 
-          <h3 className="mt-6 text-sm font-bold text-ink">研習大綱</h3>
-          <OutlineList items={workshop.outline} />
+            <h3 className="mt-6 text-sm font-bold text-ink">研習大綱</h3>
+            <OutlineList items={workshop.outline} />
+          </div>
         </Container>
       </section>
 
       <section className="py-16">
-        <Container>
-          <h2 className="text-2xl font-bold text-ink">{designWorkshop.title}</h2>
-          <InfoRow audience={designWorkshop.audience} subject={designWorkshop.subject} />
-          <p className="mt-4 max-w-3xl text-ink/70">{designWorkshop.lead}</p>
+        <Container className="grid gap-8 md:grid-cols-[280px_1fr] md:items-start">
+          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.05]">
+            <Image
+              src="/images/courses/lesson-design-3.jpg"
+              alt="學員分組進行教育桌遊設計工作坊實作練習"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-ink">{designWorkshop.title}</h2>
+            <InfoRow audience={designWorkshop.audience} subject={designWorkshop.subject} />
+            <p className="mt-4 max-w-3xl text-ink/70">{designWorkshop.lead}</p>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {designWorkshop.tiers.map((tier) => (
-              <div key={tier.title} className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-                <h3 className="font-bold text-ink">{tier.title}</h3>
-                <p className="mt-1 text-sm text-ink/60">授課時數：{tier.hours}</p>
-                <h4 className="mt-4 text-sm font-bold text-ink">研習大綱</h4>
-                <OutlineList items={tier.outline} />
-              </div>
-            ))}
+            <div className="mt-8 grid gap-6 sm:grid-cols-3">
+              {designWorkshop.tiers.map((tier) => (
+                <div key={tier.title} className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
+                  <h3 className="font-bold text-ink">{tier.title}</h3>
+                  <p className="mt-1 text-sm text-ink/60">授課時數：{tier.hours}</p>
+                  <h4 className="mt-4 text-sm font-bold text-ink">研習大綱</h4>
+                  <OutlineList items={tier.outline} />
+                </div>
+              ))}
+            </div>
           </div>
         </Container>
       </section>

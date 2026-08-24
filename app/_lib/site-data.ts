@@ -25,7 +25,7 @@ export const boardGames: BoardGame[] = [
     title: "瞎掰王SDGs教育版",
     tagline: "冷知識 × 瞎掰胡扯 × SDGs 17項永續發展目標",
     price: 690,
-    image: null,
+    image: "/images/products/talk-nonsense-sdgs.png",
     href: "/board-games/talk-nonsense-sdgs",
   },
   {
@@ -49,7 +49,7 @@ export const boardGames: BoardGame[] = [
     title: "未來議會",
     tagline: "兒童人權 × 兒少生活議題 × 表達意見",
     price: 990,
-    image: null,
+    image: "/images/products/future-parliament.png",
     href: "/board-games/future-parliament",
   },
   {
@@ -73,8 +73,34 @@ export const boardGames: BoardGame[] = [
     title: "十分機靈",
     tagline: "10 選 1 的緊湊問答遊戲",
     price: 590,
-    image: null,
+    image: "/images/products/sharp-ten.png",
     href: "/board-games/sharp-ten",
+  },
+];
+
+// 原站「買桌遊」總覽頁最下方還有一個「＊已完售」區塊，列出 3 款已下架、沒有獨立產品頁的舊作品，
+// 純粹展示用（原站也沒有連結到個別頁面），這裡照樣呈現、不加連結。
+export type SoldOutGame = {
+  title: string;
+  tagline: string;
+  image: string;
+};
+
+export const soldOutBoardGames: SoldOutGame[] = [
+  {
+    title: "大政治家：選戰風雲",
+    tagline: "民主政治 × 台灣立委選舉",
+    image: "/images/board-games/sold-out-da-zhengzhijia.jpg",
+  },
+  {
+    title: "議想世界",
+    tagline: "議題討論 × 正義觀",
+    image: "/images/board-games/sold-out-yixiang-shijie.jpg",
+  },
+  {
+    title: "家分題",
+    tagline: "性別平等 × 家務分工",
+    image: "/images/board-games/sold-out-jia-fenti.jpg",
   },
 ];
 

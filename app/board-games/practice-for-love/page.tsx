@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SiteImage as Image } from "@/app/_components/SiteImage";
+import { ProductGallery, type GalleryImage } from "@/app/_components/ProductGallery";
 import { Container } from "@/app/_components/Container";
 
 export const metadata: Metadata = {
@@ -23,18 +23,19 @@ const info = [
   ["售價", "690元（消費滿2000免運）"],
 ];
 
+const galleryImages: GalleryImage[] = [
+  { src: "/images/products/practice-for-love.png", alt: "練愛猜心榮獲未來教育台灣100肯定" },
+  { src: "/images/products/practice-for-love/gallery-1.jpg", alt: "練愛猜心桌遊實物照 1" },
+  { src: "/images/products/practice-for-love/gallery-2.jpg", alt: "練愛猜心桌遊實物照 2" },
+  { src: "/images/products/practice-for-love/gallery-3.jpg", alt: "練愛猜心桌遊實物照 3" },
+  { src: "/images/products/practice-for-love/gallery-4.jpg", alt: "練愛猜心桌遊實物照 4" },
+];
+
 export default function PracticeForLovePage() {
   return (
     <Container className="py-16">
       <div className="grid gap-12 md:grid-cols-2">
-        <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.03]">
-          <Image
-            src="/images/products/practice-for-love.png"
-            alt="練愛猜心桌遊封面"
-            fill
-            className="object-contain p-6"
-          />
-        </div>
+        <ProductGallery images={galleryImages} />
 
         <div>
           <p className="text-sm font-semibold text-brand-green">性別平等 × 人際溝通</p>

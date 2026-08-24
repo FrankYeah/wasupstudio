@@ -19,10 +19,11 @@ type CardExtra = {
   items: string[];
 };
 
+// 這頁本身有自己專屬的 4 張情境照片，不借用各子頁的圖
 const cardExtras: Record<string, CardExtra> = {
   "/courses/in-class/learn-through-play": {
     emoji: "🎲",
-    image: "/images/courses/learn-through-play-1.jpg",
+    image: "/images/courses/in-class-1.jpg",
     items: [
       "一、人際關係與溝通",
       "二、性別平等",
@@ -34,17 +35,17 @@ const cardExtras: Record<string, CardExtra> = {
   },
   "/courses/in-class/inquiry-practice": {
     emoji: "📝",
-    image: "/images/courses/inquiry-practice-1.jpg",
+    image: "/images/courses/in-class-2.jpg",
     items: ["1. 議題思辨課", "2. 議題探究與實作"],
   },
   "/courses/in-class/communication": {
     emoji: "🗣️",
-    image: "/images/courses/communication-1.jpg",
+    image: "/images/courses/in-class-3.jpg",
     items: ["1. 冒險者之旅（勇者風格）", "2. 正向溝通工作坊"],
   },
   "/courses/in-class/democracy-in-meetings": {
     emoji: "🎤",
-    image: "/images/courses/democracy-in-meetings-1.jpg",
+    image: "/images/courses/in-class-4.jpg",
     items: [],
   },
 };

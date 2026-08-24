@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
+import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 
 export const metadata: Metadata = {
   title: "關於我們",
@@ -24,37 +25,33 @@ const clientCategories = [
   { title: "企業及政府部門教育訓練", examples: "彰化縣社會處兒少科、新竹科管局、朱銘美術館、十大傑出青年基金會、燃點公民平台⋯等" },
 ];
 
+// 原站「授課講師」區塊每位講師的名字上方都直接放著本人的照片（4 欄表格，圖片對應名字一對一），
+// 已依原始 HTML 逐一核對比對圖檔內容，順序與對應如下。
 const team = [
   {
     name: "吳健毅 Henry Wu",
+    photo: "/images/about/team-photo-3.jpg",
     bio: "腦內多巴胺總是處於分泌不足的狀態，所以得不斷尋求改變與刺激的過動男子。認為「拯救世界」的關鍵就在於「建構公民社會」，致力於實踐具有「自主性」與「同理心」的生活，並轉化為遊戲課程，影響更多人。",
     tags: ["興趣：教育、哲學、心靈成長、社會創新", "專長：遊戲設計、創作劇本"],
   },
   {
     name: "林侃眉 Anny Lin",
+    photo: "/images/about/team-photo-1.jpg",
     bio: "曾經擔任過五年的社工師，堅信用生命影響生命。在社會工作中，看見人的善良，也看見大環境的限制，讓許多人找不到讓自己快樂的鑰匙。成為阿普蛙，走進教育第一線、踏入社會，將鑰匙交給更多的人們。",
     tags: ["關注議題：自我探索與成長、親子溝通與教養、兒童權利", "擅長領域：桌遊及課程帶領、幼兒及兒童發展、團體動力"],
   },
   {
     name: "杜冠賢 Alex Tu",
+    photo: "/images/about/team-photo-2.jpg",
     bio: "不只是個乖乖牌。出社會後不斷轉換跑道，探索自我。進到長照領域後體會到社福領域的限制，選擇加入社企。期望自己的存在能影響身邊的人，為社會帶來一些改變。Be the change you wanna see.",
     tags: ["關注議題：高齡社會、貧富差距、貧窮、環境保育", "擅長領域：課程帶領、議題研究"],
   },
   {
     name: "林鉞 Luke Lin",
+    photo: "/images/about/team-photo-4.jpg",
     bio: "不是老師卻熱愛教學，把知識與技術轉換成最貼近生活的話語與概念分享給每個人，喜歡跟著不同的團體一起學習與成長，把從遊戲中學到的機制轉化成現實運用的版本，期待自己的分享可以帶給教室真正的改變。",
     tags: ["興趣：心靈成長、教學、遊戲", "專長：多元學習、遊戲化課程"],
   },
-];
-
-// 原站這 4 張團隊照片是放在同一個相簿區塊，跟每位講師的文字介紹沒有明確的一對一對應關係，
-// 為避免張冠李戴（把照片配錯人名），這裡先當團隊環境照片呈現，不個別標名字。
-// TODO：上線前請客戶確認每張照片對應哪位講師，再改成一對一配對。
-const teamPhotos = [
-  "/images/about/team-photo-1.jpg",
-  "/images/about/team-photo-2.jpg",
-  "/images/about/team-photo-3.jpg",
-  "/images/about/team-photo-4.jpg",
 ];
 
 const pressNews = [
@@ -89,13 +86,22 @@ export default function AboutPage() {
       <section className="bg-black/[0.03] py-16">
         <Container className="flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <Image
-              src="/images/brand/logo-mark.png"
-              alt="阿普蛙工作室"
-              width={160}
-              height={160}
-              className="h-32 w-32"
-            />
+            <div className="flex items-center gap-4">
+              <Image
+                src="/images/brand/logo-mark.png"
+                alt="阿普蛙工作室"
+                width={160}
+                height={160}
+                className="h-32 w-32"
+              />
+              <Image
+                src="/images/about/innovation-award-2018.png"
+                alt="2018 教育創新 100 阿普蛙工作室有限公司 親子天下"
+                width={100}
+                height={100}
+                className="h-20 w-20 shrink-0"
+              />
+            </div>
             <h1 className="mt-6 text-2xl font-bold text-ink md:text-3xl">用遊戲，創造一個更好的公民社會</h1>
           </div>
           <a
@@ -115,6 +121,10 @@ export default function AboutPage() {
           <p className="mt-4 text-ink/70">
             我們採用體驗式教育，以桌遊、遊戲等機制，培養現代公民「慎思明辨」及「關懷社會」的能力。我們以公民應具備的各種素養——從自我到群體、社會——將人權、自我成長、政治與媒體素養、性別平等、社會關懷、環境議題等融入遊戲，設計相關教材與教案。
           </p>
+
+          <div className="mt-8">
+            <YouTubeEmbed id="0ZLsiE24i_w" title="阿普蛙工作室介紹影片" />
+          </div>
         </Container>
       </section>
 
@@ -149,27 +159,24 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* 團隊照片 */}
+      {/* 授課講師 */}
       <section className="bg-black/[0.03] py-16">
         <Container>
           <h2 className="text-2xl font-bold text-ink">授課講師</h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-4">
-            {teamPhotos.map((src) => (
-              <div key={src} className="relative aspect-square overflow-hidden rounded-xl">
-                <Image src={src} alt="阿普蛙授課講師" fill className="object-cover" />
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 grid gap-8 md:grid-cols-2">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((t) => (
-              <div key={t.name} className="rounded-xl bg-white p-6">
-                <h3 className="font-bold text-ink">{t.name}</h3>
-                <p className="mt-2 text-sm text-ink/70">{t.bio}</p>
-                <div className="mt-3 space-y-0.5 text-xs text-ink/50">
-                  {t.tags.map((tag) => (
-                    <p key={tag}>{tag}</p>
-                  ))}
+              <div key={t.name} className="overflow-hidden rounded-xl bg-white">
+                <div className="relative aspect-square">
+                  <Image src={t.photo} alt={t.name} fill className="object-cover" />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-bold text-ink">{t.name}</h3>
+                  <p className="mt-2 text-sm text-ink/70">{t.bio}</p>
+                  <div className="mt-3 space-y-0.5 text-xs text-ink/50">
+                    {t.tags.map((tag) => (
+                      <p key={tag}>{tag}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}

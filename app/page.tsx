@@ -6,6 +6,7 @@ const audiences = [
   {
     title: "遊戲設計",
     tagline: "議題 × 機制 × 測試",
+    image: "/images/home/audience-1.png",
     audience: ["基金會、公部門", "學校、企業、社福組織"],
     href: "/design-consulting",
     cta: "了解設計流程",
@@ -13,6 +14,7 @@ const audiences = [
   {
     title: "課程與工作坊",
     tagline: "遊戲 × 對話 × 引導",
+    image: "/images/home/audience-2.png",
     audience: ["學校、教師研習、親子活動", "社福單位、企業訓練"],
     href: "/courses",
     cta: "查看課程主題",
@@ -20,16 +22,28 @@ const audiences = [
   {
     title: "教材與推廣",
     tagline: "桌遊 × 教案 × 推廣",
+    image: "/images/home/audience-3.png",
     audience: ["教師、講師", "活動承辦、教育工作者"],
     href: "/board-games",
     cta: "查看桌遊作品",
   },
 ];
 
+// 原站「如何把議題變成可以玩的學習體驗？」六步驟流程圖，圖片本身就把標題／說明文字都做進去了，
+// 這裡直接沿用原圖，不用另外拆文字重排。原站是左右兩欄、由上往下各排 3 張（01-03 在左欄、04-06 在右欄）。
+const designSteps = [
+  { step: "01", title: "理解議題", src: "/images/home/step-1.png" },
+  { step: "02", title: "轉譯機制", src: "/images/home/step-2.png" },
+  { step: "03", title: "遊戲測試", src: "/images/home/step-3.png" },
+  { step: "04", title: "視覺設計", src: "/images/home/step-4.png" },
+  { step: "05", title: "印刷製作", src: "/images/home/step-5.png" },
+  { step: "06", title: "課程推廣", src: "/images/home/step-6.png" },
+];
+
 const testimonials = [
-  { name: "小六林同學", quote: "我覺得猜別人情緒很難，原來別人跟我想的不一樣。" },
-  { name: "國中專輔老師 Dora", quote: "可以運用在人際關係小團體上，增進覺察他人情緒。" },
-  { name: "高中藝術江老師", quote: "利用問問題來推敲情緒，可以訓練高中生有更多的推理與歸納能力。" },
+  { name: "小六林同學", quote: "我覺得猜別人情緒很難，原來別人跟我想的不一樣。", avatar: "/images/home/testimonial-1.png" },
+  { name: "國中專輔老師 Dora", quote: "可以運用在人際關係小團體上，增進覺察他人情緒。", avatar: "/images/home/testimonial-2.png" },
+  { name: "高中藝術江老師", quote: "利用問問題來推敲情緒，可以訓練高中生有更多的推理與歸納能力。", avatar: "/images/home/testimonial-3.png" },
 ];
 
 export default function HomePage() {
@@ -38,23 +52,15 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-black/5 to-white">
         <Container className="grid items-center gap-10 py-20 md:grid-cols-2 md:py-28">
+          <div className="relative mx-auto h-64 w-64 md:h-80 md:w-80">
+            <Image src="/images/brand/hero-bg.png" alt="阿普蛙" fill className="object-contain" priority />
+          </div>
           <div>
             <h1 className="text-3xl leading-snug font-bold text-ink md:text-5xl">
               我們把重要但不容易說的事
               <br />
               設計成可以玩的學習體驗
             </h1>
-          </div>
-          <div className="relative mx-auto h-64 w-64 md:h-80 md:w-80">
-            <div className="absolute inset-0 rounded-full bg-brand-green-bright/20" />
-            <div className="absolute inset-6 rounded-full bg-brand-green/80" />
-            <Image
-              src="/images/brand/logo-mark.png"
-              alt="阿普蛙"
-              fill
-              className="relative object-contain p-10"
-              priority
-            />
           </div>
         </Container>
       </section>
@@ -72,9 +78,8 @@ export default function HomePage() {
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {audiences.map((a) => (
               <div key={a.href} className="flex flex-col items-center text-center">
-                <div className="flex h-40 w-40 flex-col items-center justify-center rounded-2xl bg-brand-green text-white">
-                  <span className="text-lg font-bold tracking-wide">{a.title}</span>
-                  <span className="mt-2 text-xs text-white/80">{a.tagline}</span>
+                <div className="relative h-40 w-40">
+                  <Image src={a.image} alt={`${a.title}：${a.tagline}`} fill className="object-contain" />
                 </div>
                 <h3 className="mt-6 text-sm font-bold text-ink">適合對象</h3>
                 <p className="mt-1 text-sm text-ink/70">
@@ -96,8 +101,42 @@ export default function HomePage() {
         </Container>
       </section>
 
+      {/* 如何把議題變成可以玩的學習體驗？ */}
+      <section className="relative overflow-hidden bg-black/[0.03] py-20">
+        <div className="absolute -right-10 -bottom-10 h-56 w-56 opacity-10 md:h-72 md:w-72">
+          <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
+        </div>
+        <Container className="relative">
+          <h2 className="text-center text-2xl font-bold text-ink md:text-3xl">
+            如何把議題變成可以玩的學習體驗？
+          </h2>
+          <div className="mx-auto mt-12 grid max-w-4xl gap-4 md:grid-cols-2">
+            {[0, 1, 2].map((row) => (
+              <div key={row} className="contents">
+                <div className="relative aspect-[3072/651] w-full overflow-hidden rounded-xl">
+                  <Image
+                    src={designSteps[row].src}
+                    alt={`${designSteps[row].step} ${designSteps[row].title}`}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="relative aspect-[3072/651] w-full overflow-hidden rounded-xl">
+                  <Image
+                    src={designSteps[row + 3].src}
+                    alt={`${designSteps[row + 3].step} ${designSteps[row + 3].title}`}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
       {/* 全方位服務 */}
-      <section className="bg-black/[0.03] py-20">
+      <section className="py-20">
         <Container>
           <h2 className="text-center text-2xl font-bold text-ink md:text-3xl">
             從設計到推廣的全方位服務
@@ -111,7 +150,15 @@ export default function HomePage() {
         <Container className="grid items-center gap-10 md:grid-cols-2">
           <div>
             <h2 className="text-2xl font-bold text-ink">一款桌遊，如何讓孩子開始談情緒？</h2>
-            <p className="mt-4 font-semibold text-brand-green">情緒很重要，卻不一定容易說出口</p>
+            <div className="relative mt-6 aspect-square w-full max-w-xs overflow-hidden rounded-2xl">
+              <Image
+                src="/images/home/emotion-cards.jpg"
+                alt="孩子們一起指認情緒卡的照片"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <p className="mt-6 font-semibold text-brand-green">情緒很重要，卻不一定容易說出口</p>
             <p className="mt-2 text-ink/70">
               我們把情緒辨識、同理感受與人際互動，設計成孩子能遊玩的桌遊體驗，讓情緒教育從講解變成觀察、猜測、表達與討論。
             </p>
@@ -121,7 +168,15 @@ export default function HomePage() {
             </p>
           </div>
           <div className="rounded-2xl bg-black/[0.03] p-8">
-            <h3 className="text-xl font-bold text-ink">情緒謎語</h3>
+            <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-white">
+              <Image
+                src="/images/home/riddle-me-feelings-box.png"
+                alt="情緒謎語（雙語版）桌遊封面"
+                fill
+                className="object-contain p-4"
+              />
+            </div>
+            <h3 className="mt-4 text-xl font-bold text-ink">情緒謎語</h3>
             <p className="mt-1 text-xs font-semibold tracking-wide text-brand-green">SEL</p>
             <p className="mt-3 text-sm text-ink/70">
               這是一款將校園人際衝突與情緒理解，設計成可以觀察、推理與表達的雙語桌遊。孩子在遊戲中練習辨識情緒、理解他人反應，也讓老師能輕鬆把
@@ -147,12 +202,24 @@ export default function HomePage() {
         </Container>
       </section>
 
+      {/* 情緒謎語的設計脈絡：從議題出發→轉化成遊戲→延伸到課堂 */}
+      <section className="py-4">
+        <Container className="flex justify-center">
+          <div className="relative aspect-[1123/540] w-full max-w-3xl">
+            <Image src="/images/home/design-process.png" alt="從議題出發、轉化成遊戲、延伸到課堂" fill className="object-contain" />
+          </div>
+        </Container>
+      </section>
+
       {/* 見證 */}
       <section className="bg-black/[0.03] py-20">
         <Container className="grid gap-8 md:grid-cols-3">
           {testimonials.map((t) => (
             <blockquote key={t.name} className="rounded-xl bg-white p-6 shadow-sm">
-              <p className="text-ink/80">「{t.quote}」</p>
+              <div className="relative mx-auto h-16 w-16 overflow-hidden rounded-full">
+                <Image src={t.avatar} alt="" fill className="object-cover" aria-hidden />
+              </div>
+              <p className="mt-4 text-ink/80">「{t.quote}」</p>
               <footer className="mt-4 text-sm font-semibold text-brand-green">{t.name}</footer>
             </blockquote>
           ))}
@@ -160,9 +227,12 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24">
-        <Container className="text-center">
-          <h2 className="text-2xl font-bold text-ink md:text-3xl">有個重要但不容易說的議題？</h2>
+      <section className="relative overflow-hidden py-24">
+        <Container className="relative text-center">
+          <div className="relative mx-auto h-20 w-20">
+            <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
+          </div>
+          <h2 className="mt-4 text-2xl font-bold text-ink md:text-3xl">有個重要但不容易說的議題？</h2>
           <p className="mt-3 text-ink/70">讓我們一起把它設計成可以玩的學習體驗</p>
           <p className="mt-1 text-ink/70">你可以從一堂課、一款桌遊，或一個完整的教育推廣專案開始</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -180,6 +250,16 @@ export default function HomePage() {
             >
               了解設計流程
             </Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* 合作夥伴 */}
+      <section className="py-16">
+        <Container>
+          <h2 className="text-center text-2xl font-bold text-ink md:text-3xl">合作夥伴</h2>
+          <div className="relative mx-auto mt-10 aspect-[946/528] w-full max-w-4xl">
+            <Image src="/images/home/partners.png" alt="合作夥伴：為台灣而教、台灣主婦聯盟生活消費合作社、國立臺灣圖書館、小公視、家扶基金會、台灣股票博物館、基隆市文化觀光局、台少盟、公視兒少、公視主題之夜SHOW、勵馨基金會、彭婉如文教基金會、AIC、金車文教基金會、康軒文教事業、臺南市政府文化局、翰林出版" fill className="object-contain" />
           </div>
         </Container>
       </section>

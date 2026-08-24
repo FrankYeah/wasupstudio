@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
 
 export const metadata: Metadata = {
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 const stories = [
   {
     title: "《萌虎怎麼了》",
+    image: "/images/digital-materials/story-1.png",
     summary: "萌虎有過動症，某天因為不滿同學的玩笑，難以控制情緒而引發衝突。",
     need: "生理需求",
     grade: "中、高年級",
@@ -18,6 +20,7 @@ const stories = [
   },
   {
     title: "《為什麼不跟我玩》",
+    image: "/images/digital-materials/story-2.png",
     summary: "俏鼠想要跟同學玩，卻不知道「一直戳」同學，會讓他人感到不舒服。",
     need: "玩樂需求",
     grade: "中、高年級",
@@ -26,6 +29,7 @@ const stories = [
   },
   {
     title: "《金馬的秘密》",
+    image: "/images/digital-materials/story-3.png",
     summary: "金馬為了融入群體，卻不知道該如何拒絕不合理的要求，反而傷害了原本要好的同學。",
     need: "同儕歸屬",
     grade: "中、高年級",
@@ -34,6 +38,7 @@ const stories = [
   },
   {
     title: "《班長是公僕還是國王》",
+    image: "/images/digital-materials/story-4.png",
     summary: "班長為了提升班級競賽的名次，與同學們制定了班規，卻在執行期間逐漸累積了「民怨」。",
     need: "權力與掌握",
     grade: "高年級",
@@ -66,6 +71,15 @@ export default function DigitalMaterialsPage() {
               專為國小校園設計的全新數位教材！透過融入 4 個人際衝突的故事，學生們練習在事件中做出關鍵選擇，推進發展，共同決定故事的最終結局。
             </p>
           </div>
+          <div className="overflow-hidden rounded-2xl">
+            <Image
+              src="/images/digital-materials/hero.png"
+              alt="萌虎、俏鼠與貓頭鷹老師的教室情境插畫"
+              width={746}
+              height={533}
+              className="h-auto w-full"
+            />
+          </div>
         </Container>
       </section>
 
@@ -76,22 +90,27 @@ export default function DigitalMaterialsPage() {
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {stories.map((s) => (
-              <div key={s.title} className="rounded-xl border border-black/5 p-6">
-                <h3 className="text-lg font-bold text-ink">{s.title}</h3>
-                <p className="mt-2 text-sm text-ink/70">{s.summary}</p>
-                <dl className="mt-3 space-y-0.5 text-xs text-ink/60">
-                  <p>需求類型：{s.need}</p>
-                  <p>適合年級：{s.grade}</p>
-                  <p>操作時間：{s.time}</p>
-                </dl>
-                <a
-                  href={s.video}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-4 inline-block text-sm font-semibold text-brand-green underline"
-                >
-                  第一天影片試播
-                </a>
+              <div key={s.title} className="overflow-hidden rounded-xl border border-black/5">
+                <div className="relative aspect-video w-full bg-black/5">
+                  <Image src={s.image} alt={s.title} fill className="object-cover" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-ink">{s.title}</h3>
+                  <p className="mt-2 text-sm text-ink/70">{s.summary}</p>
+                  <dl className="mt-3 space-y-0.5 text-xs text-ink/60">
+                    <p>需求類型：{s.need}</p>
+                    <p>適合年級：{s.grade}</p>
+                    <p>操作時間：{s.time}</p>
+                  </dl>
+                  <a
+                    href={s.video}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-4 inline-block text-sm font-semibold text-brand-green underline"
+                  >
+                    第一天影片試播
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -118,11 +137,22 @@ export default function DigitalMaterialsPage() {
               </p>
             </div>
           </div>
-          <p className="mt-6 text-xs text-ink/50">
-            ＊4 則故事的複雜度各不相同，所以進行天數也不同，例如《萌虎怎麼了》的故事比較單純，只需要操作 2
-            天，適合國小中年級或老師們第一次操作；《班長是公僕還是國王》的故事最為複雜且跟學生的人際發展有關，要進行 5
-            天，適合國小高年級或較熟悉流程的老師操作。
-          </p>
+          <div className="mt-8 grid gap-6 md:grid-cols-[1fr_260px] md:items-center">
+            <p className="text-xs text-ink/50">
+              ＊4 則故事的複雜度各不相同，所以進行天數也不同，例如《萌虎怎麼了》的故事比較單純，只需要操作 2
+              天，適合國小中年級或老師們第一次操作；《班長是公僕還是國王》的故事最為複雜且跟學生的人際發展有關，要進行 5
+              天，適合國小高年級或較熟悉流程的老師操作。
+            </p>
+            <div className="overflow-hidden rounded-2xl">
+              <Image
+                src="/images/digital-materials/classroom-testing.jpg"
+                alt="阿普蛙帶領學生實際測試教材"
+                width={1280}
+                height={720}
+                className="h-auto w-full"
+              />
+            </div>
+          </div>
         </Container>
       </section>
 
@@ -156,7 +186,17 @@ export default function DigitalMaterialsPage() {
           </div>
 
           <div>
-            <h3 className="font-bold text-ink">｜課程目標｜</h3>
+            <div className="overflow-hidden rounded-2xl">
+              <Image
+                src="/images/digital-materials/classroom-group-work.jpg"
+                alt="學生分組討論學習單"
+                width={1280}
+                height={720}
+                className="h-auto w-full"
+              />
+            </div>
+
+            <h3 className="mt-8 font-bold text-ink">｜課程目標｜</h3>
             <ul className="mt-2 space-y-1 text-sm text-ink/70">
               <li>深入了解人際衝突中的情感與需求。</li>
               <li>探討旁觀者的力量，如何影響事件發展。</li>
@@ -169,6 +209,33 @@ export default function DigitalMaterialsPage() {
             <p className="mt-2 text-sm text-ink/70">
               引導反思：從角色感受與需求出發，引導深入討論合理的因應策略，讓學生更理解彼此的情感需求。
             </p>
+
+            <div className="mt-8 grid grid-cols-2 gap-4">
+              <div>
+                <div className="overflow-hidden rounded-xl">
+                  <Image
+                    src="/images/digital-materials/teaching-slides.png"
+                    alt="教學簡報檔預覽"
+                    width={1100}
+                    height={552}
+                    className="h-auto w-full"
+                  />
+                </div>
+                <p className="mt-2 text-center text-xs text-ink/50">↑教學簡報檔</p>
+              </div>
+              <div>
+                <div className="overflow-hidden rounded-xl">
+                  <Image
+                    src="/images/digital-materials/worksheet-day1.jpg"
+                    alt="每日學習單預覽"
+                    width={419}
+                    height={595}
+                    className="h-auto w-full"
+                  />
+                </div>
+                <p className="mt-2 text-center text-xs text-ink/50">↑每日學習單</p>
+              </div>
+            </div>
           </div>
         </Container>
       </section>

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ProductGallery, type GalleryImage } from "@/app/_components/ProductGallery";
+import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 import { Container } from "@/app/_components/Container";
 
 export const metadata: Metadata = {
@@ -14,10 +16,18 @@ const info = [
   ["售價", "590元（消費滿2000元免運）"],
 ];
 
+const galleryImages: GalleryImage[] = [
+  { src: "/images/products/sharp-ten/gallery-1.png", alt: "十分機靈桌遊實物照 1" },
+  { src: "/images/products/sharp-ten/gallery-2.png", alt: "十分機靈桌遊實物照 2" },
+];
+
 export default function SharpTenPage() {
   return (
     <Container className="py-16">
-      <div className="mx-auto max-w-2xl">
+      <div className="grid gap-12 md:grid-cols-2">
+        <ProductGallery images={galleryImages} />
+
+        <div>
         <h1 className="text-3xl font-bold text-ink">《十分機靈》</h1>
         <p className="mt-4 text-ink/70">
           《十分機靈》是一款問答遊戲。每道題目都有10個可能的答案，所有玩家都可以在緊湊的遊戲過程，享受刺激的答題樂趣。問題可能是運動、常識、歷史、動漫等，一定有一種能夠考倒你！
@@ -43,6 +53,14 @@ export default function SharpTenPage() {
           >
             購買桌遊
           </a>
+        </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-16 max-w-2xl">
+        <h2 className="text-lg font-bold text-ink">遊戲介紹影片</h2>
+        <div className="mt-4">
+          <YouTubeEmbed id="-zIuPb21tHc" title="十分機靈桌遊教學影片" />
         </div>
       </div>
     </Container>

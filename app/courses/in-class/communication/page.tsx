@@ -14,6 +14,7 @@ const INVITE_FORM_URL =
 const courses = [
   {
     title: "冒險者之旅（勇者風格）",
+    image: "/images/courses/communication-1.jpg",
     grade: "國小中高年級、國中、高中、大學",
     hours: "3-6 小時",
     goals: [
@@ -29,6 +30,7 @@ const courses = [
   },
   {
     title: "正向溝通工作坊",
+    image: "/images/courses/communication-2.jpg",
     grade: "國小中高年級、國中、高中、大學",
     hours: "3-18 小時",
     goals: ["覺察並改善個人的溝通方式與盲點", "學習正向溝通的四大要素", "提升溝通效能，有效化解衝突"],
@@ -79,6 +81,14 @@ export default function CommunicationPage() {
             key={course.title}
             className="rounded-2xl border border-black/5 p-6 shadow-sm md:p-8"
           >
+            <div className="relative mb-6 aspect-16/9 w-full overflow-hidden rounded-xl bg-black/[0.03]">
+              <Image
+                src={course.image}
+                alt={`《${course.title}》課程實況`}
+                fill
+                className="object-cover"
+              />
+            </div>
             <h2 className="text-xl font-bold text-ink">{course.title}</h2>
 
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-ink/70">
