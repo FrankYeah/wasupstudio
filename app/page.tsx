@@ -50,16 +50,24 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      {/* 原站在手機版 375px 寬時，蛙圖跟標題文字仍然是「並排」而不是上下堆疊，
-          蛙圖也小很多（~150px，不是滿版大圖）。這裡用 grid-cols-[auto_1fr] 讓手機版維持並排、
-          蛙圖跟著螢幕縮小；桌機版（md 以上）維持原本 grid-cols-2 的置中大圖排版不變。 */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-black/5 to-white">
-        <Container className="grid grid-cols-[auto_1fr] items-center gap-4 py-10 sm:gap-6 sm:py-14 md:grid-cols-2 md:gap-10 md:py-28">
-          <div className="relative h-24 w-24 shrink-0 sm:h-40 sm:w-40 md:mx-auto md:h-80 md:w-80">
+      {/* 原站首頁 header banner 其實是一張 2000×1001 的合成底圖（灰底+蛙圖+標題文字全部畫在圖裡），
+          量測後背景是純色 #e6e6e6（不是漸層），蛙圖貼齊瀏覽器左邊緣、被裁掉一截，標題文字是深灰
+          （約 #3f3f3f）中等字重，跟站內其他標題的黑色粗體不是同一套樣式。這裡標題文字保留成真正的
+          DOM 文字（SEO 考量，原站是圖片、不是文字，這是新站故意不照抄的地方），視覺上比照顏色/字重還原；
+          header 是透明疊在這個區塊上面（見 Header.tsx 的 overlay 模式），所以要留 padding-top 讓內容
+          不被導覽列蓋到。
+          手機版沿用既有的 grid-cols-[auto_1fr] 並排小圖排版（原站手機版蛙圖跟文字並排、圖較小），
+          桌機版（md 以上）改用貼齊左邊緣的大圖，跟手機版是兩組獨立的圖，用 md:hidden／hidden md:block 切換。 */}
+      <section className="relative overflow-hidden bg-[#e6e6e6] pt-24 pb-10 sm:pt-28 sm:pb-14 md:pt-48 md:pb-24">
+        <div className="pointer-events-none absolute -left-10 bottom-0 hidden h-72 w-72 md:block lg:h-80 lg:w-80">
+          <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
+        </div>
+        <Container className="relative grid grid-cols-[auto_1fr] items-center gap-4 sm:gap-6 md:block">
+          <div className="relative h-24 w-24 shrink-0 sm:h-40 sm:w-40 md:hidden">
             <Image src="/images/brand/hero-bg.png" alt="阿普蛙" fill className="object-contain" priority />
           </div>
-          <div>
-            <h1 className="text-lg leading-snug font-bold text-ink sm:text-2xl md:text-5xl">
+          <div className="md:ml-[38%] md:w-[62%]">
+            <h1 className="text-lg leading-snug font-medium text-[#3f3f3f] sm:text-2xl md:text-3xl lg:text-4xl">
               我們把重要但不容易說的事
               <br />
               設計成可以玩的學習體驗

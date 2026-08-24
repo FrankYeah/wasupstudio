@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { mainNav, boardGames, courseNav } from "@/app/_lib/site-data";
 
 const dropdowns: Record<string, { title: string; href: string }[]> = {
@@ -14,9 +15,21 @@ const dropdowns: Record<string, { title: string; href: string }[]> = {
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  // 原站首頁的 header 是透明的、疊在灰底蛙圖 banner 上面（導覽字/選單icon是白色、
+  // 目前頁的選單項目有一個白色外框）；其他頁面 header 才是實心白底、黑字、黑色外框。
+  // 用 pathname 判斷是不是首頁來切換這兩種模式，同時做出「目前頁面」的外框標示（原站也有）。
+  const overlay = pathname === "/";
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/5 bg-white">
+    <header
+      className={
+        overlay
+          ? "absolute inset-x-0 top-0 z-50 bg-transparent"
+          : "sticky top-0 z-50 border-b border-black/5 bg-white"
+      }
+    >
       <div className="container-content flex items-center justify-between px-6 py-3 md:px-10">
         <Link href="/" className="shrink-0">
           <Image
@@ -32,11 +45,21 @@ export function Header() {
         <nav className="hidden items-center gap-1 md:flex">
           {mainNav.map((item) => {
             const sub = dropdowns[item.href];
+            const active = isActive(item.href);
             return (
               <div key={item.href} className="group relative">
                 <Link
                   href={item.href}
-                  className="rounded px-3 py-2 text-sm font-semibold text-ink hover:text-brand-green"
+                  className={
+                    "rounded border px-3 py-2 text-sm font-semibold transition " +
+                    (overlay
+                      ? active
+                        ? "border-white text-white"
+                        : "border-transparent text-white hover:border-white/60"
+                      : active
+                        ? "border-ink text-ink"
+                        : "border-transparent text-ink hover:text-brand-green")
+                  }
                 >
                   {item.title}
                 </Link>
