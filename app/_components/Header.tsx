@@ -9,7 +9,9 @@ import { mainNav, boardGames, courseNav } from "@/app/_lib/site-data";
 const dropdowns: Record<string, { title: string; href: string }[]> = {
   "/board-games": boardGames.map((g) => ({ title: g.title, href: g.href })),
   "/courses": courseNav.flatMap((c) =>
-    c.children ? [{ title: c.title, href: c.href }, ...c.children] : [{ title: c.title, href: c.href }]
+    c.children
+      ? [{ title: c.title, href: c.href }, ...c.children]
+      : [{ title: c.title, href: c.href }],
   ),
 };
 
@@ -22,9 +24,19 @@ export function Header() {
   // 總覽型頁面是 header-page（header 透明疊在底圖上，導覽字/選單icon白色、目前頁面白色外框），
   // 其餘 20 頁（關於我們、買數位教材、8 款商品頁、10 個課程子頁）都是 no-header-page（實心白底、
   // 黑字、黑色外框）。這裡用完整路徑（不含子路徑）比對這 4 個總覽頁，其他頁面一律 solid 模式。
-  const overlayRoutes = ["/", "/design-consulting", "/board-games", "/courses"];
+  // "/courses/corporate-training"（教育訓練）2026-08-25 全站逐頁重新核對 body class 才發現：
+  // 原站不是只有這 4 頁走 overlay，這頁的 <body> 也是 header-page（自己的 Meeting.jpg banner 底圖），
+  // 上一輪（08-24）只抽查了幾頁就把清單定成「4 頁」，沒有逐一核對全部 24 頁才漏掉，見 DESIGN-SPEC.md。
+  const overlayRoutes = [
+    "/",
+    "/design-consulting",
+    "/board-games",
+    "/courses",
+    "/courses/corporate-training",
+  ];
   const overlay = overlayRoutes.includes(pathname);
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   // 原站 header 全站都是 position:fixed（捲動時永遠釘在最上面，不是原本重建站用的 sticky/absolute），
   // 而且首頁這類透明疊層的頁面，捲過 banner 之後 header 會變成跟其他頁一樣的實心白底／黑字，
@@ -46,7 +58,10 @@ export function Header() {
       className={
         "z-50 transition-colors duration-200 " +
         (overlay
-          ? "fixed inset-x-0 top-0 " + (showOverlayStyle ? "bg-transparent" : "border-b border-black/5 bg-white")
+          ? "fixed inset-x-0 top-0 " +
+            (showOverlayStyle
+              ? "bg-transparent"
+              : "border-b border-black/5 bg-white")
           : "sticky top-0 border-b border-black/5 bg-white")
       }
     >
@@ -118,7 +133,10 @@ export function Header() {
       {mobileOpen && (
         <nav className="border-t border-black/5 bg-white px-6 py-4 md:hidden">
           {mainNav.map((item) => (
-            <div key={item.href} className="border-b border-black/5 py-2 last:border-none">
+            <div
+              key={item.href}
+              className="border-b border-black/5 py-2 last:border-none"
+            >
               <Link
                 href={item.href}
                 className="block py-1 text-sm font-semibold text-ink"

@@ -5,7 +5,8 @@ import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 
 export const metadata: Metadata = {
   title: "關於我們",
-  description: "用遊戲，創造一個更好的公民社會。阿普蛙工作室成立於 2014 年，用遊戲影響教育、提升台灣整體公民素養。",
+  description:
+    "用遊戲，創造一個更好的公民社會。阿普蛙工作室成立於 2014 年，用遊戲影響教育、提升台灣整體公民素養。",
 };
 
 const stats = [
@@ -15,14 +16,30 @@ const stats = [
 ];
 
 const clientCategories = [
-  { title: "教師研習", examples: "建國中學、台南公民學科中心、彰化女中、台中一中⋯等" },
-  { title: "青少年營隊", examples: "台中一中寒假兩日營、新科國中暑假五日營、土城國小寒假學生兩日營⋯等" },
+  {
+    title: "教師研習",
+    examples: "建國中學、台南公民學科中心、彰化女中、台中一中⋯等",
+  },
+  {
+    title: "青少年營隊",
+    examples:
+      "台中一中寒假兩日營、新科國中暑假五日營、土城國小寒假學生兩日營⋯等",
+  },
   {
     title: "青少年培力課程",
-    examples: "彰化縣兒少代表培力、家扶中心—青年發聲方案、苗栗縣兒少代表培力、新竹市兒少代表培力⋯等",
+    examples:
+      "彰化縣兒少代表培力、家扶中心—青年發聲方案、苗栗縣兒少代表培力、新竹市兒少代表培力⋯等",
   },
-  { title: "社區創生與志工教育訓練", examples: "基隆市文安社區鄉土課、新北市家扶志工訓練、文山社區大學志工服務培訓⋯等" },
-  { title: "企業及政府部門教育訓練", examples: "彰化縣社會處兒少科、新竹科管局、朱銘美術館、十大傑出青年基金會、燃點公民平台⋯等" },
+  {
+    title: "社區創生與志工教育訓練",
+    examples:
+      "基隆市文安社區鄉土課、新北市家扶志工訓練、文山社區大學志工服務培訓⋯等",
+  },
+  {
+    title: "企業及政府部門教育訓練",
+    examples:
+      "彰化縣社會處兒少科、新竹科管局、朱銘美術館、十大傑出青年基金會、燃點公民平台⋯等",
+  },
 ];
 
 // 原站「授課講師」區塊每位講師的名字上方都直接放著本人的照片（4 欄表格，圖片對應名字一對一），
@@ -38,13 +55,19 @@ const team = [
     name: "林侃眉 Anny Lin",
     photo: "/images/about/team-photo-1.jpg",
     bio: "曾經擔任過五年的社工師，堅信用生命影響生命。在社會工作中，看見人的善良，也看見大環境的限制，讓許多人找不到讓自己快樂的鑰匙。成為阿普蛙，走進教育第一線、踏入社會，將鑰匙交給更多的人們。",
-    tags: ["關注議題：自我探索與成長、親子溝通與教養、兒童權利", "擅長領域：桌遊及課程帶領、幼兒及兒童發展、團體動力"],
+    tags: [
+      "關注議題：自我探索與成長、親子溝通與教養、兒童權利",
+      "擅長領域：桌遊及課程帶領、幼兒及兒童發展、團體動力",
+    ],
   },
   {
     name: "杜冠賢 Alex Tu",
     photo: "/images/about/team-photo-2.jpg",
     bio: "不只是個乖乖牌。出社會後不斷轉換跑道，探索自我。進到長照領域後體會到社福領域的限制，選擇加入社企。期望自己的存在能影響身邊的人，為社會帶來一些改變。Be the change you wanna see.",
-    tags: ["關注議題：高齡社會、貧富差距、貧窮、環境保育", "擅長領域：課程帶領、議題研究"],
+    tags: [
+      "關注議題：高齡社會、貧富差距、貧窮、環境保育",
+      "擅長領域：課程帶領、議題研究",
+    ],
   },
   {
     name: "林鉞 Luke Lin",
@@ -102,7 +125,9 @@ export default function AboutPage() {
                 className="h-20 w-20 shrink-0"
               />
             </div>
-            <h1 className="mt-6 text-2xl font-bold text-ink md:text-3xl">用遊戲，創造一個更好的公民社會</h1>
+            <h1 className="mt-6 text-2xl font-bold text-ink md:text-3xl">
+              用遊戲，創造一個更好的公民社會
+            </h1>
           </div>
           <a
             href="mailto:wasupstudio@gmail.com"
@@ -116,7 +141,8 @@ export default function AboutPage() {
       <section className="py-16">
         <Container className="max-w-3xl">
           <p className="text-ink/70">
-            阿普蛙於 2014 年成立，在經歷過太陽花運動之後，我們開始反思，在各種重大議題發生之前，我們能夠做些甚麼？我們開始以遊戲的方法影響教育，期待提升台灣整體公民素養。
+            阿普蛙於 2014
+            年成立，在經歷過太陽花運動之後，我們開始反思，在各種重大議題發生之前，我們能夠做些甚麼？我們開始以遊戲的方法影響教育，期待提升台灣整體公民素養。
           </p>
           <p className="mt-4 text-ink/70">
             我們採用體驗式教育，以桌遊、遊戲等機制，培養現代公民「慎思明辨」及「關懷社會」的能力。我們以公民應具備的各種素養——從自我到群體、社會——將人權、自我成長、政治與媒體素養、性別平等、社會關懷、環境議題等融入遊戲，設計相關教材與教案。
@@ -132,7 +158,8 @@ export default function AboutPage() {
       <section className="bg-brand-green py-16 text-white">
         <Container>
           <p className="text-center text-sm text-white/70">
-            阿普蛙工作室設計不同的桌遊、大型遊戲，帶領教師研習、青少年培力工作坊或各部門教育訓練等課程。（數據統計至 2024 年 11 月）
+            阿普蛙工作室設計不同的桌遊、大型遊戲，帶領教師研習、青少年培力工作坊或各部門教育訓練等課程。（數據統計至
+            2024 年 11 月）
           </p>
           <div className="mt-8 grid gap-8 text-center sm:grid-cols-3">
             {stats.map((s) => (
@@ -150,7 +177,10 @@ export default function AboutPage() {
         <Container>
           <div className="grid gap-6 md:grid-cols-2">
             {clientCategories.map((c) => (
-              <div key={c.title} className="rounded-xl border border-black/5 p-5">
+              <div
+                key={c.title}
+                className="rounded-xl border border-black/5 p-5"
+              >
                 <h3 className="font-bold text-ink">{c.title}</h3>
                 <p className="mt-1 text-sm text-ink/60">{c.examples}</p>
               </div>
@@ -159,20 +189,27 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* 授課講師 */}
-      <section className="bg-black/[0.03] py-16">
+      {/* 授課講師：2026-08-25 逐頁核對 section 背景色才發現原站這裡是近黑色 #020202 底、
+          白色姓名／淺灰 #d5d5d5 內文（量測 font color 屬性得到），重建站原本用極淡灰底＋深色字，
+          明暗完全反過來，是這次「全站檢查對照」抓到的落差之一。 */}
+      <section className="bg-[#020202] py-16">
         <Container>
-          <h2 className="text-2xl font-bold text-ink">授課講師</h2>
+          <h2 className="text-2xl font-bold text-white">授課講師</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((t) => (
-              <div key={t.name} className="overflow-hidden rounded-xl bg-white">
+              <div key={t.name} className="overflow-hidden rounded-xl">
                 <div className="relative aspect-square">
-                  <Image src={t.photo} alt={t.name} fill className="object-cover" />
+                  <Image
+                    src={t.photo}
+                    alt={t.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <div className="p-5">
-                  <h3 className="font-bold text-ink">{t.name}</h3>
-                  <p className="mt-2 text-sm text-ink/70">{t.bio}</p>
-                  <div className="mt-3 space-y-0.5 text-xs text-ink/50">
+                  <h3 className="font-bold text-white">{t.name}</h3>
+                  <p className="mt-2 text-sm text-[#d5d5d5]">{t.bio}</p>
+                  <div className="mt-3 space-y-0.5 text-xs text-[#d5d5d5]/70">
                     {t.tags.map((tag) => (
                       <p key={tag}>{tag}</p>
                     ))}

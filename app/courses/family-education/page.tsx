@@ -66,13 +66,20 @@ const topics = [
 ];
 
 export default function FamilyEducationPage() {
+  // 2026-08-25 全站逐頁核對 section 背景才發現：這頁原站從頭到尾只有「一個」wsite-section，
+  // 整頁背景是近深灰 #323D3F（不是重建站原本每隔一段淺灰/白交錯），標題白色、內文淺灰 #d5d5d5
+  // （量測 font color 屬性得到，跟 about 頁「授課講師」、crazy-news 頁開場是同一種深色主題套用）。
   return (
-    <>
-      <section className="bg-black/[0.03] py-20">
+    <div className="bg-[#323D3F]">
+      <section className="py-20">
         <Container>
-          <h1 className="text-3xl font-bold text-ink md:text-4xl">🏡 家庭教育課程</h1>
-          <p className="mt-2 font-semibold text-brand-green">親子共學，共創幸福家庭！</p>
-          <p className="mt-6 max-w-2xl text-ink/70">
+          <h1 className="text-3xl font-bold text-white md:text-4xl">
+            🏡 家庭教育課程
+          </h1>
+          <p className="mt-2 font-semibold text-brand-green-bright">
+            親子共學，共創幸福家庭！
+          </p>
+          <p className="mt-6 max-w-2xl text-[#d5d5d5]">
             透過遊戲體驗及課程教學，增進親子關係與家庭功能。課程類型包含親子共學、親職課程。
           </p>
           <a
@@ -87,36 +94,49 @@ export default function FamilyEducationPage() {
       </section>
 
       {topics.map((topic, i) => (
-        <section key={topic.title} className={i % 2 === 1 ? "bg-black/[0.03] py-16" : "py-16"}>
+        <section key={topic.title} className="py-16">
           <Container>
             <div className="grid gap-10 md:grid-cols-2 md:items-start">
               <div className={i % 2 === 1 ? "md:order-2" : ""}>
-                <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.05]">
-                  <Image src={topic.image} alt={topic.alt} fill className="object-cover" />
+                <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-white/5">
+                  <Image
+                    src={topic.image}
+                    alt={topic.alt}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               </div>
               <div className={i % 2 === 1 ? "md:order-1" : ""}>
-                <h2 className="text-2xl font-bold text-ink">{topic.title}</h2>
-                <dl className="mt-3 space-y-1 text-sm text-ink/70">
+                <h2 className="text-2xl font-bold text-white">{topic.title}</h2>
+                <dl className="mt-3 space-y-1 text-sm text-[#d5d5d5]">
                   <div>
-                    <dt className="inline font-semibold text-ink">適合年紀：</dt>
+                    <dt className="inline font-semibold text-white">
+                      適合年紀：
+                    </dt>
                     <dd className="inline">{topic.age}</dd>
                   </div>
                   <div>
-                    <dt className="inline font-semibold text-ink">授課時數：</dt>
+                    <dt className="inline font-semibold text-white">
+                      授課時數：
+                    </dt>
                     <dd className="inline">{topic.hours}</dd>
                   </div>
                 </dl>
 
-                <h3 className="mt-5 text-sm font-bold text-ink">🎯 課程目標</h3>
-                <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-ink/70">
+                <h3 className="mt-5 text-sm font-bold text-white">
+                  🎯 課程目標
+                </h3>
+                <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-[#d5d5d5]">
                   {topic.goals.map((g) => (
                     <li key={g}>{g}</li>
                   ))}
                 </ul>
 
-                <h3 className="mt-5 text-sm font-bold text-ink">🚀 課程內容</h3>
-                <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-ink/70">
+                <h3 className="mt-5 text-sm font-bold text-white">
+                  🚀 課程內容
+                </h3>
+                <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-[#d5d5d5]">
                   {topic.content.map((c) => (
                     <li key={c}>{c}</li>
                   ))}
@@ -130,8 +150,8 @@ export default function FamilyEducationPage() {
       {/* 兒童氣質桌遊《遇兒魔導師》產品介紹 */}
       <section className="py-16">
         <Container>
-          <div className="grid gap-10 rounded-2xl border border-black/5 p-8 shadow-sm md:grid-cols-2 md:items-center">
-            <div className="relative aspect-4/3 overflow-hidden rounded-xl bg-black/[0.03]">
+          <div className="grid gap-10 rounded-2xl border border-white/10 bg-white/5 p-8 md:grid-cols-2 md:items-center">
+            <div className="relative aspect-4/3 overflow-hidden rounded-xl bg-white/5">
               <Image
                 src="/images/courses/family-education-4.jpg"
                 alt="兒童氣質桌遊《遇兒魔導師》遊戲內容物：遊戲盒、棋盤、卡牌與說明書"
@@ -140,30 +160,34 @@ export default function FamilyEducationPage() {
               />
             </div>
             <div>
-              <p className="text-xs font-semibold text-brand-green">--兒童氣質桌遊--</p>
-              <h2 className="mt-1 text-2xl font-bold text-ink">【遇兒魔導師】</h2>
-              <p className="mt-3 text-sm text-ink/70">
+              <p className="text-xs font-semibold text-brand-green-bright">
+                --兒童氣質桌遊--
+              </p>
+              <h2 className="mt-1 text-2xl font-bold text-white">
+                【遇兒魔導師】
+              </h2>
+              <p className="mt-3 text-sm text-[#d5d5d5]">
                 這是一套為了支持各界爸媽，有能力「做孩子一輩子的家人」而產生的桌遊。
               </p>
-              <h3 className="mt-4 text-sm font-bold text-ink">★桌遊介紹</h3>
-              <p className="mt-1 text-sm text-ink/70">
+              <h3 className="mt-4 text-sm font-bold text-white">★桌遊介紹</h3>
+              <p className="mt-1 text-sm text-[#d5d5d5]">
                 在這個以小孩為本的魔法陣裡，處處遇見兒童不稀奇，能夠解開童心之謎才是讓魔力提升的關鍵。為了好好施展生活的魔法，從闇黑向光明快速奔跑吧！
                 本遊戲需每位玩家輪流擔任「兒童」的角色與其他玩家互動，藉由角色扮演來探討玩家的教養風格。想成為「開明權威」的家長，你必需認識先天氣質、更要勇敢去愛，設法穿梭在眾多「遇兒事件」與「氣質魔藥」間，施展你的專屬魔力，將有機會贏得「遇兒魔導師」的明亮尊榮！
               </p>
-              <dl className="mt-4 grid grid-cols-2 gap-y-1 text-sm text-ink/70">
-                <dt className="font-semibold text-ink">遊戲人數</dt>
+              <dl className="mt-4 grid grid-cols-2 gap-y-1 text-sm text-[#d5d5d5]">
+                <dt className="font-semibold text-white">遊戲人數</dt>
                 <dd>3-6 人（建議 4 人以上）</dd>
-                <dt className="font-semibold text-ink">遊戲時間</dt>
+                <dt className="font-semibold text-white">遊戲時間</dt>
                 <dd>60-90 分鐘</dd>
-                <dt className="font-semibold text-ink">建議年齡</dt>
+                <dt className="font-semibold text-white">建議年齡</dt>
                 <dd>12 歲以上</dd>
-                <dt className="font-semibold text-ink">出版單位</dt>
+                <dt className="font-semibold text-white">出版單位</dt>
                 <dd>忠義基金會</dd>
-                <dt className="font-semibold text-ink">遊戲設計</dt>
+                <dt className="font-semibold text-white">遊戲設計</dt>
                 <dd>阿普蛙工作室</dd>
-                <dt className="font-semibold text-ink">美術設計</dt>
+                <dt className="font-semibold text-white">美術設計</dt>
                 <dd>畫家 SEVEN</dd>
-                <dt className="font-semibold text-ink">遊戲顧問</dt>
+                <dt className="font-semibold text-white">遊戲顧問</dt>
                 <dd>張黛眉 臨床心理師</dd>
               </dl>
               <a
@@ -179,10 +203,14 @@ export default function FamilyEducationPage() {
         </Container>
       </section>
 
-      <section className="bg-black/[0.03] py-16 text-center">
+      <section className="py-16 text-center">
         <Container>
-          <h2 className="text-2xl font-bold text-ink">想幫家庭安排一場親子共學？</h2>
-          <p className="mt-3 text-ink/70">告訴我們家庭的期待與孩子的年紀，我們會協助安排合適的課程內容與時數。</p>
+          <h2 className="text-2xl font-bold text-white">
+            想幫家庭安排一場親子共學？
+          </h2>
+          <p className="mt-3 text-[#d5d5d5]">
+            告訴我們家庭的期待與孩子的年紀，我們會協助安排合適的課程內容與時數。
+          </p>
           <a
             href={CTA_HREF}
             target="_blank"
@@ -193,6 +221,6 @@ export default function FamilyEducationPage() {
           </a>
         </Container>
       </section>
-    </>
+    </div>
   );
 }

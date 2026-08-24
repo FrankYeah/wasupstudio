@@ -39,17 +39,27 @@ export default function CoursesPage() {
     <>
       {/* 原站這個 banner 底圖沒有畫標題文字進去（跟首頁／想設計／買桌遊總覽不同，量測 DOM 發現
           wsite-section-elements 是空的），純粹是裝飾用的窄版底圖，所以不傳 title。 */}
-      <PageBanner image="/images/banners/courses-banner.png" imagePosition="center" className="h-[140px] md:h-[220px]" />
+      <PageBanner
+        image="/images/banners/courses-banner.png"
+        imagePosition="center"
+        className="h-[140px] md:h-[220px]"
+      />
 
-      <section className="bg-black/[0.03] py-20">
+      {/* 2026-08-25 全站逐頁核對 section 背景才發現：這段原站是中灰 #7d7d7d 底、白字（量測 font
+          color 得到），不是重建站原本的極淡灰底＋深色字。 */}
+      <section className="bg-[#7d7d7d] py-20">
         <Container className="grid gap-10 md:grid-cols-2 md:items-center">
           <div>
-            <h1 className="text-3xl font-bold text-ink md:text-4xl">在遊戲中學習</h1>
-            <p className="mt-2 font-semibold text-brand-green">阿普蛙的課程特色「邊玩邊學」！</p>
-            <p className="mt-6 max-w-2xl text-ink/70">
+            <h1 className="text-3xl font-bold text-white md:text-4xl">
+              在遊戲中學習
+            </h1>
+            <p className="mt-2 font-semibold text-brand-green-bright">
+              阿普蛙的課程特色「邊玩邊學」！
+            </p>
+            <p className="mt-6 max-w-2xl text-white/80">
               傳統的教育方式傾向於將知識單向地傳遞給學習者，但學習者往往會喪失學習動機，或是無法理解該課程主題與自身的連結。阿普蛙透過遊戲，讓學習者在輕鬆愉快的氛圍中開始學習，在投入遊戲歷程中，去發掘該主題、議題與自身的連結性。
             </p>
-            <p className="mt-4 max-w-2xl text-ink/70">
+            <p className="mt-4 max-w-2xl text-white/80">
               更重要的是遊戲後，講師帶領學習者進行引導反思，整理自己的遊戲經驗，並思考下一步及相關知識可以如何應用。
             </p>
             <a
@@ -61,8 +71,14 @@ export default function CoursesPage() {
               邀約課程
             </a>
           </div>
-          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.05]">
-            <Image src="/images/courses/courses-1.jpg" alt="學員圍坐在一起體驗議題桌遊" fill className="object-cover" priority />
+          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-white/10">
+            <Image
+              src="/images/courses/courses-1.jpg"
+              alt="學員圍坐在一起體驗議題桌遊"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
         </Container>
       </section>
@@ -78,18 +94,29 @@ export default function CoursesPage() {
               >
                 {courseImages[nav.href] && (
                   <div className="relative aspect-4/3 w-full bg-black/[0.04]">
-                    <Image src={courseImages[nav.href]} alt={nav.title} fill className="object-cover" />
+                    <Image
+                      src={courseImages[nav.href]}
+                      alt={nav.title}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 )}
                 <div className="p-6">
-                  <Link href={nav.href} className="text-lg font-bold text-ink hover:text-brand-green">
+                  <Link
+                    href={nav.href}
+                    className="text-lg font-bold text-ink hover:text-brand-green"
+                  >
                     {nav.title}
                   </Link>
                   {nav.children && nav.children.length > 0 && (
                     <ul className="mt-4 space-y-2 text-sm">
                       {nav.children.map((child) => (
                         <li key={child.href}>
-                          <Link href={child.href} className="text-ink/70 hover:text-brand-green">
+                          <Link
+                            href={child.href}
+                            className="text-ink/70 hover:text-brand-green"
+                          >
                             ・{child.title}
                           </Link>
                         </li>
@@ -105,17 +132,30 @@ export default function CoursesPage() {
 
       <section className="bg-black/[0.03] py-16">
         <Container>
-          <h2 className="text-center text-2xl font-bold text-ink">阿普蛙的遊戲特色</h2>
+          <h2 className="text-center text-2xl font-bold text-ink">
+            阿普蛙的遊戲特色
+          </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-sm font-semibold text-ink/70">
             在遊戲中，學員可扮演不同角色，以模擬社會中的現實狀況，例如貧富差距、資訊不對等、階級不流動等模擬真實情境，用遊戲比喻人生。
           </p>
           <ul className="mt-10 grid gap-6 md:grid-cols-3">
             {features.map((f) => (
-              <li key={f.text} className="flex flex-col items-center text-center">
+              <li
+                key={f.text}
+                className="flex flex-col items-center text-center"
+              >
                 <div className="relative h-16 w-16">
-                  <Image src={f.icon} alt="" fill className="object-contain" aria-hidden />
+                  <Image
+                    src={f.icon}
+                    alt=""
+                    fill
+                    className="object-contain"
+                    aria-hidden
+                  />
                 </div>
-                <p className="mt-4 text-sm font-semibold text-ink/70">{f.text}</p>
+                <p className="mt-4 text-sm font-semibold text-ink/70">
+                  {f.text}
+                </p>
               </li>
             ))}
           </ul>
