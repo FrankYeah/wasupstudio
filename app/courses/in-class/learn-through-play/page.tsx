@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
+import { boardGames } from "@/app/_lib/site-data";
 
 export const metadata: Metadata = {
   title: "在遊戲中學議題｜入班授課",
@@ -11,6 +12,25 @@ export const metadata: Metadata = {
 const INVITE_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLScTpdFbaeh221rvaEMgG_1vrh0RC_9rOEx1j8ActjGE4PiM7A/viewform";
 
+type CourseLink = { label: string; href: string; external?: boolean };
+
+// 原站每張課程卡圖片下方的「遊戲介紹／桌遊介紹」按鈕。
+// 有站內商品頁的直接連 /board-games/<slug>，避免手動維護連結。
+const boardGameLink = (slug: string, label = "桌遊介紹"): CourseLink | undefined => {
+  const game = boardGames.find((g) => g.slug === slug);
+  return game ? { label, href: game.href } : undefined;
+};
+
+// 《家分題》已完售，不在 site-data.ts 的 boardGames（販售中）清單裡，所以 boardGameLink() 查不到；
+// 它的商品頁 2026-08-26 才從原站孤兒頁 /234782099838988.html 補建出來，這裡直接指定路由。
+const FAMILY_TOPICS_LINK: CourseLink = {
+  label: "桌遊介紹",
+  href: "/board-games/family-topics",
+};
+
+// 課程內容有些是兩層清單（大階段 + 底下細項），照原站保留層級
+type ContentItem = string | { label: string; items: string[] };
+
 type Course = {
   title: string;
   tag?: string;
@@ -19,7 +39,8 @@ type Course = {
   grade: string;
   hours: string;
   goals: string[];
-  content: string[];
+  content: ContentItem[];
+  link?: CourseLink;
 };
 
 type Category = {
@@ -46,6 +67,11 @@ const categories: Category[] = [
           "戲劇體驗：融入虛構的叢林班日常，透過生動戲劇影片，一同探討角色未來的選擇，體驗合作與反思的奇妙旅程。",
           "引導反思：從角色感受與需求出發，引導深入討論合理的因應策略，讓學生更理解彼此的情感需求。",
         ],
+        link: {
+          label: "遊戲介紹",
+          href: "https://wasupstudionobullying.com",
+          external: true,
+        },
       },
       {
         title: "情緒謎語",
@@ -59,10 +85,29 @@ const categories: Category[] = [
           "應用生活情境學習：學生能夠將課堂上學到的技能應用到日常生活中，改善班級氛圍，增強班級凝聚力。",
         ],
         content: [
-          "暖身引言：引導學生思考對不同情緒表現的理解，並簡介遊戲規則與所使用的桌遊配件（情緒卡、情緒圖版等）。",
-          "遊戲體驗：學生分組進行遊戲，每組輪流演出事件卡，模擬生活化的對話情境，小組討論猜測扮演者的情緒。",
-          "反思與分享：反思遊戲中的學習經驗，討論在現實生活中如何應對類似情境，邀請學生分享他們在遊戲中的觀察和學習，並討論如何應用到日常生活中。",
+          {
+            label: "暖身引言",
+            items: [
+              "引導學生思考對不同情緒表現的理解。",
+              "簡介遊戲規則與所使用的桌遊配件（情緒卡、情緒圖版等）。",
+            ],
+          },
+          {
+            label: "遊戲體驗",
+            items: [
+              "學生分組進行遊戲，每組輪流演出事件卡，模擬生活化的對話情境。",
+              "小組討論：猜測扮演者的情緒。",
+            ],
+          },
+          {
+            label: "反思與分享",
+            items: [
+              "反思遊戲中的學習經驗，討論在現實生活中如何應對類似情境。",
+              "邀請學生分享他們在遊戲中的觀察和學習，並討論如何應用到日常生活中。",
+            ],
+          },
         ],
+        link: boardGameLink("riddle-me-feelings"),
       },
     ],
   },
@@ -85,6 +130,7 @@ const categories: Category[] = [
           "遊戲體驗：每回合抽取事件，挑戰各組成為「當事人」，讓其他組猜測情緒，深度傾聽他人心聲。",
           "引導反思：思考並討論不同人的感受和背後的需求，強調溝通的關鍵性。",
         ],
+        link: boardGameLink("practice-for-love"),
       },
       {
         title: "家分題",
@@ -102,6 +148,7 @@ const categories: Category[] = [
           "遊戲體驗：扮演同住的家人、朋友，戰勝家務挑戰，同時思考家務分工的重要性，共同討論策略。",
           "引導反思：思考當人改變目標，進而影響人們的心態及作法，進而領悟家務分工的重要性。",
         ],
+        link: FAMILY_TOPICS_LINK,
       },
     ],
   },
@@ -122,6 +169,7 @@ const categories: Category[] = [
         content: [
           "學生成為「識讀勇者」，挑戰聽新聞、破除藏匿的四大毒物！升級能力、與夥伴協作，共同打擊媒體怪獸，既考驗識讀能力，也考驗學員的協作分工。",
         ],
+        link: boardGameLink("crazy-news"),
       },
       {
         title: "童話村命案",
@@ -199,8 +247,20 @@ const categories: Category[] = [
           "促進團隊合作與溝通技巧：學生將在小組內進行角色扮演，學習如何表達自己的意見並與他人溝通，達成共識。",
         ],
         content: [
-          "階段一・競猜遊戲（30 分鐘）：學生分組（每組代表一個黨派），針對從議題卡中抽出的兒少議題進行下注競猜，根據認為的正確答案，下注手上的「民意支持」點數；講師根據兒少數據調查公佈正確答案並計算得分，最高分的團隊獲得最多民意支持。",
-          "階段二・討論議案：每組抽取新的議題卡，根據該議題發表黨派立場意見，並試圖說服其他黨派同意觀點；討論結束後投票，最受支持的黨派獲得額外分數，最終分數最高者成為未來議會中最具影響力的政黨。",
+          {
+            label: "階段一：競猜遊戲（30 分鐘）",
+            items: [
+              "學生分組（每組代表一個黨派），每組會針對從議題卡中抽出的兒少議題進行下注競猜，根據他們認為的正確答案，下注他們手上的「民意支持」點數。",
+              "講師根據兒少數據調查公佈正確答案，並計算每組的得分，最高得分的團隊獲得最多的民意支持。",
+            ],
+          },
+          {
+            label: "階段二：討論議案",
+            items: [
+              "每組將抽取新的議題卡，根據該議題發表黨派立場意見，並試圖說服其他黨派同意他們的觀點。",
+              "各組在討論結束後進行投票，最受支持的黨派將獲得額外的分數，最終分數最高者成為未來議會中最具影響力的政黨。",
+            ],
+          },
         ],
       },
     ],
@@ -396,10 +456,32 @@ export default function LearnThroughPlayPage() {
 
                   <h4 className="mt-5 text-sm font-bold text-ink">課程內容</h4>
                   <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink/70">
-                    {course.content.map((line) => (
-                      <li key={line}>{line}</li>
-                    ))}
+                    {course.content.map((line) =>
+                      typeof line === "string" ? (
+                        <li key={line}>{line}</li>
+                      ) : (
+                        <li key={line.label}>
+                          {line.label}
+                          <ul className="mt-1 list-[circle] space-y-1 pl-5">
+                            {line.items.map((sub) => (
+                              <li key={sub}>{sub}</li>
+                            ))}
+                          </ul>
+                        </li>
+                      ),
+                    )}
                   </ul>
+
+                  {course.link && (
+                    <a
+                      href={course.link.href}
+                      target={course.link.external ? "_blank" : undefined}
+                      rel={course.link.external ? "noreferrer" : undefined}
+                      className="mt-6 inline-block rounded-full border border-brand-green px-5 py-2 text-sm font-semibold text-brand-green transition hover:bg-brand-green hover:text-white"
+                    >
+                      {course.link.label}
+                    </a>
+                  )}
                 </article>
               ))}
             </div>

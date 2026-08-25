@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ProductGallery, type GalleryImage } from "@/app/_components/ProductGallery";
+import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 import { Container } from "@/app/_components/Container";
 
@@ -99,14 +100,27 @@ export default function PinZhentouPage() {
         </div>
       </div>
 
+      {/* 原站「遊戲勘誤說明」右欄有一張新版幫助卡的圖，內文的「(右圖為新的幫助卡)」也是指這張圖，
+          重建時圖和這句話都被拿掉了，這裡一併補回 */}
       <div className="mx-auto mt-12 max-w-3xl rounded-xl bg-black/[0.03] px-6 py-5 text-sm text-ink/60">
-        <p className="font-semibold text-ink/70">遊戲勘誤說明</p>
-        <p className="mt-2">
-          規則書第八頁第三行，獲得一張成就牌，可額外加3分。原幫助卡的跳鼓陣和宋江陣之顏色錯置，跳鼓陣為藍色、宋江陣為紅色。已製作新的幫助卡，會連同桌遊附上。
-        </p>
-        <p className="mt-2">
-          雖然在發行前，阿普蛙已努力校稿，但難免仍有疏漏，我們未來會格外細心，使桌遊更加完備。阿普蛙團隊在此致上最高歉意！
-        </p>
+        <h2 className="text-lg font-bold text-ink">遊戲勘誤說明</h2>
+        <div className="mt-3 grid gap-6 sm:grid-cols-[1fr_auto] sm:items-start">
+          <div>
+            <p>
+              規則書第八頁第三行，獲得一張成就牌，可額外加3分。原幫助卡的跳鼓陣和宋江陣之顏色錯置，跳鼓陣為藍色、宋江陣為紅色。已製作新的幫助卡，會連同桌遊附上。(右圖為新的幫助卡)
+            </p>
+            <p className="mt-2">
+              雖然在發行前，阿普蛙已努力校稿，但難免仍有疏漏，我們未來會格外細心，使桌遊更加完備。阿普蛙團隊在此致上最高歉意！
+            </p>
+          </div>
+          <Image
+            src="/images/products/pin-zhentou/help-card.png"
+            alt="拚陣頭新版幫助卡：車鼓陣、金獅陣、跳鼓陣、宋江陣的分數與效果"
+            width={255}
+            height={349}
+            className="h-auto w-full max-w-[200px] rounded-lg sm:w-[200px]"
+          />
+        </div>
       </div>
     </Container>
   );

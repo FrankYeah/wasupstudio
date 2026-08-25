@@ -112,12 +112,29 @@ export default function DigitalMaterialsPage() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-ink">{s.title}</h3>
-                  <p className="mt-2 text-sm text-ink/70">{s.summary}</p>
-                  <dl className="mt-3 space-y-0.5 text-xs text-ink/60">
-                    <p>需求類型：{s.need}</p>
-                    <p>適合年級：{s.grade}</p>
-                    <p>操作時間：{s.time}</p>
-                  </dl>
+                  {/* 2026-08-25 內容稽核：原站 4 則故事的規格都是「同一個 <div class="paragraph">、
+                      同一個字級」，用 <br /> 串起 4 組標籤，標籤一律 bold ＋ 青綠 #248d6c
+                      （跟「故事內容」「操作方式」兩個 h2 同色）、內文 #2a2a2a。
+                      重建站原本 (1)「故事大綱：」這個標籤整個漏掉、只剩裸內文，(2) 把後 3 組降成
+                      text-xs/60 的附註，等於跟大綱分成兩個層級。這裡一併改回原站的單一區塊。 */}
+                  <div className="mt-2 space-y-0.5 text-sm text-ink/70">
+                    <p>
+                      <span className="font-bold text-[#248d6c]">故事大綱：</span>
+                      {s.summary}
+                    </p>
+                    <p>
+                      <span className="font-bold text-[#248d6c]">需求類型：</span>
+                      {s.need}
+                    </p>
+                    <p>
+                      <span className="font-bold text-[#248d6c]">適合年級：</span>
+                      {s.grade}
+                    </p>
+                    <p>
+                      <span className="font-bold text-[#248d6c]">操作時間：</span>
+                      {s.time}
+                    </p>
+                  </div>
                   <a
                     href={s.video}
                     target="_blank"
@@ -196,14 +213,18 @@ export default function DigitalMaterialsPage() {
         </Container>
       </section>
 
-      {/* 2026-08-25 全站逐頁核對 section 背景才發現：這段原站是墨綠 #396d50 底、白字，價格數字用
-          金黃 #dab844（量測 font color 屬性得到），不是重建站原本的純白底。 */}
+      {/* 2026-08-25 全站逐頁核對 section 背景才發現：這段原站是墨綠 #396d50 底、白字，不是重建站
+          原本的純白底。
+          2026-08-25 內容稽核補正：前一輪把價格色記成 #dab844 是量錯了。原始碼是
+          <span style="color:rgb(255, 195, 0); font-weight:700"><font size="6">NT.1200</font></span>，
+          也就是 #FFC300；#dab844 只出現在緊接其後那個 <font color="#dab844" size="6">   </font>
+          ——裡面只有三個空白，不是價格本身。「(原價1500)」則是純白 rgb(255,255,255)。 */}
       <section className="bg-[#396d50] py-16">
         <Container className="grid gap-10 md:grid-cols-2">
           <div>
-            <h2 className="text-2xl font-bold text-[#dab844]">
+            <h2 className="text-2xl font-bold text-[#ffc300]">
               NT.1200{" "}
-              <span className="text-base font-normal text-white/60">
+              <span className="text-base font-normal text-white">
                 (原價1500)
               </span>
             </h2>
@@ -220,9 +241,14 @@ export default function DigitalMaterialsPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-sm font-bold text-white">
+            {/* 2026-08-25 內容稽核：這句原站是 <h2 class="wsite-content-title"> 裡的
+                <span style="color:rgb(255, 195, 0); font-weight:700>，跟上方 NT.1200 同一個金黃
+                #FFC300、同樣是標題級；重建站原本降成小字白字附註，等於把賣點降級，這裡改回標題級金黃。
+                （掃描器把它報成缺漏，是因為原站用半形 ***，重建站用全形 ＊＊＊，字串比對對不上；
+                內容本身一直都在。） */}
+            <h3 className="mt-4 text-lg font-bold text-[#ffc300]">
               ＊＊＊購買一套即可全班操作＊＊＊
-            </p>
+            </h3>
 
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSeNjwzit1cjicwRAKBiZfYBmvYPlf8z7C4FX6mtrHeE4nO0TQ/viewform"

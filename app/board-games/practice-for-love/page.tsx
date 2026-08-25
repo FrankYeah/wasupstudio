@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ProductGallery, type GalleryImage } from "@/app/_components/ProductGallery";
+import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
 
 export const metadata: Metadata = {
@@ -31,6 +32,29 @@ const galleryImages: GalleryImage[] = [
   { src: "/images/products/practice-for-love/gallery-4.jpg", alt: "練愛猜心桌遊實物照 4" },
 ];
 
+const flowColumns: { src: string; alt: string }[][] = [
+  [
+    {
+      src: "/images/products/practice-for-love/flow-1.jpg",
+      alt: "練愛猜心遊戲流程：扮演者抽一張牌 並蓋一張此事件會出現的情緒",
+    },
+    {
+      src: "/images/products/practice-for-love/flow-2.jpg",
+      alt: "練愛猜心遊戲流程：玩家盡情的嘴砲辯論扮演者應該是什麼情緒",
+    },
+  ],
+  [
+    {
+      src: "/images/products/practice-for-love/flow-3.jpg",
+      alt: "練愛猜心遊戲流程：公布正確答案 說明自己的選擇以及計分",
+    },
+    {
+      src: "/images/products/practice-for-love/flow-4.jpg",
+      alt: "練愛猜心遊戲流程：卡片訊息（性平事件標示、紅黃綠燈處理建議）",
+    },
+  ],
+];
+
 export default function PracticeForLovePage() {
   return (
     <Container className="py-16">
@@ -46,8 +70,9 @@ export default function PracticeForLovePage() {
           <p className="mt-4 text-ink/70">
             每天在心儀對象家樓下站崗一定很浪漫？生日突襲式告白是驚喜還是驚嚇？情侶吃飯該誰買單？放下你心中立刻出現的標準答案，試著傾聽眼前的人的心聲吧。不理會對方心情的「愛」，可能只是對方眼中的「礙」。
           </p>
+          <p className="mt-4 text-ink/70">想戀愛？先來「練愛猜心」大作戰！</p>
           <p className="mt-4 text-ink/70">
-            想戀愛？先來「練愛猜心」大作戰！適合教師於課堂作為情感教育、性平教育教材使用，規則書特別說明課堂版操作方式。
+            《適合教師於課堂作為情感教育、性平教育教材使用，規則書特別說明課堂版操作方式。》
           </p>
 
           <h2 className="mt-8 text-lg font-bold text-ink">桌遊特色</h2>
@@ -79,6 +104,28 @@ export default function PracticeForLovePage() {
               購買桌遊
             </a>
           </div>
+        </div>
+      </div>
+
+      {/* 原站在最下方有「遊戲流程：」標題＋ 4 張流程說明圖（2 欄、每欄由上而下 2 張），
+          圖裡畫著大量文字說明，重建時整段漏掉。alt 用的是圖片本身的標題文字。 */}
+      <div className="mt-16">
+        <h2 className="text-lg font-bold text-ink">遊戲流程：</h2>
+        <div className="mt-4 grid gap-6 sm:grid-cols-2">
+          {flowColumns.map((column) => (
+            <div key={column[0].src} className="space-y-6">
+              {column.map((img) => (
+                <Image
+                  key={img.src}
+                  src={img.src}
+                  alt={img.alt}
+                  width={800}
+                  height={450}
+                  className="h-auto w-full rounded-lg"
+                />
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </Container>

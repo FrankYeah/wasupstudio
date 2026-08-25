@@ -26,6 +26,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/board-games",
     "/digital-materials",
     "/about",
+    // 已完售、但原站有獨立商品頁的兩款（2026-08-26 從原站孤兒頁補建）。
+    // 它們不在 site-data.ts 的 boardGames（販售中）清單裡，所以下面的 productPaths 掃不到，
+    // 得在這裡明列，否則這兩個新路由不會出現在 sitemap。
+    "/board-games/great-politician",
+    "/board-games/family-topics",
   ];
 
   const productPaths = boardGames.map((g) => g.href);

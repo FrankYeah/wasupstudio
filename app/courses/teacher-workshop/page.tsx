@@ -40,20 +40,32 @@ const materialTopics = [
       { name: "桌遊《瞎掰王SDGs教育版》", tags: "SDGs" },
     ],
   },
+  // 2026-08-26：這裡原本多了一組「五、兒童權利公約／桌遊《未來議會》」，原站這一頁**沒有**，
+  // 已依使用者決定移除，並把議題思辨課改回原站的編號「五、」。
+  // 查證：解碼後的 HTML 裡「兒童權利公約」0 筆（對照組「教師研習」8 筆、「情緒謎語」2 筆，
+  // 證明搜尋方法有效，不是 entity 編碼造成的假陰性）；「未來議會」雖有 2 筆，但兩筆都在導覽選單的
+  // 買桌遊下拉裡（前一項都是「抓誑新聞」），不是內文。原站這份清單只到「四、全球議題」，
+  // 接著就是「五、議題思辨課」。
+  // 註：總覽頁與「教材應用」頁確實有《未來議會》這組，那是那兩頁自己的內容，不影響本頁。
   {
-    group: "五、兒童權利公約",
-    items: [{ name: "桌遊《未來議會》", tags: "兒童權利公約、校園議題討論" }],
-  },
-  {
-    group: "六、議題思辨課",
+    group: "五、議題思辨課",
     items: [{ name: "不用購買教材，可設定各種議題", tags: "人權、議題思辨" }],
   },
 ];
 
-const lessonDesignTopics = [
-  "遊戲化教學（六大策略）",
-  "遊戲化教案工作坊",
-  "教育桌遊設計工作坊",
+// 原站「三、教育桌遊設計工作坊」底下還有三個規格的子項目（2026-08-25 稽核發現整段漏掉），
+// 文字照 01-content-raw/pages/courses/teacher-workshop/page.html 解碼後重建。
+const lessonDesignTopics: { title: string; items?: string[] }[] = [
+  { title: "遊戲化教學（六大策略）" },
+  { title: "遊戲化教案工作坊" },
+  {
+    title: "教育桌遊設計工作坊",
+    items: [
+      "桌遊設計之概要",
+      "桌遊設計之概要＋改做練習",
+      "桌遊設計工作坊",
+    ],
+  },
 ];
 
 export default function TeacherWorkshopPage() {
@@ -80,7 +92,10 @@ export default function TeacherWorkshopPage() {
         <Container>
           <div className="grid gap-10 md:grid-cols-2 md:items-start">
             <div>
-              <h2 className="text-2xl font-bold text-ink">🎲 教材應用－議題遊戲應用於課堂</h2>
+              {/* 原站標題是「教材應用-議題桌遊（遊戲）應用於課堂」，重建時漏掉「桌遊（遊戲）」 */}
+              <h2 className="text-2xl font-bold text-ink">
+                🎲 教材應用-議題桌遊（遊戲）應用於課堂
+              </h2>
               <p className="mt-3 text-ink/70">
                 以下遊戲教材可依主題應用於課堂，每款遊戲的教師研習時間約 2~3 小時。
               </p>
@@ -88,14 +103,15 @@ export default function TeacherWorkshopPage() {
                 {materialTopics.map((g) => (
                   <div key={g.group}>
                     <h3 className="font-bold text-ink">{g.group}</h3>
-                    <ul className="mt-1 space-y-1 text-sm text-ink/70">
+                    {/* 原站每組底下的教材是有編號的（1. 2. 3.） */}
+                    <ol className="mt-1 list-decimal space-y-1 pl-5 text-sm text-ink/70">
                       {g.items.map((it) => (
                         <li key={it.name}>
                           {it.name}
                           <span className="text-ink/40">　{it.tags}</span>
                         </li>
                       ))}
-                    </ul>
+                    </ol>
                   </div>
                 ))}
               </div>
@@ -133,10 +149,17 @@ export default function TeacherWorkshopPage() {
 
             <div className="md:order-1">
               <h2 className="text-2xl font-bold text-ink">📖 教案、教材設計</h2>
-              <ul className="mt-6 space-y-2">
+              <ul className="mt-6 space-y-3">
                 {lessonDesignTopics.map((t, i) => (
-                  <li key={t} className="font-semibold text-ink">
-                    {["一", "二", "三"][i]}、{t}
+                  <li key={t.title} className="font-semibold text-ink">
+                    {["一", "二", "三"][i]}、{t.title}
+                    {t.items && (
+                      <ol className="mt-1 list-decimal space-y-1 pl-6 text-sm font-normal text-ink/70">
+                        {t.items.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ol>
+                    )}
                   </li>
                 ))}
               </ul>

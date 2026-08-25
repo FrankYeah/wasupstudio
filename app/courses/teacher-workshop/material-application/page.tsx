@@ -4,7 +4,7 @@ import { Container } from "@/app/_components/Container";
 import { boardGames } from "@/app/_lib/site-data";
 
 export const metadata: Metadata = {
-  title: "教材應用－議題遊戲應用於課堂",
+  title: "教材應用－議題桌遊應用於課堂",
   description:
     "阿普蛙教材應用課程，涵蓋人際關係與溝通、性別平等、媒體素養、全球議題、兒童權利公約、議題思辨課六大主題，將議題桌遊帶進課堂，每款遊戲研習時間約 2~3 小時。",
 };
@@ -17,14 +17,17 @@ type Item = {
   image: string;
   theme: string;
   audience: string;
+  // 原站絕大多數卡片寫「適合對象」，只有《未來議會》寫「適用對象」，照原站保留
+  audienceLabel?: string;
   experience: { label: string; desc: string }[];
   outline: { label: string; desc: string }[];
   link?: Link_;
+  // 原站放在圖片／連結底下的星號附註
+  note?: string;
 };
 
 type Group = {
   heading: string;
-  intro?: string;
   items: Item[];
 };
 
@@ -32,6 +35,13 @@ type Group = {
 const boardGameLink = (slug: string, label = "桌遊介紹"): Link_ | undefined => {
   const game = boardGames.find((g) => g.slug === slug);
   return game ? { label, href: game.href } : undefined;
+};
+
+// 《家分題》已完售，不在 site-data.ts 的 boardGames（販售中）清單裡，所以 boardGameLink() 查不到；
+// 它的商品頁 2026-08-26 才從原站孤兒頁 /234782099838988.html 補建出來，這裡直接指定路由。
+const FAMILY_TOPICS_LINK: Link_ = {
+  label: "桌遊介紹",
+  href: "/board-games/family-topics",
 };
 
 const groups: Group[] = [
@@ -124,6 +134,7 @@ const groups: Group[] = [
           { label: "性別平等在家庭中的實踐", desc: "從家務分工出發，引導思考性別平權的實際應用。" },
           { label: "桌遊操作技巧", desc: "教導《家分題》在課堂中的巧妙應用，提供引導時的實用技巧。" },
         ],
+        link: FAMILY_TOPICS_LINK,
       },
     ],
   },
@@ -155,7 +166,7 @@ const groups: Group[] = [
         kind: "桌遊",
         image: "/images/courses/material-application-6.jpg",
         theme: "媒體識讀、資訊素養",
-        audience: "國中、高中、大學階段，社會、公民教師",
+        audience: "國中、高中、大學階段 - 社會、公民教師",
         experience: [
           { label: "遊戲體驗", desc: "扮演不同角色，體驗在案件中對同樣資訊的不同解讀，思考背後的邏輯，學習思辨能力。" },
           {
@@ -199,7 +210,7 @@ const groups: Group[] = [
         kind: "桌遊",
         image: "/images/courses/material-application-8.jpg",
         theme: "SDGs、環境、國際",
-        audience: "國中、高中、大學階段，自然、社會、公民教師",
+        audience: "國中、高中、大學階段 - 自然、社會、公民教師",
         experience: [
           { label: "遊戲體驗", desc: "以社會企業角色，通過競爭、合作，達到 SDGs 的目標，理解全球永續發展議題。" },
           { label: "引導反思", desc: "遊戲後進行引導反思，將遊戲連結到全球現實生活。" },
@@ -230,13 +241,13 @@ const groups: Group[] = [
   },
   {
     heading: "五、兒童權利公約",
-    intro: "《未來議會》由阿普蛙與兒福聯盟合作開發、出版。",
     items: [
       {
         name: "《未來議會》",
         kind: "桌遊",
         image: "/images/courses/material-application-10.jpg",
         theme: "兒童權利公約、校園議題討論",
+        audienceLabel: "適用對象",
         audience: "國小高年級、國中、高中教師及兒少工作者",
         experience: [
           {
@@ -261,6 +272,8 @@ const groups: Group[] = [
           href: "https://www.yina.org.tw/product/detail/boardgame/894?utm_campaign=game&utm_source=KOL&utm_medium=wasupstudio",
           external: true,
         },
+        // 原站原文：出版方是兒盟聯盟，不是阿普蛙。重建時被改寫成「由阿普蛙與兒福聯盟合作開發、出版」而失真。
+        note: "*《未來議會》是由阿普蛙與兒福聯盟合作開發，由兒盟聯盟出版。",
       },
     ],
   },
@@ -270,7 +283,7 @@ const debateCourse = {
   heading: "六、議題思辨課（不用購買教材）",
   image: "/images/courses/material-application-11.jpg",
   theme: "可設定各種議題",
-  audience: "國小、國中、高中、大學階段教師，自然、社會、公民教師",
+  audience: "國小、國中、高中、大學階段教師 - 自然、社會、公民教師",
   experience: [
     {
       label: "議題討論",
@@ -309,7 +322,9 @@ function ItemCard({ item }: { item: Item }) {
             <dd className="inline">{item.theme}</dd>
           </div>
           <div>
-            <dt className="inline font-semibold text-ink">適合對象：</dt>
+            <dt className="inline font-semibold text-ink">
+              {item.audienceLabel ?? "適合對象"}：
+            </dt>
             <dd className="inline">{item.audience}</dd>
           </div>
         </dl>
@@ -344,6 +359,8 @@ function ItemCard({ item }: { item: Item }) {
             {item.link.label}
           </a>
         )}
+
+        {item.note && <p className="mt-4 text-xs text-ink/60">{item.note}</p>}
       </div>
     </div>
   );
@@ -359,7 +376,7 @@ export default function MaterialApplicationPage() {
             🎲 教材應用－議題桌遊（遊戲）應用於課堂
           </h1>
           <p className="mt-6 max-w-2xl text-ink/70">
-            以下遊戲可以應用於課堂，主題包含了：人際關係與溝通（班級經營）、性別平等（情感教育、家庭教育）、媒體素養（資訊素養）、全球議題（減碳、SDGs）等，每款遊戲的教師研習時間為
+            以下遊戲可以應用於課堂，主題包含了：人際關係與溝通（班級經營）、性別平等（情感教育、家庭教育）、媒體素養（資訊素養）、全球議題（淨零碳排、SDGs）等，每款遊戲的教師研習時間為
             2~3 小時。
           </p>
           <a
@@ -377,7 +394,16 @@ export default function MaterialApplicationPage() {
         <section key={group.heading} className={gi % 2 === 1 ? "bg-black/[0.03] py-16" : "py-16"}>
           <Container>
             <h2 className="text-2xl font-bold text-ink">{group.heading}</h2>
-            {group.intro && <p className="mt-2 text-sm text-ink/60">{group.intro}</p>}
+            {/* 原站每個大標底下先有一份該組教材的條列摘要，再往下才是各教材的詳細卡片，
+                2026-08-25 稽核發現這份摘要整段沒被搬過來。 */}
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-ink/70">
+              {group.items.map((item) => (
+                <li key={item.name}>
+                  {item.kind}
+                  {item.name}
+                </li>
+              ))}
+            </ul>
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               {group.items.map((item) => (
                 <ItemCard key={item.name} item={item} />

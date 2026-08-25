@@ -13,38 +13,47 @@ export const metadata: Metadata = {
 const INVITE_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLScTpdFbaeh221rvaEMgG_1vrh0RC_9rOEx1j8ActjGE4PiM7A/viewform";
 
+type CardItem = { label: string; games?: string[] };
+
 type CardExtra = {
   emoji: string;
+  // 原站卡片標題跟導覽列用的標題不完全一樣時才給（例：民主從「開會」開始）
+  title?: string;
   image: string;
-  items: string[];
+  items: CardItem[];
 };
 
 // 這頁本身有自己專屬的 4 張情境照片，不借用各子頁的圖
+// 各卡片底下的分類／遊戲清單照原站 index 頁逐字抄，順序不要動
 const cardExtras: Record<string, CardExtra> = {
   "/courses/in-class/learn-through-play": {
     emoji: "🎲",
     image: "/images/courses/in-class-1.jpg",
     items: [
-      "一、人際關係與溝通",
-      "二、性別平等",
-      "三、媒體素養",
-      "四、兒童權利公約",
-      "五、全球議題",
-      "六、文化教育",
+      { label: "一、人際關係與溝通", games: ["我們班的叢林法則"] },
+      { label: "二、性別平等", games: ["練愛猜心", "家分題"] },
+      { label: "三、媒體素養", games: ["抓誑新聞", "童話村命案", "犯罪現場"] },
+      { label: "四、兒童權利公約", games: ["CRC偵探事件簿", "CRC糾察隊"] },
+      {
+        label: "五、全球議題",
+        games: ["我們的福爾摩沙", "碳排危機", "紅黑戰爭", "方塊國會議"],
+      },
+      { label: "六、文化教育", games: ["拚陣頭", "鬥陣度中元"] },
     ],
   },
   "/courses/in-class/inquiry-practice": {
     emoji: "📝",
     image: "/images/courses/in-class-2.jpg",
-    items: ["1. 議題思辨課", "2. 議題探究與實作"],
+    items: [{ label: "1. 議題思辨課" }, { label: "2. 議題探究與實作" }],
   },
   "/courses/in-class/communication": {
     emoji: "🗣️",
     image: "/images/courses/in-class-3.jpg",
-    items: ["1. 冒險者之旅（勇者風格）", "2. 正向溝通工作坊"],
+    items: [{ label: "1. 冒險者之旅（勇者風格）" }, { label: "2. 正向溝通工作坊" }],
   },
   "/courses/in-class/democracy-in-meetings": {
     emoji: "🎤",
+    title: "民主從「開會」開始",
     image: "/images/courses/in-class-4.jpg",
     items: [],
   },
@@ -105,12 +114,21 @@ export default function InClassCoursesPage() {
                   <div className="flex flex-1 flex-col p-6">
                     <h3 className="text-lg font-bold text-ink">
                       {extra?.emoji ? `${extra.emoji} ` : ""}
-                      {child.title}
+                      {extra?.title ?? child.title}
                     </h3>
                     {extra && extra.items.length > 0 && (
                       <ul className="mt-3 space-y-1 text-sm text-ink/70">
                         {extra.items.map((item) => (
-                          <li key={item}>{item}</li>
+                          <li key={item.label}>
+                            {item.label}
+                            {item.games && (
+                              <ul className="mt-1 space-y-0.5 pl-4 text-ink/60">
+                                {item.games.map((game) => (
+                                  <li key={game}>《{game}》</li>
+                                ))}
+                              </ul>
+                            )}
+                          </li>
                         ))}
                       </ul>
                     )}

@@ -64,7 +64,11 @@ export const boardGames: BoardGame[] = [
     slug: "pin-zhentou",
     title: "拚陣頭",
     tagline: "認識台灣傳統藝陣文化的派對遊戲",
-    price: 450,
+    // ⚠️ 原站自己就前後矛盾：買桌遊總覽的相簿說明寫「拚陣頭（售價600元）」，
+    // 商品頁內文寫「售價：450元」。使用者 2026-08-26 指示「依照他原本的去做」，
+    // 所以兩邊各自忠實照抄原站——這裡（總覽用）是 600，商品頁維持 450。
+    // 這是客戶自己的資料不一致，不是重建錯誤；上線前建議請客戶確認現價。
+    price: 600,
     image: "/images/products/pin-zhentou.png",
     href: "/board-games/pin-zhentou",
   },
@@ -78,12 +82,20 @@ export const boardGames: BoardGame[] = [
   },
 ];
 
-// 原站「買桌遊」總覽頁最下方還有一個「＊已完售」區塊，列出 3 款已下架、沒有獨立產品頁的舊作品，
-// 純粹展示用（原站也沒有連結到個別頁面），這裡照樣呈現、不加連結。
+// 原站「買桌遊」總覽頁最下方還有一個「＊已完售」區塊，列出 3 款已下架的舊作品。
+// 2026-08-26 更正：原本這裡註解寫「原站也沒有連結到個別頁面」，逐字核對原始 HTML 後發現不對——
+// 原站《大政治家：選戰風雲》那一格的圖片和標題**都是連結**，指向
+// /2282325919278352347836984251363908038642.html（那頁是沒掛在導覽列的孤兒頁，已補建成
+// /board-games/great-politician）。另外兩格（議想世界、家分題）在原站這個區塊確實沒有連結。
+//
+// ⚠️《家分題》其實也有一頁（原站 /234782099838988.html，已補建成 /board-games/family-topics），
+// 只是原站是從 3 個課程頁的內文連過去、這個「已完售」區塊沒有連。這裡照原站保持不連；
+// 如果之後決定要讓總覽頁也連得到，只要幫這筆補上 href: "/board-games/family-topics" 即可。
 export type SoldOutGame = {
   title: string;
   tagline: string;
   image: string;
+  href?: string; // 原站這個區塊只有《大政治家》是連結，其餘兩款沒有
 };
 
 export const soldOutBoardGames: SoldOutGame[] = [
@@ -91,6 +103,7 @@ export const soldOutBoardGames: SoldOutGame[] = [
     title: "大政治家：選戰風雲",
     tagline: "民主政治 × 台灣立委選舉",
     image: "/images/board-games/sold-out-da-zhengzhijia.jpg",
+    href: "/board-games/great-politician",
   },
   {
     title: "議想世界",

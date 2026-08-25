@@ -31,7 +31,7 @@ export default function SharpTenPage() {
         </div>
 
         <div className="order-1 md:order-2">
-        <h1 className="text-3xl font-bold text-ink">《十分機靈》</h1>
+        <h1 className="text-3xl font-bold text-ink">十分機靈</h1>
         <p className="mt-4 text-ink/70">
           《十分機靈》是一款問答遊戲。每道題目都有10個可能的答案，所有玩家都可以在緊湊的遊戲過程，享受刺激的答題樂趣。問題可能是運動、常識、歷史、動漫等，一定有一種能夠考倒你！
         </p>

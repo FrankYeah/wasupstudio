@@ -10,6 +10,30 @@ export const metadata: Metadata = {
   description: "桌遊，把議題變好玩了。阿普蛙設計的議題型桌遊作品一覽。",
 };
 
+// 原站「販售中」相簿的排列順序，跟導覽列下拉選單的順序不一樣：
+// 相簿是 …抓誑新聞→玩一世人→拚陣頭→未來議會→十分機靈，
+// 導覽列是 …抓誑新聞→未來議會→玩一世人→拚陣頭→十分機靈。
+// site-data.ts 的 boardGames 依導覽列排（Header/sitemap 都吃它），所以這頁另外指定相簿順序。
+const gridOrder = [
+  "riddle-me-feelings",
+  "talk-nonsense-sdgs",
+  "practice-for-love",
+  "crazy-news",
+  "play-a-lifetime",
+  "pin-zhentou",
+  "future-parliament",
+  "sharp-ten",
+];
+
+const gridRank = (slug: string) => {
+  const i = gridOrder.indexOf(slug);
+  return i === -1 ? gridOrder.length : i; // 沒列到的新商品排在最後，不會憑空消失
+};
+
+const gridGames = [...boardGames].sort(
+  (a, b) => gridRank(a.slug) - gridRank(b.slug),
+);
+
 export default function BoardGamesPage() {
   return (
     <>
@@ -55,15 +79,24 @@ export default function BoardGamesPage() {
         </Container>
       </section>
 
+      {/* 原站「販售中」標題旁邊有一顆「購買桌遊」按鈕（跟上方主打區同一個表單），重建時漏掉 */}
       <section className="pb-16">
-        <Container>
+        <Container className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
           <h2 className="text-center text-2xl font-bold text-ink md:text-3xl">販售中</h2>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeNjwzit1cjicwRAKBiZfYBmvYPlf8z7C4FX6mtrHeE4nO0TQ/viewform"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full bg-brand-green px-8 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
+          >
+            購買桌遊
+          </a>
         </Container>
       </section>
 
       <section className="pb-16">
         <Container className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {boardGames.map((game) => (
+          {gridGames.map((game) => (
             <Link
               key={game.slug}
               href={game.href}
@@ -93,20 +126,36 @@ export default function BoardGamesPage() {
         </Container>
       </section>
 
-      {/* 已完售：原站放在總覽頁最下方的 3 款舊作品，已下架、原站也沒有連結到獨立頁面，純展示 */}
+      {/* 已完售：原站放在總覽頁最下方的 3 款舊作品。
+          2026-08-26 更正：原本這裡（跟 site-data.ts 的註解）寫「原站也沒有連結到獨立頁面」，
+          核對原始 HTML 後發現《大政治家：選戰風雲》那一格的圖片和標題都是連結，指向
+          /2282325919278352347836984251363908038642.html——那是沒掛在導覽列、Phase 0 漏掉的孤兒頁，
+          已補建成 /board-games/great-politician，這裡把連結接回去。另外兩款原站確實沒有連結。 */}
       <section className="bg-[#3f4240] py-16">
         <Container>
           <h2 className="text-2xl font-bold text-white md:text-3xl">＊已完售</h2>
           <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {soldOutBoardGames.map((game) => (
-              <div key={game.title} className="text-center">
-                <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-white/5">
-                  <Image src={game.image} alt={game.title} fill className="object-contain p-4 opacity-80" />
+            {soldOutBoardGames.map((game) => {
+              const card = (
+                <>
+                  <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-white/5">
+                    <Image src={game.image} alt={game.title} fill className="object-contain p-4 opacity-80" />
+                  </div>
+                  <p className="mt-4 text-xs text-white/60">{game.tagline}</p>
+                  <h3 className="mt-1 text-lg font-bold text-white">{game.title}</h3>
+                </>
+              );
+
+              return game.href ? (
+                <Link key={game.title} href={game.href} className="group block text-center">
+                  {card}
+                </Link>
+              ) : (
+                <div key={game.title} className="text-center">
+                  {card}
                 </div>
-                <p className="mt-4 text-xs text-white/60">{game.tagline}</p>
-                <h3 className="mt-1 text-lg font-bold text-white">{game.title}</h3>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </Container>
       </section>

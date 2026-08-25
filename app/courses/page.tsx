@@ -3,7 +3,6 @@ import Link from "next/link";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
 import { PageBanner } from "@/app/_components/PageBanner";
-import { courseNav } from "@/app/_lib/site-data";
 
 export const metadata: Metadata = {
   title: "找課程",
@@ -11,13 +10,111 @@ export const metadata: Metadata = {
     "阿普蛙的課程特色「邊玩邊學」。教師研習、青少年培力課程、教育訓練、家庭教育課程，透過議題遊戲讓學員在體驗中學習、在引導反思中內化知識。",
 };
 
-// 每個課程分類對應的示意圖，原站是每個分類獨立一張照片（不是共用其他子頁的圖）
-const courseImages: Record<string, string> = {
-  "/courses/teacher-workshop": "/images/courses/courses-2.jpg",
-  "/courses/in-class": "/images/courses/courses-3.jpg",
-  "/courses/corporate-training": "/images/courses/courses-4.jpg",
-  "/courses/family-education": "/images/courses/courses-5.jpg",
+// 「課程類型」四張卡片。
+// 2026-08-25 稽核發現：這一區原本只渲染 courseNav 的子選單連結（教材應用／教案-教材設計…），
+// 但原站每張卡片其實是「照片＋標題＋一整份課程清單＋課程介紹按鈕」，清單內容整段沒被搬過來。
+// 以下標題與清單文字逐字照 01-content-raw/pages/courses/index/page.html 解碼後的內容重建，
+// 包含原站卡片標題與導覽選單不一致的地方（卡片寫「青少年培力課程」「親職課程/親子課程」，
+// 選單寫「入班授課｜青少年培力課程」「家庭教育課程」）——照原站保留這個差異。
+type CourseGroup = {
+  label: string;
+  items?: string[];
+  bullet?: boolean; // 原站這一組用 <ul>（實心圓點）而不是 <ol>（數字）
 };
+
+type CourseCard = {
+  href: string;
+  title: string;
+  image: string;
+  // 教師研習卡片分成 🎲 / 📖 兩大段，其他三張卡片只有一份扁平清單
+  sections?: { title: string; groups: CourseGroup[] }[];
+  items?: { text: string; sub?: string[] }[];
+};
+
+const courseCards: CourseCard[] = [
+  {
+    href: "/courses/teacher-workshop",
+    title: "教師研習",
+    image: "/images/courses/courses-2.jpg",
+    sections: [
+      {
+        title: "🎲 【教材應用-議題遊戲應用於課堂】",
+        groups: [
+          {
+            label: "一、人際關係與溝通",
+            items: ["遊戲教材《我們班的叢林法則》", "桌遊《情緒謎語》"],
+          },
+          {
+            label: "二、性別平等",
+            items: ["桌遊《練愛猜心》", "桌遊《家分題》"],
+          },
+          {
+            label: "三、媒體素養",
+            items: ["桌遊《抓誑新聞》", "桌遊《犯罪現場》"],
+          },
+          {
+            label: "四、全球議題",
+            items: ["桌遊《碳排危機》", "桌遊《我們的福爾摩沙》"],
+          },
+          {
+            label: "五、兒童權利公約",
+            items: ["桌遊《未來議會》"],
+            bullet: true,
+          },
+          { label: "六、議題思辨課" },
+        ],
+      },
+      {
+        title: "📖【教案、教材設計】",
+        groups: [
+          { label: "一、遊戲化教學（六大策略）" },
+          { label: "二、遊戲化教案工作坊" },
+          {
+            label: "三、教育桌遊設計工作坊",
+            items: [
+              "桌遊設計之概要",
+              "桌遊設計之概要＋改做練習",
+              "桌遊設計工作坊",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: "/courses/in-class",
+    title: "青少年培力課程",
+    image: "/images/courses/courses-3.jpg",
+    items: [
+      { text: "1.在遊戲中學議題" },
+      { text: "2.議題探究與實作" },
+      { text: "3.增進溝通能力" },
+      { text: "4.民主從開班會開始" },
+    ],
+  },
+  {
+    href: "/courses/corporate-training",
+    title: "教育訓練",
+    image: "/images/courses/courses-4.jpg",
+    items: [
+      {
+        text: "1.提升團隊溝通力",
+        sub: ["學習風格", "非暴力溝通", "遊戲帶你有感表達"],
+      },
+      { text: "2.提升對社會議題之敏銳度" },
+    ],
+  },
+  {
+    href: "/courses/family-education",
+    title: "親職課程/親子課程",
+    image: "/images/courses/courses-5.jpg",
+    items: [
+      { text: "1.如何與孩子好好溝通" },
+      { text: "2.用遊戲討論家務分工" },
+      { text: "3.玩桌遊認識兒童氣質" },
+    ],
+  },
+];
 
 const features = [
   {
@@ -83,46 +180,81 @@ export default function CoursesPage() {
         </Container>
       </section>
 
-      <section className="py-16">
+      {/* 2026-08-25：原站這兩段的底色跟重建站剛好對調了——原站「課程類型」是 #fdfffd（極淡的
+          偏綠白），「阿普蛙的遊戲特色」才是透明（純白）；重建站原本是課程類型純白、遊戲特色套
+          bg-black/[0.03]。已對調回來。 */}
+      <section className="bg-[#fdfffd] py-16">
         <Container>
           <h2 className="text-center text-2xl font-bold text-ink">課程類型</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
-            {courseNav.map((nav) => (
+          <div className="mt-8 grid items-start gap-6 sm:grid-cols-2">
+            {courseCards.map((card) => (
               <div
-                key={nav.href}
+                key={card.href}
                 className="flex flex-col overflow-hidden rounded-2xl border border-black/5 shadow-sm"
               >
-                {courseImages[nav.href] && (
-                  <div className="relative aspect-4/3 w-full bg-black/[0.04]">
-                    <Image
-                      src={courseImages[nav.href]}
-                      alt={nav.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-                <div className="p-6">
+                <div className="relative aspect-4/3 w-full bg-black/[0.04]">
+                  <Image
+                    src={card.image}
+                    alt={card.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
                   <Link
-                    href={nav.href}
-                    className="text-lg font-bold text-ink hover:text-brand-green"
+                    href={card.href}
+                    className="text-center text-lg font-bold text-ink hover:text-brand-green"
                   >
-                    {nav.title}
+                    {card.title}
                   </Link>
-                  {nav.children && nav.children.length > 0 && (
-                    <ul className="mt-4 space-y-2 text-sm">
-                      {nav.children.map((child) => (
-                        <li key={child.href}>
-                          <Link
-                            href={child.href}
-                            className="text-ink/70 hover:text-brand-green"
-                          >
-                            ・{child.title}
-                          </Link>
+
+                  {card.sections?.map((section) => (
+                    <div key={section.title} className="mt-4 text-sm">
+                      <p className="font-semibold text-ink">{section.title}</p>
+                      {section.groups.map((group) => (
+                        <div key={group.label} className="mt-2">
+                          <p className="font-bold text-ink">{group.label}</p>
+                          {group.items && (
+                            <ol
+                              className={`mt-1 space-y-1 pl-6 text-ink/70 ${
+                                group.bullet ? "list-disc" : "list-decimal"
+                              }`}
+                            >
+                              {group.items.map((item) => (
+                                <li key={item}>{item}</li>
+                              ))}
+                            </ol>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+
+                  {card.items && (
+                    <ul className="mt-4 space-y-1 text-sm text-ink/70">
+                      {card.items.map((item) => (
+                        <li key={item.text}>
+                          {item.text}
+                          {item.sub && (
+                            <ul className="mt-1 list-disc space-y-1 pl-6">
+                              {item.sub.map((s) => (
+                                <li key={s}>{s}</li>
+                              ))}
+                            </ul>
+                          )}
                         </li>
                       ))}
                     </ul>
                   )}
+
+                  <div className="mt-6 text-center">
+                    <Link
+                      href={card.href}
+                      className="inline-block rounded-full bg-brand-green px-6 py-2 text-sm font-semibold text-white transition hover:bg-brand-green-bright"
+                    >
+                      課程介紹
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
@@ -130,7 +262,8 @@ export default function CoursesPage() {
         </Container>
       </section>
 
-      <section className="bg-black/[0.03] py-16">
+      {/* 原站這段是 transparent（純白），見上一個 section 的說明 */}
+      <section className="py-16">
         <Container>
           <h2 className="text-center text-2xl font-bold text-ink">
             阿普蛙的遊戲特色

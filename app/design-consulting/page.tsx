@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
 import { PageBanner } from "@/app/_components/PageBanner";
@@ -113,14 +112,49 @@ const pricingTiers = [
 
 // 同一深綠色區塊裡，還有一組 7 步驟的工作流程（需求釐清→...→課程推廣），
 // 也是純圖片（web-23~29_orig.png），文字同樣是畫在圖片裡的，一併重建。
+//
+// ⚠️ 2026-08-25 修正：這裡原本只有 7 個標題、沒有描述文字，是**讀圖時漏看**造成的。
+// 這 10 張圖都是「透明背景 PNG」，描述文字是白色的、卡片外框是淡綠白色的——用一般圖片
+// 檢視器打開時透明背景會被渲染成白色，白字白框在白底上完全看不見，只剩金色標題看得到，
+// 於是被誤判成「原站只有標題」。正確做法是先把圖合成到原站真正的底色（#00573f）再讀：
+//   magick web-23_orig.png -background "#00573f" -flatten out.png
+// 詳見 ~/.claude/skills/site-migration-audit/references/visual-fidelity-audit.md 陷阱 8。
 const designSteps = [
-  "需求釐清",
-  "議題轉譯",
-  "遊戲設計",
-  "原型測試",
-  "視覺美術",
-  "印刷製作",
-  "課程推廣",
+  {
+    no: "01",
+    title: "需求釐清",
+    desc: "了解議題目標、使用對象、活動場域、預算與期程",
+  },
+  {
+    no: "02",
+    title: "議題轉譯",
+    desc: "將抽象概念、倡議理念，整理成玩家能理解的情境、衝突與選擇",
+  },
+  {
+    no: "03",
+    title: "遊戲設計",
+    desc: "設計玩法、規則、卡牌、任務、角色或關卡讓參與者在遊戲中理解議題",
+  },
+  {
+    no: "04",
+    title: "原型測試",
+    desc: "製作測試版本，透過試玩觀察玩家的反應，調整難度、節奏與討論深度",
+  },
+  {
+    no: "05",
+    title: "視覺美術",
+    desc: "規劃遊戲風格、卡牌版面、圖像系統、說明書與整體視覺呈現",
+  },
+  {
+    no: "06",
+    title: "印刷製作",
+    desc: "協助規格評估、材質建議、打樣確認、印刷製作與成品管理",
+  },
+  {
+    no: "07",
+    title: "課程推廣",
+    desc: "依需求設計教案、培訓活動、體驗會或推廣方案，讓遊戲真正進入現場",
+  },
 ];
 
 const cases = [
@@ -128,6 +162,7 @@ const cases = [
     title: "抓誑新聞",
     type: "媒體識讀桌遊",
     image: "/images/design-consulting/case-crazy-news.png",
+    video: null,
     stats: [
       { label: "桌遊銷售", value: "達 3000 盒" },
       {
@@ -144,7 +179,10 @@ const cases = [
   {
     title: "誰是政治正確王",
     type: "影視節目遊戲化企劃",
-    image: "/images/design-consulting/client-political-correct.png",
+    // 原站這則案例的媒體是 YouTube 影片（不是靜態圖）——重建站原本把這支影片放到頁面上方
+    // 「你有個重要議題」那段（原站那裡根本沒有影片），這裡才是它真正的位置。
+    image: null,
+    video: "TZBL1wHPi8Y",
     stats: [
       { label: "第一集 YouTube 觀看次數", value: "27 萬" },
       { label: "第二集 YouTube 觀看次數", value: "6.7 萬" },
@@ -200,7 +238,10 @@ export default function DesignConsultingPage() {
           按鈕跟段落文字是同一列並排（按鈕窄欄在左、段落文字在右），不是重建站原本的「標題+段落+
           按鈕」整個垂直堆疊；按鈕本身也是黑底白字直角（`wsite-button-highlight`，跟首頁「適合對象」
           卡片按鈕、DESIGN-SPEC.md 已經記錄過的同一種），不是品牌綠圓角按鈕。 */}
-      <section className="bg-black/[0.03] py-20">
+      {/* 2026-08-25 再次量測原站：這段跟下面「你有個重要議題」其實是**同一個** .wsite-section，
+          computed background 是 rgba(0,0,0,0)（＝白），重建站原本這段套了 bg-black/[0.03] 極淡灰，
+          跟下一段的白底之間會有一條看得出來的接縫。改回白底、合併成一段連續的白色區域。 */}
+      <section className="py-20">
         <Container>
           <h2 className="text-3xl font-bold text-brand-green md:text-4xl">
             把你的議題
@@ -246,13 +287,8 @@ export default function DesignConsultingPage() {
               />
             </div>
           </div>
-
-          <div className="mt-12">
-            <YouTubeEmbed
-              id="TZBL1wHPi8Y"
-              title="阿普蛙議題遊戲設計服務介紹影片"
-            />
-          </div>
+          {/* 2026-08-25：這裡原本嵌了 TZBL1wHPi8Y，但原站這一段只有左文右圖、沒有任何影片，
+              那支影片實際上屬於下面「代表案例／誰是政治正確王」那則案例，已移到正確位置。 */}
         </Container>
       </section>
 
@@ -264,18 +300,30 @@ export default function DesignConsultingPage() {
             從一個想法，到一套能被使用的遊戲教材
           </h2>
 
-          <ol className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2">
-            {designSteps.map((title, i) => (
-              <li key={title} className="border-b border-white/20 pb-3">
-                <span className="text-2xl font-bold text-[#f5cf7e]">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="ml-3 text-lg font-semibold text-[#f5cf7e]">
-                  {title}
-                </span>
-              </li>
+          {/* 原站是兩欄的 wsite-multicol table：左欄放 01-04、右欄放 05-07（欄內由上往下，
+              不是橫向排列），所以這裡用兩個 column 各自 slice，而不是 grid 的 row-major。
+              色值都是從原圖合成到 #00573f 底色後取樣出來的：標題金 #fddc95、外框 #b2ccc5、
+              描述文字純白。 */}
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {[designSteps.slice(0, 4), designSteps.slice(4)].map((col, ci) => (
+              <ol key={ci} className="space-y-5">
+                {col.map((s) => (
+                  <li
+                    key={s.no}
+                    className="flex items-start gap-5 rounded-[18px] border border-[#b2ccc5] px-6 py-5"
+                  >
+                    <span className="shrink-0 border-b border-[#fddc95] pb-1 text-xl text-[#fddc95] md:text-2xl">
+                      {s.no}
+                      <span className="ml-2 tracking-[0.12em]">{s.title}</span>
+                    </span>
+                    <p className="text-sm leading-relaxed text-white">
+                      {s.desc}
+                    </p>
+                  </li>
+                ))}
+              </ol>
             ))}
-          </ol>
+          </div>
 
           <h2 className="mt-16 text-2xl font-bold md:text-3xl">
             我們提供的不只是遊戲，而是一套讓議題落地的設計服務
@@ -324,16 +372,39 @@ export default function DesignConsultingPage() {
           直接畫成一張白卡（標題+logo 都在同一張卡裡），沒有綠色標題色塊，一併補上。 */}
       <section className="bg-[#e6e6e6] py-16">
         <Container>
-          {/* 2026-08-25 重新量測發現：標題其實是「我們設計遊戲／也深入教學現場」兩行、品牌綠
-              32px（不是重建站原本的一行黑字），下面接著還有一句同樣風格的兩行副標「協助合作單位／
-              進行議題遊戲化」，重建站原本完全沒有這句、卻多寫了一段原站沒有的段落文字
-              （「阿普蛙長期耕耘校園...」在原始碼裡找不到，是虛構補上去的），已拿掉換成真正的副標。 */}
+          {/* 標題是「我們設計遊戲／也深入教學現場」兩行、品牌綠 32px。
+              ⚠️ 2026-08-25 更正前一輪的錯誤判斷：底下那段「阿普蛙長期耕耘校園…」**是原站真的有的
+              內容**，前一輪用 `grep 阿普蛙長期耕耘校園 page.html` 找不到就當成虛構段落刪掉了——
+              但 Weebly 原始碼把中文存成 HTML 數值字元參照（&#38463;&#26222;&#34521;…），
+              中文字串直接 grep 本來就一定找不到，是查證方法壞掉、不是內容不存在。
+              （text.txt 裡其實看得到這段，當時也沒交叉核對。）已還原。
+              查證原始碼一律要先 html.unescape() 再搜尋，見 skill 陷阱 9。 */}
           <h2 className="text-3xl font-bold text-brand-green md:text-4xl">
             我們設計遊戲
             <br />
             也深入教學現場
           </h2>
-          <h2 className="mt-6 text-3xl font-bold text-brand-green md:text-4xl">
+          <p className="mt-6 max-w-3xl text-ink/70">
+            阿普蛙長期耕耘校園、教師研習、社福與公共議題現場。
+            我們理解不同年齡、對象與帶領者的使用需求，除了考慮「好不好玩」，也在意遊戲能否被理解、被帶領，並真正進入課堂與活動現場。
+          </p>
+
+          {/* 原站這兩項是 Weebly 的 counter 元件，但 .counter-number 實際渲染出來是空的
+              （客戶當初沒填數字），畫面上就只看得到「個up／議題遊戲與教材設計專案」這兩組標籤，
+              所以這裡照原樣只做標籤。要不要補上實際數字，要問客戶。 */}
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 sm:max-w-2xl">
+            {[
+              { unit: "個up", label: "議題遊戲與教材設計專案" },
+              { unit: "場up", label: "課程、工作坊與推廣活動" },
+            ].map((c) => (
+              <div key={c.unit}>
+                <p className="text-2xl font-bold text-brand-green">{c.unit}</p>
+                <p className="mt-1 text-sm text-ink/70">{c.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <h2 className="mt-10 text-3xl font-bold text-brand-green md:text-4xl">
             協助合作單位
             <br />
             進行議題遊戲化
@@ -390,14 +461,18 @@ export default function DesignConsultingPage() {
                 key={c.title}
                 className="overflow-hidden rounded-2xl border border-black/5"
               >
-                <div className="relative aspect-video w-full bg-black/5">
-                  <Image
-                    src={c.image}
-                    alt={c.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                {c.video ? (
+                  <YouTubeEmbed id={c.video} title={c.title} />
+                ) : (
+                  <div className="relative aspect-video w-full bg-black/5">
+                    <Image
+                      src={c.image as string}
+                      alt={c.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
                 <div className="p-6">
                   <p className="text-xs font-semibold text-brand-green">
                     {c.type}
@@ -431,28 +506,6 @@ export default function DesignConsultingPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* 合作流程：量測發現這裡其實是「亮綠 #00ab84 外層 section（跟首頁 CTA 同一色）＋白色標題
-          ＋裡面再疊一張米白 #f4f7f8、10px 圓角的 colored-box 卡片裝 5 個步驟」，不是重建站原本
-          以為的極淡灰底＋純文字。外層綠底 + 卡片兩層都要還原，不能只補卡片漏了外層顏色。 */}
-      <section className="bg-[#00ab84] py-16">
-        <Container>
-          <h2 className="text-2xl font-bold text-white">合作怎麼開始？</h2>
-          <div className="mt-8 rounded-[10px] bg-[#f4f7f8] p-8 md:p-10">
-            <ol className="grid gap-6 md:grid-cols-5">
-              {process.map((p) => (
-                <li key={p.step}>
-                  <span className="text-2xl font-bold text-brand-green">
-                    {p.step}
-                  </span>
-                  <h3 className="mt-2 font-bold text-ink">{p.title}</h3>
-                  <p className="mt-1 text-sm text-ink/70">{p.desc}</p>
-                </li>
-              ))}
-            </ol>
           </div>
         </Container>
       </section>
@@ -504,29 +557,45 @@ export default function DesignConsultingPage() {
         </Container>
       </section>
 
-      <section className="py-20 text-center">
+      {/* 合作流程：量測發現這裡其實是「亮綠 #00ab84 外層 section（跟首頁 CTA 同一色）＋白色標題
+          ＋裡面再疊一張米白 #f4f7f8、10px 圓角的 colored-box 卡片裝 5 個步驟」，不是重建站原本
+          以為的極淡灰底＋純文字。外層綠底 + 卡片兩層都要還原，不能只補卡片漏了外層顏色。
+
+          2026-08-25：原站最後的 CTA「有個重要但不容易說的議題？」其實**就在這同一個綠色 section
+          裡面**（不是另外一段白底置中區塊），而且只有一顆「填寫合作需求」按鈕、跟段落文字左右並排
+          （原站欄寬 81% 文字 / 14% 按鈕），沒有重建站自己多加的「查看桌遊作品」按鈕。已合併修正。 */}
+      <section className="bg-[#00ab84] py-16">
         <Container>
-          <h2 className="text-2xl font-bold text-ink md:text-3xl">
+          <h2 className="text-2xl font-bold text-white">合作怎麼開始？</h2>
+          <div className="mt-8 rounded-[10px] bg-[#f4f7f8] p-8 md:p-10">
+            <ol className="grid gap-6 md:grid-cols-5">
+              {process.map((p) => (
+                <li key={p.step}>
+                  <span className="text-2xl font-bold text-brand-green">
+                    {p.step}
+                  </span>
+                  <h3 className="mt-2 font-bold text-ink">{p.title}</h3>
+                  <p className="mt-1 text-sm text-ink/70">{p.desc}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <h2 className="mt-16 text-2xl font-bold text-white md:text-3xl">
             有個重要但不容易說的議題？
           </h2>
-          <p className="mt-3 text-ink/70">
-            告訴我們你想推動的議題、對象與使用情境，讓我們一起把它設計成最合適的體驗模式
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
+            <p className="text-white/90">
+              告訴我們你想推動的議題、對象與使用情境，讓我們一起把它設計成最合適的體驗模式
+            </p>
             <a
               href="https://forms.gle/gipvxKXwpi1iFizs8"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full bg-brand-green px-8 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
+              className="inline-block shrink-0 self-start bg-black px-[30px] py-3.5 text-sm font-bold text-white transition hover:bg-ink/80 sm:self-auto"
             >
               填寫合作需求
             </a>
-            <Link
-              href="/board-games"
-              className="rounded-full border border-ink px-8 py-3 font-semibold text-ink"
-            >
-              查看桌遊作品
-            </Link>
           </div>
         </Container>
       </section>

@@ -15,6 +15,8 @@ const stats = [
   { label: "授課總時數", value: "6,809" },
 ];
 
+// 2026-08-25 內容稽核：5 個類別逐條跟原站核對過都在。原站結尾寫成「....etc.」「...etc.」「...等。」
+// （同一段裡三種寫法混用），這裡統一成「⋯等」，屬刻意的標點正規化、不還原。
 const clientCategories = [
   {
     title: "教師研習",
@@ -77,30 +79,49 @@ const team = [
   },
 ];
 
-const pressNews = [
-  "2015/07/09 親子天下《開發還是環保？阿普蛙用桌遊玩出公民意識》",
-  "2015/09/24 聯合新聞網《這堂桌遊課真實的可怕！反制電玩時代 阿普蛙用桌遊訓練獨立思考》",
-  "2015/10/22 親子天下《改良桌遊玩法 種下公民種子》",
-  "2016/03/13 大愛電視-年輕人讚起來《玩一場桌上公民課》",
-  "2016/05/03 PeoPo公民新聞《創業理財當老闆 幸福捧在手掌心》",
-  "2016/08/09 自由時報電子報《雞籠中元祭 就是邀你來搞怪》",
-  "2016/08/09 中嘉新聞《中元怪奇博物館13日開張 情境劇場邀您互動》",
-  "2016/10/31 TVBS新聞網《新教育！桌遊培養程式邏輯 推廣公民意識》",
-  "2017/04/24 中時電子報《桌遊連結教案 阿普蛙玩出頭》",
-  "2017/10/06 鏡週刊《【專訪阿普蛙】合作與對抗的兩難：遊戲桌上的人性百態》",
+// 2026-08-25 內容稽核：原站每一則報導的標題都是超連結，重建站原本一律只留純文字，並在下方註記
+// 「原站每則報導都連結到個別的縮網址（goo.gl）」。逐條核對解碼後的原始碼後發現這個說法不完全正確：
+// 14 則裡有 2 則（中時電子報、鏡週刊）原本就是可直接還原的完整網址，不是縮網址，因此先把這 2 條
+// 連結補回去。其餘 12 則確實是 goo.gl 縮網址（Google 已停用轉址服務、無法還原目的地），維持純文字。
+type PressItem = { text: string; href?: string };
+
+const pressNews: PressItem[] = [
+  { text: "2015/07/09 親子天下《開發還是環保？阿普蛙用桌遊玩出公民意識》" },
+  {
+    text: "2015/09/24 聯合新聞網《這堂桌遊課真實的可怕！反制電玩時代 阿普蛙用桌遊訓練獨立思考》",
+  },
+  { text: "2015/10/22 親子天下《改良桌遊玩法 種下公民種子》" },
+  { text: "2016/03/13 大愛電視-年輕人讚起來《玩一場桌上公民課》" },
+  { text: "2016/05/03 PeoPo公民新聞《創業理財當老闆 幸福捧在手掌心》" },
+  { text: "2016/08/09 自由時報電子報《雞籠中元祭 就是邀你來搞怪》" },
+  { text: "2016/08/09 中嘉新聞《中元怪奇博物館13日開張 情境劇場邀您互動》" },
+  { text: "2016/10/31 TVBS新聞網《新教育！桌遊培養程式邏輯 推廣公民意識》" },
+  {
+    text: "2017/04/24 中時電子報《桌遊連結教案 阿普蛙玩出頭》",
+    href: "http://www.chinatimes.com/newspapers/20170424000333-260107",
+  },
+  {
+    text: "2017/10/06 鏡週刊《【專訪阿普蛙】合作與對抗的兩難：遊戲桌上的人性百態》",
+    href: "https://www.mirrormedia.mg/story/20171006game_wasupstudio/",
+  },
 ];
 
-const pressMagazines = [
-  "2015/08 親子天下70期《改良桌遊玩法 種下公民種子》",
-  "2015/05 天下雜誌基隆款款行《阿普蛙 桌遊翻轉教育》",
-  "2015/10 英語島《玩一場「World Peace Game」》",
-  "2016春季號 魅力基隆《因為愛鄉，成就夢想的基石-在地青年勇於說出家鄉故事》",
+const pressMagazines: PressItem[] = [
+  { text: "2015/08 親子天下70期《改良桌遊玩法 種下公民種子》" },
+  { text: "2015/05 天下雜誌基隆款款行《阿普蛙 桌遊翻轉教育》" },
+  { text: "2015/10 英語島《玩一場「World Peace Game」》" },
+  {
+    text: "2016春季號 魅力基隆《因為愛鄉，成就夢想的基石-在地青年勇於說出家鄉故事》",
+  },
 ];
 
-const pressRadio = [
-  "2015/10/8 寶島新聲-寶島有意思《談用桌遊做公民獨立思考訓練 阿普蛙工作室曾榮輝》",
-  "2015/10/10 復興廣播電台-淳．靜時光",
-  "2015/10/31 教育廣播電台-教育行動家",
+const pressRadio: PressItem[] = [
+  {
+    text: "2015/10/8 寶島新聲-寶島有意思《談用桌遊做公民獨立思考訓練 阿普蛙工作室曾榮輝》",
+  },
+  // 原站這兩則本來就沒有連結，不是我們拿掉的。
+  { text: "2015/10/10 復興廣播電台-淳．靜時光" },
+  { text: "2015/10/31 教育廣播電台-教育行動家" },
 ];
 
 export default function AboutPage() {
@@ -129,6 +150,8 @@ export default function AboutPage() {
               用遊戲，創造一個更好的公民社會
             </h1>
           </div>
+          {/* 2026-08-25 內容稽核：原站這顆按鈕連到 https://goo.gl/nEzoeN（Google 已停用 goo.gl
+              轉址、無法還原目的地），重建站改成 mailto。屬刻意替代，若客戶記得原本指向哪裡再改回。 */}
           <a
             href="mailto:wasupstudio@gmail.com"
             className="rounded-full bg-ink px-8 py-3 font-semibold text-white shrink-0"
@@ -148,6 +171,11 @@ export default function AboutPage() {
             我們採用體驗式教育，以桌遊、遊戲等機制，培養現代公民「慎思明辨」及「關懷社會」的能力。我們以公民應具備的各種素養——從自我到群體、社會——將人權、自我成長、政治與媒體素養、性別平等、社會關懷、環境議題等融入遊戲，設計相關教材與教案。
           </p>
 
+          {/* ⚠️ 2026-08-25 內容稽核：影片 ID 跟原站一致（0ZLsiE24i_w），但位置不對——原站這支
+              wsite-youtube 是放在「媒體報導」區塊裡、「網路」那一列右半欄（左 50% 是報導清單、
+              右 50% 是影片），不是放在開場簡介底下。內容沒有漏，但要完全比照原站的話得把它搬到
+              媒體報導區；那會動到目前「網路／雜誌／廣播」三欄並排的版面結構，屬版型決定，
+              先標註不擅自改。 */}
           <div className="mt-8">
             <YouTubeEmbed id="0ZLsiE24i_w" title="阿普蛙工作室介紹影片" />
           </div>
@@ -228,33 +256,37 @@ export default function AboutPage() {
         <Container>
           <h2 className="text-2xl font-bold text-ink">媒體報導</h2>
           <div className="mt-8 grid gap-10 md:grid-cols-3">
-            <div>
-              <h3 className="font-bold text-ink">網路</h3>
-              <ul className="mt-2 space-y-2 text-sm text-ink/70">
-                {pressNews.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-ink">雜誌</h3>
-              <ul className="mt-2 space-y-2 text-sm text-ink/70">
-                {pressMagazines.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-ink">廣播</h3>
-              <ul className="mt-2 space-y-2 text-sm text-ink/70">
-                {pressRadio.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
-            </div>
+            {[
+              { label: "網路", items: pressNews },
+              { label: "雜誌", items: pressMagazines },
+              { label: "廣播", items: pressRadio },
+            ].map((group) => (
+              <div key={group.label}>
+                <h3 className="font-bold text-ink">{group.label}</h3>
+                <ul className="mt-2 space-y-2 text-sm text-ink/70">
+                  {group.items.map((p) => (
+                    <li key={p.text}>
+                      {p.href ? (
+                        <a
+                          href={p.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline hover:text-ink"
+                        >
+                          {p.text}
+                        </a>
+                      ) : (
+                        p.text
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
           <p className="mt-8 text-xs text-ink/40">
-            原站每則報導都連結到個別的縮網址（goo.gl），因為沒辦法逐一還原每個縮網址實際指向哪篇報導，這裡先列出報導標題文字，之後如果需要逐篇補回原始連結，需要客戶協助提供或請人逐一點開原站的縮網址核對。
+            原站報導標題大多連結到個別的 goo.gl
+            縮網址，Google 已停用該轉址服務、無法還原目的地，因此那些條目先只保留報導標題文字；其中中時電子報、鏡週刊兩則原站本來就是完整網址，已還原連結。之後如需補齊其餘連結，需要客戶協助提供或請人逐一核對。
           </p>
         </Container>
       </section>

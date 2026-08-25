@@ -48,8 +48,15 @@ export default function CorporateTrainingPage() {
             </div>
             <div>
               <h2 className="text-2xl font-bold text-ink">主題一：學習風格</h2>
+              {/* 2026-08-25 內容稽核：重建站原本只留下「學習風格分成…」這半句，把原站第一句的
+                  開頭（讓成員認識自己的學習風格）跟後半段（人與人之間的相處…了解自己並理解他人）
+                  整段漏掉了。原站這段是一個 <div class="paragraph">，中間用 <br /> 分成兩句；
+                  除了 body 之外 og:description 也帶著同一段完整文字，兩處互相佐證。 */}
               <p className="mt-4 text-ink/70">
-                學習風格分成「聚斂型、適應型、同化型、發散型」。再透過遊戲的方式，成員會在遊戲中展現真實的自己，藉此可以理解自己的風格展現，並學習如何與他人互動。
+                讓成員認識自己的學習風格，學習風格分成「聚斂型、適應型、同化型、發散型」，人與人之間的相處、合作容易發生衝突，主要是因為人接受訊息的方式及轉化訊息的行動不同，因此課程目標主要讓成員了解自己並理解他人。
+              </p>
+              <p className="mt-3 text-ink/70">
+                再透過遊戲的方式，成員會在遊戲中展現真實的自己，藉此可以理解自己的風格展現，並學習如何與他人互動。
               </p>
               <a
                 href={CTA_HREF}
@@ -84,7 +91,9 @@ export default function CorporateTrainingPage() {
               <p className="mt-4 text-ink/70">
                 透過遊戲，讓成員覺察自己的溝通樣貌及盲點，重新思考為何人們容易發生衝突，難以有效溝通。講師將教導正向溝通的四個要素——觀察、感受、需求跟請求，以提昇大家溝通能力。
               </p>
-              <p className="mt-3 text-sm text-ink/60">
+              {/* 原站這半段跟上一句同屬一個 <div class="paragraph">、同樣字級，重建站原本把它縮成
+                  text-sm/60 變成附註，視覺上等於把一半內容降級，這裡改回跟前一段一致。 */}
+              <p className="mt-3 text-ink/70">
                 觀察是透過具體客觀的事實，我們在溝通時，常會太快評論對方，而引發衝突。感受源自於需求，當需求被滿足時，人會有正向的感受，當需求未被滿足，則會有負向情緒。人之所以會產生衝突，是因為各自想要滿足自己的需求，所以要先看見自己的需求，才能思考雙方都可接受的方案。「請求」是提出具體可行的請求，讓彼此可以互相協助。
               </p>
               <a
@@ -107,6 +116,9 @@ export default function CorporateTrainingPage() {
               <h2 className="text-2xl font-bold text-ink">
                 主題三：用遊戲帶你有感表達
               </h2>
+              {/* 2026-08-25 內容稽核：底下兩段跟原站逐字比對過，差異都是原站的錯字，屬刻意修正、
+                  不還原：原站「表達力是一種需要,練習編排的技術」「不同人對,一段"表達"」多了兩個
+                  半形逗號，「在進度一步與學員們深入探討」是「進一步」的誤植。 */}
               <h3 className="mt-6 text-sm font-bold text-ink">課程目的</h3>
               <p className="mt-1 text-ink/70">
                 表達力是一種需要練習編排的技術，這門課程從理解不同人對一段「表達」——無論是對話、文字或肢體層面——帶來的感受出發練習做解讀，也帶領學員練習設計屬於自己的編排。
@@ -136,24 +148,11 @@ export default function CorporateTrainingPage() {
         </Container>
       </section>
 
-      <section className="bg-black/[0.03] py-16 text-center">
-        <Container>
-          <h2 className="text-2xl font-bold text-ink">
-            想幫團隊安排教育訓練？
-          </h2>
-          <p className="mt-3 text-ink/70">
-            訓練成員認識自己的學習風格、練習非暴力溝通、鍛鍊有感表達，促進團隊內部合作，建立更好的合作、溝通模式。
-          </p>
-          <a
-            href={CTA_HREF}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-block rounded-full bg-brand-green px-8 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-          >
-            邀約課程
-          </a>
-        </Container>
-      </section>
+      {/* 2026-08-26：這裡原本有一段自製的結尾 CTA（「想幫團隊安排教育訓練？」＋邀約課程按鈕），
+          已依使用者決定移除——原站沒有這段：解碼後的 HTML 裡「主題三」圖片欄結束後直接接
+          <div class="footer-wrap">，拿該段標題/內文去搜都是 0 筆（以「主題一：學習風格」當對照組
+          是 1 筆，證明搜尋方法有效，不是 entity 編碼造成的假陰性）。
+          /courses/family-education 結尾同款的自製 CTA 也一併移除。 */}
     </>
   );
 }

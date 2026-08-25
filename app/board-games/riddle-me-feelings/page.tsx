@@ -42,8 +42,8 @@ export default function RiddleMeFeelingsPage() {
         </div>
 
         <div className="order-1 md:order-2">
-          <p className="text-sm font-semibold text-brand-green">人際溝通 × 社會情緒學習（SEL） × 表演藝術</p>
-          <h1 className="mt-2 text-3xl font-bold text-ink">情緒謎語（雙語版）</h1>
+          <p className="text-sm font-semibold text-brand-green">人際溝通 × 社會情緒學習 × 表演藝術</p>
+          <h1 className="mt-2 text-3xl font-bold text-ink">《情緒謎語（雙語版）》</h1>
           <p className="mt-4 text-ink/70">
             本遊戲適合教師於課堂作為雙語教學、人際溝通、社會情緒學習（SEL）、表演藝術教材使用，說明書有另外說明課堂操作模式。
           </p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
 
@@ -11,7 +12,19 @@ export const metadata: Metadata = {
 const CTA_HREF =
   "https://docs.google.com/forms/d/e/1FAIpQLScTpdFbaeh221rvaEMgG_1vrh0RC_9rOEx1j8ActjGE4PiM7A/viewform";
 
-const topics = [
+type Topic = {
+  title: string;
+  image: string;
+  alt: string;
+  age: string;
+  hours: string;
+  goals: string[];
+  content: string[];
+  // 原站只有「用遊戲討論家務分工」這一格在圖片下方有一顆站內連結按鈕
+  link?: { label: string; href: string };
+};
+
+const topics: Topic[] = [
   {
     title: "如何與孩子好好溝通",
     image: "/images/courses/family-education-1.jpg",
@@ -33,6 +46,11 @@ const topics = [
     title: "用遊戲討論家務分工",
     image: "/images/courses/family-education-2.jpg",
     alt: "家長與孩子一起體驗桌遊《家分題》，討論家務分工",
+    // 2026-08-25 內容稽核發現：原站這一格（tabbed-box tab-1）圖片下方還有一顆「桌遊介紹」按鈕，
+    // 連到 /234782099838988.html（《家分題》桌遊介紹頁），重建站漏掉。當時 board-games/ 底下還沒有
+    // 對應頁面，所以先擱著沒補。2026-08-26 已把那頁孤兒頁補建成 /board-games/family-topics，
+    // 這裡把按鈕接回去（原站按鈕文字就是「桌遊介紹」，已核對過原始 HTML）。
+    link: { label: "桌遊介紹", href: "/board-games/family-topics" },
     age: "國小中年級學童至成人",
     hours: "3-18 小時（依照課程期待調整）",
     goals: [
@@ -106,6 +124,15 @@ export default function FamilyEducationPage() {
                     className="object-cover"
                   />
                 </div>
+                {/* 原站這顆按鈕就放在圖片下方 */}
+                {topic.link && (
+                  <Link
+                    href={topic.link.href}
+                    className="mt-4 inline-block rounded-full border border-white px-6 py-2 text-sm font-semibold text-white"
+                  >
+                    {topic.link.label}
+                  </Link>
+                )}
               </div>
               <div className={i % 2 === 1 ? "md:order-1" : ""}>
                 <h2 className="text-2xl font-bold text-white">{topic.title}</h2>
@@ -174,6 +201,10 @@ export default function FamilyEducationPage() {
                 在這個以小孩為本的魔法陣裡，處處遇見兒童不稀奇，能夠解開童心之謎才是讓魔力提升的關鍵。為了好好施展生活的魔法，從闇黑向光明快速奔跑吧！
                 本遊戲需每位玩家輪流擔任「兒童」的角色與其他玩家互動，藉由角色扮演來探討玩家的教養風格。想成為「開明權威」的家長，你必需認識先天氣質、更要勇敢去愛，設法穿梭在眾多「遇兒事件」與「氣質魔藥」間，施展你的專屬魔力，將有機會贏得「遇兒魔導師」的明亮尊榮！
               </p>
+              {/* 2026-08-25 內容稽核：底下 7 項規格（遊戲人數／時間／建議年齡／出版單位／遊戲設計／
+                  美術設計／遊戲顧問）原站是「►遊戲人數：3-6人(建議4人以上)」這種一行到底的寫法，
+                  這裡拆成 dt/dd 並把半形括號數字改成全形＋空格。內容逐項核對過都在，掃描器是因為
+                  比對整行字串才誤報成缺漏。 */}
               <dl className="mt-4 grid grid-cols-2 gap-y-1 text-sm text-[#d5d5d5]">
                 <dt className="font-semibold text-white">遊戲人數</dt>
                 <dd>3-6 人（建議 4 人以上）</dd>
@@ -203,24 +234,10 @@ export default function FamilyEducationPage() {
         </Container>
       </section>
 
-      <section className="py-16 text-center">
-        <Container>
-          <h2 className="text-2xl font-bold text-white">
-            想幫家庭安排一場親子共學？
-          </h2>
-          <p className="mt-3 text-[#d5d5d5]">
-            告訴我們家庭的期待與孩子的年紀，我們會協助安排合適的課程內容與時數。
-          </p>
-          <a
-            href={CTA_HREF}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-block rounded-full bg-brand-green px-8 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-          >
-            邀約課程
-          </a>
-        </Container>
-      </section>
+      {/* 2026-08-26：這裡原本有一段自製的結尾 CTA（「想幫家庭安排一場親子共學？」＋邀約課程按鈕），
+          已依使用者決定移除——原站沒有這段：解碼後的 HTML 裡「購買桌遊」按鈕之後直接接
+          <div class="footer-wrap">，拿該段標題/內文去搜都是 0 筆（以「【遇兒魔導師】」當對照組
+          是 3 筆，證明搜尋方法有效）。/courses/corporate-training 結尾同款的自製 CTA 也一併移除。 */}
     </div>
   );
 }
