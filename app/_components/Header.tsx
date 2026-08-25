@@ -20,13 +20,14 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   // 原站的「header-page」（有自己的 header banner 底圖）跟「no-header-page」（純白底）是兩種
-  // 不同的頁面模板，逐頁量測 body class 後確認：首頁／想設計／買桌遊總覽／找課程總覽這 4 個
-  // 總覽型頁面是 header-page（header 透明疊在底圖上，導覽字/選單icon白色、目前頁面白色外框），
-  // 其餘 20 頁（關於我們、買數位教材、8 款商品頁、10 個課程子頁）都是 no-header-page（實心白底、
-  // 黑字、黑色外框）。這裡用完整路徑（不含子路徑）比對這 4 個總覽頁，其他頁面一律 solid 模式。
-  // "/courses/corporate-training"（教育訓練）2026-08-25 全站逐頁重新核對 body class 才發現：
-  // 原站不是只有這 4 頁走 overlay，這頁的 <body> 也是 header-page（自己的 Meeting.jpg banner 底圖），
-  // 上一輪（08-24）只抽查了幾頁就把清單定成「4 頁」，沒有逐一核對全部 24 頁才漏掉，見 DESIGN-SPEC.md。
+  // 不同的頁面模板，逐頁量測 body class 後確認：首頁／想設計／買桌遊總覽／找課程總覽／教育訓練
+  // 這 5 個頁面是 header-page（header 透明疊在底圖上，導覽字/選單icon白色、目前頁面白色外框），
+  // 其餘 19 頁（關於我們、買數位教材、8 款商品頁、其餘 9 個課程子頁）都是 no-header-page（實心
+  // 白底、黑字、黑色外框）。這裡用完整路徑（不含子路徑）比對這 5 個頁面，其他頁面一律 solid 模式。
+  // 教育訓練（/courses/corporate-training）是 2026-08-25 全站逐頁重新核對 body class 才補上的第
+  // 5 個——上一輪（08-24）只抽查了幾頁就把清單定成「4 頁」，沒有逐一核對全部 24 頁才漏掉，這頁
+  // 的底圖是 Weebly 內建 stock 圖庫 Meeting.jpg（不是灰底抽象圖案，跟其他 4 頁不同），細節見
+  // DESIGN-SPEC.md 的 Header Banner 底圖表格。
   const overlayRoutes = [
     "/",
     "/design-consulting",
