@@ -18,6 +18,7 @@ const serviceScopes = [
     groups: [
       {
         title: "社會情緒與人際溝通",
+        titleLines: ["社會情緒", "與人際溝通"],
         tags: ["情緒教育｜人際關係", "職場溝通｜家庭互動"],
         clients: [
           {
@@ -32,6 +33,7 @@ const serviceScopes = [
       },
       {
         title: "教育與人權",
+        titleLines: ["教育與人權"],
         tags: ["兒童權利｜校園霸凌", "民主參與｜性別平等"],
         clients: [
           {
@@ -46,6 +48,7 @@ const serviceScopes = [
       },
       {
         title: "環境永續與公共議題",
+        titleLines: ["環境永續", "與公共議題"],
         tags: ["SDGs｜媒體識讀", "公民參與｜社會倡議"],
         clients: [
           {
@@ -60,6 +63,7 @@ const serviceScopes = [
       },
       {
         title: "地方文化與實境體驗",
+        titleLines: ["地方文化", "與實境體驗"],
         tags: ["地方文化｜城市探索", "實境遊戲｜展覽互動"],
         clients: [
           {
@@ -191,24 +195,33 @@ export default function DesignConsultingPage() {
         align="left"
       />
 
+      {/* 2026-08-25 使用者回報「這個頁面也長不一樣」後用即時瀏覽器重新逐一量測才發現：標題其實是
+          3 行不是 2 行（原始碼是「把你的議題<br>設計成<br>能參與的遊戲體驗」，中間多一個換行），
+          按鈕跟段落文字是同一列並排（按鈕窄欄在左、段落文字在右），不是重建站原本的「標題+段落+
+          按鈕」整個垂直堆疊；按鈕本身也是黑底白字直角（`wsite-button-highlight`，跟首頁「適合對象」
+          卡片按鈕、DESIGN-SPEC.md 已經記錄過的同一種），不是品牌綠圓角按鈕。 */}
       <section className="bg-black/[0.03] py-20">
         <Container>
           <h2 className="text-3xl font-bold text-brand-green md:text-4xl">
             把你的議題
             <br />
-            設計成能參與的遊戲體驗
+            設計成
+            <br />
+            能參與的遊戲體驗
           </h2>
-          <p className="mt-6 max-w-2xl text-ink/70">
-            阿普蛙協助基金會、公部門、學校、企業與內容團隊，將教育議題、倡議理念、地方文化或組織需求，轉化為桌遊、實境遊戲、遊戲化活動與推廣教材。我們設計遊戲，也能夠協助完成視覺設計、印刷製作、課程應用與後續推廣，讓一個好概念真正落地被使用。
-          </p>
-          <a
-            href="https://forms.gle/gipvxKXwpi1iFizs8"
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-block rounded-full bg-brand-green px-8 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-          >
-            填寫合作需求
-          </a>
+          <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-10">
+            <a
+              href="https://forms.gle/gipvxKXwpi1iFizs8"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block shrink-0 bg-black px-[30px] py-3.5 text-sm font-bold text-white transition hover:bg-ink/80"
+            >
+              填寫合作需求
+            </a>
+            <p className="max-w-2xl text-ink/70">
+              阿普蛙協助基金會、公部門、學校、企業與內容團隊，將教育議題、倡議理念、地方文化或組織需求，轉化為桌遊、實境遊戲、遊戲化活動與推廣教材。我們設計遊戲，也能夠協助完成視覺設計、印刷製作、課程應用與後續推廣，讓一個好概念真正落地被使用。
+            </p>
+          </div>
         </Container>
       </section>
 
@@ -216,7 +229,7 @@ export default function DesignConsultingPage() {
         <Container>
           <div className="grid gap-10 md:grid-cols-2 md:items-center">
             <div>
-              <h2 className="text-2xl font-bold text-ink">
+              <h2 className="text-3xl font-bold text-ink md:text-4xl">
                 你有個重要議題，卻不知道怎麼讓人靠近嗎？
               </h2>
               <p className="mt-4 text-ink/70">
@@ -311,18 +324,33 @@ export default function DesignConsultingPage() {
           直接畫成一張白卡（標題+logo 都在同一張卡裡），沒有綠色標題色塊，一併補上。 */}
       <section className="bg-[#e6e6e6] py-16">
         <Container>
-          <h2 className="text-2xl font-bold text-ink">
-            我們設計遊戲，也深入教學現場
+          {/* 2026-08-25 重新量測發現：標題其實是「我們設計遊戲／也深入教學現場」兩行、品牌綠
+              32px（不是重建站原本的一行黑字），下面接著還有一句同樣風格的兩行副標「協助合作單位／
+              進行議題遊戲化」，重建站原本完全沒有這句、卻多寫了一段原站沒有的段落文字
+              （「阿普蛙長期耕耘校園...」在原始碼裡找不到，是虛構補上去的），已拿掉換成真正的副標。 */}
+          <h2 className="text-3xl font-bold text-brand-green md:text-4xl">
+            我們設計遊戲
+            <br />
+            也深入教學現場
           </h2>
-          <p className="mt-3 max-w-2xl text-ink/70">
-            阿普蛙長期耕耘校園、教師研習、社福與公共議題現場。我們理解不同年齡、對象與帶領者的使用需求，除了考慮「好不好玩」，也在意遊戲能否被理解、被帶領，並真正進入課堂與活動現場。
-          </p>
+          <h2 className="mt-6 text-3xl font-bold text-brand-green md:text-4xl">
+            協助合作單位
+            <br />
+            進行議題遊戲化
+          </h2>
 
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {serviceScopes[0].groups.map((g) => (
               <div key={g.title} className="overflow-hidden rounded-[20px]">
                 <div className="bg-brand-green px-6 py-4">
-                  <h3 className="font-bold text-white">{g.title}</h3>
+                  <h3 className="font-bold text-white">
+                    {g.titleLines.map((line, i) => (
+                      <span key={line}>
+                        {i > 0 && <br />}
+                        {line}
+                      </span>
+                    ))}
+                  </h3>
                   <p className="mt-1 text-xs text-white/70">
                     {g.tags.join("　")}
                   </p>
@@ -352,7 +380,10 @@ export default function DesignConsultingPage() {
           （不是重建站原本以為的白底），維持兩個 <section> 各自套色就好，顏色一致銜接處不會有接縫。 */}
       <section className="bg-[#e6e6e6] py-16">
         <Container>
-          <h2 className="text-2xl font-bold text-ink">代表案例</h2>
+          {/* 量測 font 得到 48px、品牌綠，不是重建站原本的 24px 黑字。 */}
+          <h2 className="text-4xl font-bold text-brand-green md:text-5xl">
+            代表案例
+          </h2>
           <div className="mt-8 grid gap-8 md:grid-cols-2">
             {cases.map((c) => (
               <div

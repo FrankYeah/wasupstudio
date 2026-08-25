@@ -90,7 +90,7 @@ export default function DigitalMaterialsPage() {
 
       <section className="py-16">
         <Container>
-          <h2 className="text-2xl font-bold text-ink">故事內容</h2>
+          <h2 className="text-2xl font-bold text-[#248d6c]">故事內容</h2>
           <p className="mt-2 text-ink/70">
             本教材共有 4 個故事，每個故事長短不一，且分別呈現了人際衝突中常見的
             4 種需求。
@@ -135,24 +135,39 @@ export default function DigitalMaterialsPage() {
 
       <section className="bg-black/[0.03] py-16">
         <Container>
-          <h2 className="text-2xl font-bold text-ink">
+          {/* 2026-08-25 量測 font color 才發現：這句跟「故事內容」都是青綠 #248d6c，不是重建站
+              原本的一般深色字；下面 3 張 Day 卡的標題原站也各自有色（橘 #c2743b／橘 #c2743b／
+              紅 #c23b3b），且是「Day X」跟時數各自一行，不是用「・」接在同一行。 */}
+          <h2 className="text-2xl font-bold text-[#248d6c]">
             操作方式：以《為什麼不跟我玩》為例
           </h2>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             <div className="rounded-xl bg-white p-6">
-              <h3 className="font-bold text-ink">Day 1・10 分鐘</h3>
+              <h3 className="font-bold text-[#c2743b]">
+                Day 1
+                <br />
+                10 分鐘
+              </h3>
               <p className="mt-2 text-sm text-ink/70">
                 播放故事影片，讓學生了解劇情，並發放學習單，讓學生帶回去與家長討論。
               </p>
             </div>
             <div className="rounded-xl bg-white p-6">
-              <h3 className="font-bold text-ink">Day 2・10 分鐘</h3>
+              <h3 className="font-bold text-[#c2743b]">
+                Day 2
+                <br />
+                10 分鐘
+              </h3>
               <p className="mt-2 text-sm text-ink/70">
                 在課堂上統計各組的答案，填入網站系統。接著播放第二日故事影片，並發放學習單。
               </p>
             </div>
             <div className="rounded-xl bg-white p-6">
-              <h3 className="font-bold text-ink">Day 3・一節課</h3>
+              <h3 className="font-bold text-[#c23b3b]">
+                Day 3
+                <br />
+                一節課
+              </h3>
               <p className="mt-2 text-sm text-ink/70">
                 在課堂上統計各組的答案，填入網站系統。網站將根據前 2
                 天的答案給出不同的結局（結局共有 4

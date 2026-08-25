@@ -41,9 +41,21 @@ const designSteps = [
 ];
 
 const testimonials = [
-  { name: "小六林同學", quote: "我覺得猜別人情緒很難，原來別人跟我想的不一樣。", avatar: "/images/home/testimonial-1.png" },
-  { name: "國中專輔老師 Dora", quote: "可以運用在人際關係小團體上，增進覺察他人情緒。", avatar: "/images/home/testimonial-2.png" },
-  { name: "高中藝術江老師", quote: "利用問問題來推敲情緒，可以訓練高中生有更多的推理與歸納能力。", avatar: "/images/home/testimonial-3.png" },
+  {
+    name: "小六林同學",
+    quote: "我覺得猜別人情緒很難，原來別人跟我想的不一樣。",
+    avatar: "/images/home/testimonial-1.png",
+  },
+  {
+    name: "國中專輔老師 Dora",
+    quote: "可以運用在人際關係小團體上，增進覺察他人情緒。",
+    avatar: "/images/home/testimonial-2.png",
+  },
+  {
+    name: "高中藝術江老師",
+    quote: "利用問問題來推敲情緒，可以訓練高中生有更多的推理與歸納能力。",
+    avatar: "/images/home/testimonial-3.png",
+  },
 ];
 
 export default function HomePage() {
@@ -61,11 +73,23 @@ export default function HomePage() {
           桌機版（md 以上）改用貼齊左邊緣的大圖，跟手機版是兩組獨立的圖，用 md:hidden／hidden md:block 切換。 */}
       <section className="relative overflow-hidden bg-[#e6e6e6] pt-24 pb-10 sm:pt-28 sm:pb-14 md:pt-48 md:pb-24">
         <div className="pointer-events-none absolute -left-10 bottom-0 hidden h-72 w-72 md:block lg:h-80 lg:w-80">
-          <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
+          <Image
+            src="/images/brand/hero-bg.png"
+            alt=""
+            fill
+            className="object-contain"
+            aria-hidden
+          />
         </div>
         <Container className="relative grid grid-cols-[auto_1fr] items-center gap-4 sm:gap-6 md:block">
           <div className="relative h-24 w-24 shrink-0 sm:h-40 sm:w-40 md:hidden">
-            <Image src="/images/brand/hero-bg.png" alt="阿普蛙" fill className="object-contain" priority />
+            <Image
+              src="/images/brand/hero-bg.png"
+              alt="阿普蛙"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
           <div className="md:ml-[38%] md:w-[62%]">
             <h1 className="text-lg leading-snug font-medium text-[#3f3f3f] italic sm:text-2xl md:text-3xl lg:text-4xl">
@@ -91,9 +115,17 @@ export default function HomePage() {
 
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {audiences.map((a) => (
-              <div key={a.href} className="flex flex-col items-center text-center">
+              <div
+                key={a.href}
+                className="flex flex-col items-center text-center"
+              >
                 <div className="relative h-40 w-40">
-                  <Image src={a.image} alt={`${a.title}：${a.tagline}`} fill className="object-contain" />
+                  <Image
+                    src={a.image}
+                    alt={`${a.title}：${a.tagline}`}
+                    fill
+                    className="object-contain"
+                  />
                 </div>
                 <h3 className="mt-6 text-sm font-bold text-ink">適合對象</h3>
                 <p className="mt-1 text-sm text-ink/70">
@@ -160,11 +192,21 @@ export default function HomePage() {
           <div className="overflow-hidden rounded-2xl">
             <div className="flex flex-col items-center gap-6 bg-brand-green px-8 py-8 sm:flex-row sm:gap-10 sm:px-10">
               <div className="relative h-28 w-28 shrink-0 sm:h-32 sm:w-32">
-                <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
+                <Image
+                  src="/images/brand/hero-bg.png"
+                  alt=""
+                  fill
+                  className="object-contain"
+                  aria-hidden
+                />
               </div>
               <div className="text-center sm:text-left">
-                <h2 className="text-2xl font-bold text-white md:text-3xl">從設計到推廣的全方位服務</h2>
-                <p className="mt-2 text-[#f8eaa9]">從議題轉譯到教學推廣，阿普蛙陪你走整段路</p>
+                <h2 className="text-2xl font-bold text-white md:text-3xl">
+                  從設計到推廣的全方位服務
+                </h2>
+                <p className="mt-2 text-[#f8eaa9]">
+                  從議題轉譯到教學推廣，阿普蛙陪你走整段路
+                </p>
               </div>
             </div>
 
@@ -175,12 +217,18 @@ export default function HomePage() {
                   量測每個文字/圖片元素的 x 座標才抓到（照片 x 落在右欄範圍、不是左欄）。 */}
               <div className="grid gap-x-10 gap-y-10 md:grid-cols-2">
                 <div>
-                  <h2 className="text-2xl font-bold text-ink">一款桌遊，如何讓孩子開始談情緒？</h2>
-                  <p className="mt-6 font-semibold text-brand-green">情緒很重要，卻不一定容易說出口</p>
+                  <h2 className="text-2xl font-bold text-ink">
+                    一款桌遊，如何讓孩子開始談情緒？
+                  </h2>
+                  <p className="mt-6 font-semibold text-brand-green">
+                    情緒很重要，卻不一定容易說出口
+                  </p>
                   <p className="mt-2 text-ink/70">
                     我們把情緒辨識、同理感受與人際互動，設計成孩子能遊玩的桌遊體驗，讓情緒教育從講解變成觀察、猜測、表達與討論。
                   </p>
-                  <p className="mt-4 font-semibold text-brand-green">透過遊戲創造一個低壓力的討論環境</p>
+                  <p className="mt-4 font-semibold text-brand-green">
+                    透過遊戲創造一個低壓力的討論環境
+                  </p>
                   <p className="mt-2 text-ink/70">
                     孩子可以從角色、情境和線索出發，慢慢說出自己的猜測，也聽見別人如何理解同一個情境。也許我們的感受與想法不一樣，透過遊戲我們有機會看見彼此的不一樣。
                   </p>
@@ -206,8 +254,12 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-ink">情緒謎語</h3>
-                  <p className="mt-1 text-xs font-semibold tracking-wide text-brand-green">SEL</p>
+                  <h3 className="text-xl font-bold text-brand-green">
+                    情緒謎語
+                  </h3>
+                  <p className="mt-1 text-xs font-semibold tracking-wide text-brand-green">
+                    SEL
+                  </p>
                   <p className="mt-3 text-sm text-ink/70">
                     這是一款將校園人際衝突與情緒理解，設計成可以觀察、推理與表達的雙語桌遊。孩子在遊戲中練習辨識情緒、理解他人反應，也讓老師能輕鬆把
                     SEL、人際溝通與表演活動帶進課堂。
@@ -234,7 +286,12 @@ export default function HomePage() {
               {/* 情緒謎語的設計脈絡：從議題出發→轉化成遊戲→延伸到課堂 */}
               <div className="mt-10 flex justify-center">
                 <div className="relative aspect-[1123/540] w-full max-w-3xl">
-                  <Image src="/images/home/design-process.png" alt="從議題出發、轉化成遊戲、延伸到課堂" fill className="object-contain" />
+                  <Image
+                    src="/images/home/design-process.png"
+                    alt="從議題出發、轉化成遊戲、延伸到課堂"
+                    fill
+                    className="object-contain"
+                  />
                 </div>
               </div>
 
@@ -244,10 +301,18 @@ export default function HomePage() {
                 {testimonials.map((t) => (
                   <blockquote key={t.name} className="text-center md:text-left">
                     <div className="relative mx-auto h-16 w-16 overflow-hidden rounded-full md:mx-0">
-                      <Image src={t.avatar} alt="" fill className="object-cover" aria-hidden />
+                      <Image
+                        src={t.avatar}
+                        alt=""
+                        fill
+                        className="object-cover"
+                        aria-hidden
+                      />
                     </div>
                     <p className="mt-4 text-ink/80">「{t.quote}」</p>
-                    <footer className="mt-4 text-sm font-semibold text-brand-green">{t.name}</footer>
+                    <footer className="mt-4 text-sm font-semibold text-brand-green">
+                      {t.name}
+                    </footer>
                   </blockquote>
                 ))}
               </div>
@@ -262,11 +327,23 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-[#00ab84] py-24 text-white">
         <Container className="relative text-center">
           <div className="relative mx-auto h-20 w-20">
-            <Image src="/images/brand/hero-bg.png" alt="" fill className="object-contain" aria-hidden />
+            <Image
+              src="/images/brand/hero-bg.png"
+              alt=""
+              fill
+              className="object-contain"
+              aria-hidden
+            />
           </div>
-          <h2 className="mt-4 text-2xl font-bold text-white md:text-3xl">有個重要但不容易說的議題？</h2>
-          <p className="mt-3 text-white/90">讓我們一起把它設計成可以玩的學習體驗</p>
-          <p className="mt-1 text-white/90">你可以從一堂課、一款桌遊，或一個完整的教育推廣專案開始</p>
+          <h2 className="mt-4 text-2xl font-bold text-white md:text-3xl">
+            有個重要但不容易說的議題？
+          </h2>
+          <p className="mt-3 text-white/90">
+            讓我們一起把它設計成可以玩的學習體驗
+          </p>
+          <p className="mt-1 text-white/90">
+            你可以從一堂課、一款桌遊，或一個完整的教育推廣專案開始
+          </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
               href="https://forms.gle/gipvxKXwpi1iFizs8"
@@ -276,18 +353,35 @@ export default function HomePage() {
             >
               聊聊你的議題
             </a>
-            <Link href="/design-consulting" className="border border-white px-8 py-3 font-semibold text-white transition hover:bg-white hover:text-brand-green-bright">
+            <Link
+              href="/design-consulting"
+              className="border border-white px-8 py-3 font-semibold text-white transition hover:bg-white hover:text-brand-green-bright"
+            >
               了解設計流程
             </Link>
           </div>
         </Container>
 
-        {/* logo 圖檔本身是透明背景，原站量測確認是直接放在綠底上、沒有另外包白卡，
-            照抄不加白底卡片。 */}
+        {/* 2026-08-25 使用者又抓到一次落差：logo 牆其實有包一張白色 colored-box 卡片
+            （量測 .colored-box-content 得到 bg #ffffff、四角 10px 圓角、padding 20px 10px），
+            上一輪判斷「沒有包白卡」是漏看了——這個元素在原站 fetch 下來的 page.html 裡完全沒有
+            （擷取腳本抓的那份是舊版內容，這段是之後才用即時瀏覽器 DOM 補回來的，補的時候只查了
+            logo 圖檔本身背景透明，沒有再往上一層查有沒有卡片容器），這次改用即時瀏覽器把
+            .colored-box-content 完整清單重新掃一次才抓到。標題「合作夥伴」在卡片外面、白字、
+            置中，卡片本身才裝 logo 圖。 */}
         <Container className="relative mt-20">
-          <h2 className="text-center text-2xl font-bold text-white md:text-3xl">合作夥伴</h2>
-          <div className="relative mx-auto mt-10 aspect-[946/528] w-full max-w-4xl">
-            <Image src="/images/home/partners.png" alt="合作夥伴：為台灣而教、台灣主婦聯盟生活消費合作社、國立臺灣圖書館、小公視、家扶基金會、台灣股票博物館、基隆市文化觀光局、台少盟、公視兒少、公視主題之夜SHOW、勵馨基金會、彭婉如文教基金會、AIC、金車文教基金會、康軒文教事業、臺南市政府文化局、翰林出版" fill className="object-contain" />
+          <h2 className="text-center text-2xl font-bold tracking-[0.3em] text-white md:text-3xl">
+            合作夥伴
+          </h2>
+          <div className="mx-auto mt-10 max-w-4xl rounded-[10px] bg-white px-2.5 py-5">
+            <div className="relative aspect-[946/528] w-full">
+              <Image
+                src="/images/home/partners.png"
+                alt="合作夥伴：為台灣而教、台灣主婦聯盟生活消費合作社、國立臺灣圖書館、小公視、家扶基金會、台灣股票博物館、基隆市文化觀光局、台少盟、公視兒少、公視主題之夜SHOW、勵馨基金會、彭婉如文教基金會、AIC、金車文教基金會、康軒文教事業、臺南市政府文化局、翰林出版"
+                fill
+                className="object-contain"
+              />
+            </div>
           </div>
         </Container>
       </section>

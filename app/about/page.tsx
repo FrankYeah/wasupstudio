@@ -125,7 +125,7 @@ export default function AboutPage() {
                 className="h-20 w-20 shrink-0"
               />
             </div>
-            <h1 className="mt-6 text-2xl font-bold text-ink md:text-3xl">
+            <h1 className="mt-6 text-2xl font-bold text-[#3ab890] md:text-3xl">
               用遊戲，創造一個更好的公民社會
             </h1>
           </div>
@@ -154,18 +154,20 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* 數據 */}
-      <section className="bg-brand-green py-16 text-white">
+      {/* 數據：2026-08-25 量測才發現這段其實跟上下段落是同一片白底（原始碼裡跟前一段落同一個
+          section，沒有另外的綠底），重建站原本自己加了品牌綠底＋白字。數字是金黃 #dab844、
+          說明文字是藍綠 #24678d，不是白色。 */}
+      <section className="py-16">
         <Container>
-          <p className="text-center text-sm text-white/70">
+          <p className="text-center text-sm text-ink/60">
             阿普蛙工作室設計不同的桌遊、大型遊戲，帶領教師研習、青少年培力工作坊或各部門教育訓練等課程。（數據統計至
             2024 年 11 月）
           </p>
           <div className="mt-8 grid gap-8 text-center sm:grid-cols-3">
             {stats.map((s) => (
               <div key={s.label}>
-                <p className="text-4xl font-bold">{s.value}</p>
-                <p className="mt-2 text-sm text-white/80">{s.label}</p>
+                <p className="text-4xl font-bold text-[#dab844]">{s.value}</p>
+                <p className="mt-2 text-sm text-[#24678d]">{s.label}</p>
               </div>
             ))}
           </div>
