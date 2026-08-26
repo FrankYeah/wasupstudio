@@ -24,13 +24,12 @@ const galleryImages: GalleryImage[] = [
 export default function SharpTenPage() {
   return (
     <Container className="py-16">
-      {/* 原站手機版是「文字先、圖庫在後」，桌機版才是圖庫在左；用 order- 讓兩種螢幕各自對齊原站順序 */}
+      {/* 原站是「文字在左、相簿在右」（<td> 順序＝桌機視覺順序，2026-08-26 量原站 x 座標確認）。
+          這裡刻意不寫 order-：DOM 順序＝文字先、相簿後，桌機自然是文字左相簿右，手機堆疊也是
+          文字先，兩種螢幕都跟原站一致。曾經被統一成「圖左文右」，見 MIGRATION-PLAN.md
+          Phase 2「圖文左右順序」。 */}
       <div className="grid gap-12 md:grid-cols-2">
-        <div className="order-2 md:order-1">
-          <ProductGallery images={galleryImages} />
-        </div>
-
-        <div className="order-1 md:order-2">
+        <div>
         <h1 className="text-3xl font-bold text-ink">十分機靈</h1>
         <p className="mt-4 text-ink/70">
           《十分機靈》是一款問答遊戲。每道題目都有10個可能的答案，所有玩家都可以在緊湊的遊戲過程，享受刺激的答題樂趣。問題可能是運動、常識、歷史、動漫等，一定有一種能夠考倒你！
@@ -57,6 +56,10 @@ export default function SharpTenPage() {
             購買桌遊
           </a>
         </div>
+        </div>
+
+        <div>
+          <ProductGallery images={galleryImages} />
         </div>
       </div>
 

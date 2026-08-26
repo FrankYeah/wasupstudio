@@ -63,10 +63,11 @@ export default function HomePage() {
     <>
       {/* Hero */}
       {/* 原站首頁 header banner 其實是一張 2000×1001 的合成底圖（灰底+蛙圖+標題文字全部畫在圖裡），
-          量測後背景是純色 #e6e6e6（不是漸層），蛙圖貼齊瀏覽器左邊緣、被裁掉一截，標題文字是深灰
-          （約 #3f3f3f）中等字重＋斜體，跟站內其他標題（正常字重、無斜體，見 DESIGN-SPEC.md）不是
-          同一套樣式——這是首頁 hero 專屬的一次性裝飾排版，不是全站字體規則。這裡標題文字保留成真正的
-          DOM 文字（SEO 考量，原站是圖片、不是文字，這是新站故意不照抄的地方），視覺上比照顏色/字重還原；
+          量測後背景是純色 #e6e6e6（不是漸層），蛙圖貼齊瀏覽器左邊緣、被裁掉一截，標題文字是灰色
+          #5b5959 中等字重、**字身是正的、整塊往右上旋轉 -6.2°**（2026-08-26 直接量圖檔像素得到；
+          先前寫成「#3f3f3f＋斜體」是錯的，見下方 h1 的註解），跟站內其他標題（700、無旋轉，見
+          DESIGN-SPEC.md）不是同一套樣式——這是首頁 hero 專屬的一次性裝飾排版，不是全站字體規則。
+          這裡標題文字保留成真正的 DOM 文字（SEO 考量，原站是圖片、不是文字，這是新站故意不照抄的地方）；
           header 是透明疊在這個區塊上面（見 Header.tsx 的 overlay 模式），所以要留 padding-top 讓內容
           不被導覽列蓋到。
           手機版沿用既有的 grid-cols-[auto_1fr] 並排小圖排版（原站手機版蛙圖跟文字並排、圖較小），
@@ -92,10 +93,21 @@ export default function HomePage() {
             />
           </div>
           <div className="md:ml-[38%] md:w-[62%]">
-            <h1 className="text-lg leading-snug font-medium text-[#3f3f3f] italic sm:text-2xl md:text-3xl lg:text-4xl">
-              我們把重要但不容易說的事
-              <br />
-              設計成可以玩的學習體驗
+            {/* ⚠️ 2026-08-26 更正：這行字在原站是**畫在 banner 圖裡**（441779519.png，2000×1001），
+                沒有任何 DOM 元素——所以歷次用 getComputedStyle 做的量測，這行字從頭到尾不會出現在
+                任何報表裡，落差才會一直沒被發現（見 skill visual-fidelity-audit.md「文字畫在圖裡時，DOM 量測
+                不是量錯」那節；用標題不用編號指過去，編號會隨插入漂移）。
+                這次直接量圖檔像素得到：文字色 #5b5959（不是先前寫的 #3f3f3f）、筆畫/字高比 0.10
+                ＝中等字重（font-medium 是對的）、字高 40px／字寬 44px（＝ 2000px 圖寬的 2.2%，
+                cover 背景會隨視窗等比縮放，所以這裡用 2.2vw 還原）、行高 66/44 ≈ 1.5。
+                **最關鍵的一項：原站不是斜體，是整塊往右上「旋轉」-6.2°**——字身本身是正的。
+                先前寫成 italic（合成傾斜字身）才會看起來又黑又粗又歪。
+                文字本身保留成真正的 DOM 文字（SEO，原站是圖片），是刻意的偏離。 */}
+            <h1 className="origin-left rotate-[-6.2deg] text-[15px] leading-[1.5] font-medium whitespace-nowrap text-[#5b5959] sm:text-2xl md:text-[clamp(1.25rem,2.2vw,3rem)]">
+              <span className="block">我們把重要但不容易說的事</span>
+              {/* 原圖裡兩行不是左右對齊也不是置中：把整塊轉正後量，第二行左緣比第一行左 82px，
+                  字寬 44px → 1.86em。手機版的圖文並排欄很窄，負縮排會擠出去，所以只在 md 以上套用。 */}
+              <span className="block md:-ml-[1.86em]">設計成可以玩的學習體驗</span>
             </h1>
           </div>
         </Container>

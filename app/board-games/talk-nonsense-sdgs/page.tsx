@@ -36,13 +36,12 @@ const galleryImages: GalleryImage[] = [
 export default function TalkNonsenseSdgsPage() {
   return (
     <Container className="py-16">
-      {/* 原站手機版是「文字先、圖庫在後」，桌機版才是圖庫在左；用 order- 讓兩種螢幕各自對齊原站順序 */}
+      {/* 原站是「文字在左、相簿在右」（<td> 順序＝桌機視覺順序，2026-08-26 量原站 x 座標確認）。
+          這裡刻意不寫 order-：DOM 順序＝文字先、相簿後，桌機自然是文字左相簿右，手機堆疊也是
+          文字先，兩種螢幕都跟原站一致。曾經被統一成「圖左文右」，見 MIGRATION-PLAN.md
+          Phase 2「圖文左右順序」。 */}
       <div className="grid gap-12 md:grid-cols-2">
-        <div className="order-2 md:order-1">
-          <ProductGallery images={galleryImages} />
-        </div>
-
-        <div className="order-1 md:order-2">
+        <div>
         <p className="text-sm font-semibold text-brand-green">SDGs 聯合國17項永續發展目標</p>
         <h1 className="mt-2 text-3xl font-bold text-ink">瞎掰王SDGs教育版</h1>
         <p className="mt-4 text-ink/70">
@@ -91,6 +90,10 @@ export default function TalkNonsenseSdgsPage() {
             邀約課程
           </a>
         </div>
+        </div>
+
+        <div>
+          <ProductGallery images={galleryImages} />
         </div>
       </div>
 

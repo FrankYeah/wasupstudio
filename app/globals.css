@@ -34,10 +34,17 @@ body {
   margin-inline: auto;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-heading);
-  font-weight: 700;
+/* ⚠️ 這條一定要包在 @layer base 裡。沒有 layer 的規則會贏過 Tailwind 的 utilities layer，
+   也就是元素上寫的 font-medium／font-semibold 會被這裡的 700 靜默蓋掉——class 明明在
+   DOM 上，getComputedStyle 卻是 700。首頁 hero 標題 2026-08-26 就踩到這個
+   （見 app/page.tsx 該處註解）。放進 base 之後，沒特別指定的標題一樣是 700，
+   有明寫字重的地方才會照它自己寫的算。 */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+  }
 }

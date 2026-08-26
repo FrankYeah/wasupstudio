@@ -255,14 +255,12 @@ export default function GreatPoliticianPage() {
       {/* 原站 hero 以下整段都是 #323D3F 深灰底、白字，一路包到頁尾 */}
       <section className="bg-[#323D3F]">
         <Container className="py-16">
-          {/* 原站是「文字在左、圖庫＋按鈕在右」，但全站 8 款商品頁刻意統一成「圖片在左、
-              文字＋購買資訊在右」；用 order- 讓手機版仍照原站 DOM 順序（文字先、圖庫在後）。*/}
+          {/* 原站是「文字在左、相簿＋按鈕在右」（<td> 順序＝桌機視覺順序，2026-08-26 量原站
+              x 座標確認）。這裡刻意不寫 order-：DOM 順序＝文字先、相簿後，桌機自然是文字左
+              相簿右，手機堆疊也是文字先，兩種螢幕都跟原站一致。曾經被統一成「圖左文右」，
+              見 MIGRATION-PLAN.md Phase 2「圖文左右順序」。 */}
           <div className="grid gap-12 md:grid-cols-2">
-            <div className="order-2 md:order-1">
-              <ProductGallery images={galleryImages} />
-            </div>
-
-            <div className="order-1 md:order-2">
+            <div>
               <p className="text-sm font-semibold text-[#fbf8f8]">
                 民主 x 人權 x 代議政治
               </p>
@@ -307,6 +305,10 @@ export default function GreatPoliticianPage() {
               </p>
 
               <Buttons courseLabel="邀約遊戲課程" />
+            </div>
+
+            <div>
+              <ProductGallery images={galleryImages} />
             </div>
           </div>
 
@@ -466,11 +468,7 @@ export default function GreatPoliticianPage() {
           <hr className="mt-16 border-white/20" />
 
           <div className="mt-16 grid gap-12 md:grid-cols-2">
-            <div className="order-2 md:order-1">
-              <ProductGallery images={manualImages} />
-            </div>
-
-            <div className="order-1 md:order-2">
+            <div>
               <p className="text-sm font-semibold text-[#fbf8f8]">
                 民主政治 x 台灣立委選舉 x 班級經營
               </p>
@@ -505,6 +503,10 @@ export default function GreatPoliticianPage() {
                 buyHref={MANUAL_HREF}
                 courseLabel="邀約遊戲課程"
               />
+            </div>
+
+            <div>
+              <ProductGallery images={manualImages} />
             </div>
           </div>
 

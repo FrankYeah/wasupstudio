@@ -110,75 +110,84 @@ export default function CrazyNewsPage() {
       </section>
 
       <section className="bg-[#323D3F] py-16">
-        <Container className="max-w-3xl">
-          <p className="text-sm font-semibold text-[#d5d5d5]">
-            全球第一款媒體識讀桌遊
-          </p>
-          <h1 className="mt-2 text-3xl font-bold text-white">
-            抓誑新聞 Crazy News
-          </h1>
-          <p className="mt-4 text-[#d5d5d5]">
-            遊戲中，你將成為「識讀者」同盟的一員，聆聽報導並破除藏匿其中的四大毒物！在媒體徹底誑化之前，號召你的夥伴升級各種特殊技、打擊怪獸，一起讓誑化的媒體恢復正常！
-          </p>
-          <ul className="mt-4 space-y-1 text-[#d5d5d5]">
-            {highlights.map(([marker, text]) => (
-              <li key={text}>
-                {marker} {text}
-              </li>
-            ))}
-          </ul>
-        </Container>
-
         {/* ⚠️ 2026-08-25 更正：上一輪只把「標語＋書名」那一小塊做成 #323D3F，之後全是白底——
             但原站這頁**整個 body 只有 2 個 wsite-section**：一張 430px 底圖 hero，加一個
             #323D3F 深灰區塊，而那個深灰區塊**一路包到頁尾**（遊戲理念／遊戲特色／遊戲資訊／
             兩個影片區全在裡面，原始碼裡還留著 color:rgb(255,255,255) 的 span）。
             也就是這頁 hero 以下整片都是深底白字，不是重建站原本的深灰一小條＋白底一大片。
             已把這個 Container 併進同一個 section，並把區塊內的文字/邊框色全部改成淺色。 */}
+        {/* 2026-08-26：原站這一段是**一列兩欄**（欄寬 45.3% / 54.7%，讀原站 <td> style 取得）——
+            左欄＝標語＋書名＋介紹＋亮點＋售價，右欄＝相簿＋購買/邀約/播報網頁按鈕。
+            重建站原本把兩者上下疊成 max-w-3xl 置中單欄，相簿還縮成 max-w-md，跟原站不是同一種版面。
+            見 MIGRATION-PLAN.md Phase 2「圖文左右順序」。
+            ⚠️ 原站左欄的文字之間還夾了兩張圖（2_2.png、2_4.png），右欄按鈕之間也有一張（2_2_orig.png），
+            這三張目前不在重建站上，屬於另一條「內容漏接」待辦，不在這次左右順序修正的範圍。 */}
+        <Container>
+          <div className="grid gap-12 md:grid-cols-[45fr_55fr]">
+            <div>
+              <p className="text-sm font-semibold text-[#d5d5d5]">
+                全球第一款媒體識讀桌遊
+              </p>
+              <h1 className="mt-2 text-3xl font-bold text-white">
+                抓誑新聞 Crazy News
+              </h1>
+              <p className="mt-4 text-[#d5d5d5]">
+                遊戲中，你將成為「識讀者」同盟的一員，聆聽報導並破除藏匿其中的四大毒物！在媒體徹底誑化之前，號召你的夥伴升級各種特殊技、打擊怪獸，一起讓誑化的媒體恢復正常！
+              </p>
+              <ul className="mt-4 space-y-1 text-[#d5d5d5]">
+                {highlights.map(([marker, text]) => (
+                  <li key={text}>
+                    {marker} {text}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-[#d5d5d5]">售價：750元（消費滿2000免運）</p>
+            </div>
+
+            <div>
+              <ProductGallery images={galleryImages} />
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href="https://forms.gle/n4eqD2xcKHgPUwrS7"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full bg-brand-green px-6 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
+                >
+                  購買桌遊
+                </a>
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLScTpdFbaeh221rvaEMgG_1vrh0RC_9rOEx1j8ActjGE4PiM7A/viewform"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full border border-white px-6 py-3 font-semibold text-white"
+                >
+                  邀約課程
+                </a>
+              </div>
+
+              {/* 原站在「＊購買桌遊即可獲得線上播報新聞之功能」旁邊有一顆按鈕連到播報網頁登入頁，重建時漏掉 */}
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <a
+                  href="http://crazynews.wasupstudio.com/user/sign_in"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full border border-white px-6 py-3 font-semibold text-white"
+                >
+                  抓誑新聞媒體播報網頁
+                </a>
+                <p className="text-sm text-white/60">
+                  ＊購買桌遊即可獲得線上播報新聞之功能。
+                  <br />
+                  ＊第一刷買家，可來信索取註冊碼。
+                </p>
+              </div>
+            </div>
+          </div>
+        </Container>
+
         <Container className="py-16">
           <div className="mx-auto max-w-3xl">
-            <div className="max-w-md">
-              <ProductGallery images={galleryImages} />
-            </div>
-
-            <p className="mt-4 text-[#d5d5d5]">售價：750元（消費滿2000免運）</p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="https://forms.gle/n4eqD2xcKHgPUwrS7"
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full bg-brand-green px-6 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-              >
-                購買桌遊
-              </a>
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScTpdFbaeh221rvaEMgG_1vrh0RC_9rOEx1j8ActjGE4PiM7A/viewform"
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-white px-6 py-3 font-semibold text-white"
-              >
-                邀約課程
-              </a>
-            </div>
-
-            {/* 原站在「＊購買桌遊即可獲得線上播報新聞之功能」旁邊有一顆按鈕連到播報網頁登入頁，重建時漏掉 */}
-            <div className="mt-6 flex flex-wrap items-center gap-4">
-              <a
-                href="http://crazynews.wasupstudio.com/user/sign_in"
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-white px-6 py-3 font-semibold text-white"
-              >
-                抓誑新聞媒體播報網頁
-              </a>
-              <p className="text-sm text-white/60">
-                ＊購買桌遊即可獲得線上播報新聞之功能。
-                <br />
-                ＊第一刷買家，可來信索取註冊碼。
-              </p>
-            </div>
-
             <h2 className="mt-12 text-lg font-bold text-white">遊戲理念</h2>
             <p className="mt-2 text-[#d5d5d5]">
               打開電視，聳動、即時的新聞畫面總是牽動著我們的眼球，而我們的每一次轉台，也都展現了我們的喜好，也形塑著媒體的報導風格。我們發現，缺乏求證、監督精神的閱聽人，與追逐流量、利潤而罔顧第四權責任的媒體，形成一種「共惡關係」。當媒體環境越來越壞時，我們沒有人能成為真正的贏家。

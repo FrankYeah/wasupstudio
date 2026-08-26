@@ -121,14 +121,12 @@ export default function FamilyTopicsPage() {
       {/* 原站 hero 以下整段都是 #fceeb0 淡黃底（不是白底），一路包到頁尾 */}
       <section className="bg-[#fceeb0]">
         <Container className="py-16">
-          {/* 原站是「文字在左、圖庫＋按鈕在右」，但全站 8 款商品頁刻意統一成「圖片在左、
-              文字＋購買資訊在右」；用 order- 讓手機版仍照原站 DOM 順序（文字先、圖庫在後）。*/}
+          {/* 原站是「文字在左、相簿＋按鈕在右」（<td> 順序＝桌機視覺順序，2026-08-26 量原站
+              x 座標確認）。這裡刻意不寫 order-：DOM 順序＝文字先、相簿後，桌機自然是文字左
+              相簿右，手機堆疊也是文字先，兩種螢幕都跟原站一致。曾經被統一成「圖左文右」，
+              見 MIGRATION-PLAN.md Phase 2「圖文左右順序」。 */}
           <div className="grid gap-12 md:grid-cols-2">
-            <div className="order-2 md:order-1">
-              <ProductGallery images={galleryImages} />
-            </div>
-
-            <div className="order-1 md:order-2">
+            <div>
               <p className="text-sm font-semibold text-ink/70">性別平等教育桌遊</p>
               <h1 className="mt-2 text-3xl font-bold text-ink">家分題</h1>
               <hr className="mt-4 w-4/5 border-ink/20" />
@@ -184,6 +182,10 @@ export default function FamilyTopicsPage() {
                   邀約課程
                 </a>
               </div>
+            </div>
+
+            <div>
+              <ProductGallery images={galleryImages} />
             </div>
           </div>
 
