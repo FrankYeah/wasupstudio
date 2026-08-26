@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
-import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
+import { CourseFacts } from "@/app/_components/CourseFacts";
+import { CourseImage } from "@/app/_components/CourseImage";
+import {
+  TabbedBox,
+  TabPane,
+  WeeblyOutlineButton,
+} from "@/app/_components/TabbedBox";
 import { boardGames } from "@/app/_lib/site-data";
 
 export const metadata: Metadata = {
@@ -16,7 +22,10 @@ type CourseLink = { label: string; href: string; external?: boolean };
 
 // 原站每張課程卡圖片下方的「遊戲介紹／桌遊介紹」按鈕。
 // 有站內商品頁的直接連 /board-games/<slug>，避免手動維護連結。
-const boardGameLink = (slug: string, label = "桌遊介紹"): CourseLink | undefined => {
+const boardGameLink = (
+  slug: string,
+  label = "桌遊介紹",
+): CourseLink | undefined => {
   const game = boardGames.find((g) => g.slug === slug);
   return game ? { label, href: game.href } : undefined;
 };
@@ -363,150 +372,102 @@ const categories: Category[] = [
 
 export default function LearnThroughPlayPage() {
   return (
-    <>
-      <section className="bg-black/[0.03] py-16">
-        <Container>
-          <p className="text-sm font-semibold text-brand-green">入班授課｜青少年培力課程</p>
-          <h1 className="mt-2 text-3xl font-bold text-ink md:text-4xl">
-            🎲 在遊戲中學議題
-          </h1>
-          <p className="mt-4 max-w-3xl text-ink/70">
-            阿普蛙用遊戲比喻現實情境，青少年透過遊戲便能理解該主題的重要性及與自身的連結，進而去思考回到生活中我們可以怎麼做，形塑與他人共好的社會。
-          </p>
-
-          <dl className="mt-8 grid gap-y-2 text-sm text-ink/70 sm:grid-cols-[auto_1fr] sm:gap-x-3">
-            <dt className="font-semibold text-ink">課程主題</dt>
-            <dd>人際關係與溝通、性別平等、媒體素養、兒童權利公約、全球議題、文化教育</dd>
-            <dt className="font-semibold text-ink">適合年齡</dt>
-            <dd>國小高年級、國中生、高中生、大學生、成人</dd>
-            <dt className="font-semibold text-ink">課程時間</dt>
-            <dd>每一主題建議安排三小時，亦可針對營隊或帶狀課程，進行多元主題搭配。</dd>
-          </dl>
-
-          <div className="mt-8">
-            <a
-              href={INVITE_FORM_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block rounded-full bg-brand-green px-6 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-            >
-              邀約課程
-            </a>
+    // ⚠️ 2026-08-26 重做版面。原站這頁量起來是**單一個** wsite-section（底色 #fcfcfc），
+    // 內容依序是：①一列兩欄「27.7% 標題＋邀約課程按鈕（都置中）／72.3% 導言」
+    // ②「一、人際關係與溝通」等 6 個分類標題（24px 粗體黑、靠左），每個標題底下接一組分頁籤。
+    // 重建站原本自己加了淡灰 hero 底、「入班授課｜青少年培力課程」小標籤、一張 21:9 橫幅大圖
+    // （拿課程照裁的）、grid 版的課程主題清單、綠色圓角按鈕，最後還多一段「想邀請阿普蛙入班
+    // 授課？」CTA——原站通通沒有，已移除。課程也不再是卡片直列，改回原站的分頁籤。
+    <section className="bg-[#fcfcfc] py-16">
+      <Container>
+        <div className="grid gap-8 md:grid-cols-[28fr_72fr] md:items-start">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-ink">🎲在遊戲中學議題</h1>
+            <div className="mt-6">
+              <WeeblyOutlineButton href={INVITE_FORM_URL} external>
+                邀約課程
+              </WeeblyOutlineButton>
+            </div>
           </div>
-        </Container>
-      </section>
+          {/* 原站量測：16px／行高 28px、靠左。課程主題／適合年齡／課程時間是同一段裡的三行，
+              不是重建站原本做的 dl 表格。 */}
+          <div className="text-base leading-[28px] text-ink">
+            <p>
+              阿普蛙用遊戲比喻現實情境，青少年透過遊戲便能理解該主題的重要性及與自身的連結，進而去思考回到生活中我們可以怎麼做，形塑與他人共好的社會。
+            </p>
+            <p>
+              課程主題：人際關係與溝通、性別平等、媒體素養、兒童權利公約、全球議題
+            </p>
+            <p>適合年齡：國小高年級、國中生、高中生、大學生、成人</p>
+            <p>
+              課程時間：每一主題建議安排三小時，亦可針對營隊或帶狀課程，進行多元主題搭配。
+            </p>
+          </div>
+        </div>
 
-      <Container className="py-16">
-        <div className="relative aspect-21/9 w-full overflow-hidden rounded-2xl bg-black/[0.03]">
-          <Image
-            src="/images/courses/learn-through-play-1.jpg"
-            alt="在遊戲中學議題 課程實況"
-            fill
-            className="object-cover"
-          />
+        <div className="mt-14 space-y-14">
+          {categories.map((category) => (
+            <div key={category.label}>
+              <h2 className="text-2xl font-bold text-ink">{category.label}</h2>
+              <div className="mt-6">
+                <TabbedBox
+                  tabs={category.courses.map((course) => ({
+                    label: `《${course.title}》`,
+                    content: (
+                      <TabPane
+                        media={
+                          <>
+                            {course.image && (
+                              <CourseImage
+                                src={course.image}
+                                alt={`《${course.title}》遊戲實照`}
+                              />
+                            )}
+                            {course.link && (
+                              <div className="mt-2">
+                                <WeeblyOutlineButton
+                                  href={course.link.href}
+                                  external={course.link.external}
+                                >
+                                  {course.link.label}
+                                </WeeblyOutlineButton>
+                              </div>
+                            )}
+                          </>
+                        }
+                      >
+                        <CourseFacts
+                          subtitle={course.subtitle}
+                          facts={[
+                            {
+                              label: "適合年級",
+                              value: course.grade,
+                            },
+                            {
+                              label: "授課時間",
+                              value: course.hours,
+                            },
+                          ]}
+                          sections={[
+                            {
+                              label: "課程目標",
+                              items: course.goals,
+                            },
+                            {
+                              label: "課程內容",
+                              items: course.content,
+                            },
+                          ]}
+                        />
+                      </TabPane>
+                    ),
+                  }))}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </Container>
-
-      <Container className="space-y-20 pb-24">
-        {categories.map((category) => (
-          <section key={category.label}>
-            <h2 className="text-2xl font-bold text-ink">{category.label}</h2>
-
-            <div className="mt-8 space-y-8">
-              {category.courses.map((course) => (
-                <article
-                  key={course.title}
-                  className="rounded-2xl border border-black/5 p-6 shadow-sm md:p-8"
-                >
-                  {course.image && (
-                    <div className="relative mb-6 aspect-16/9 w-full overflow-hidden rounded-xl bg-black/[0.03]">
-                      <Image
-                        src={course.image}
-                        alt={`《${course.title}》遊戲實照`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  )}
-                  {course.tag && (
-                    <p className="text-xs font-semibold text-brand-green">{course.tag}</p>
-                  )}
-                  <h3 className="mt-1 text-xl font-bold text-ink">《{course.title}》</h3>
-                  {course.subtitle && (
-                    <p className="mt-1 text-ink/70">{course.subtitle}</p>
-                  )}
-
-                  <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-ink/70">
-                    <span>
-                      <span className="font-semibold text-ink">適合年級：</span>
-                      {course.grade}
-                    </span>
-                    <span>
-                      <span className="font-semibold text-ink">授課時間：</span>
-                      {course.hours}
-                    </span>
-                  </div>
-
-                  <h4 className="mt-5 text-sm font-bold text-ink">課程目標</h4>
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink/70">
-                    {course.goals.map((goal) => (
-                      <li key={goal}>{goal}</li>
-                    ))}
-                  </ul>
-
-                  <h4 className="mt-5 text-sm font-bold text-ink">課程內容</h4>
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink/70">
-                    {course.content.map((line) =>
-                      typeof line === "string" ? (
-                        <li key={line}>{line}</li>
-                      ) : (
-                        <li key={line.label}>
-                          {line.label}
-                          <ul className="mt-1 list-[circle] space-y-1 pl-5">
-                            {line.items.map((sub) => (
-                              <li key={sub}>{sub}</li>
-                            ))}
-                          </ul>
-                        </li>
-                      ),
-                    )}
-                  </ul>
-
-                  {course.link && (
-                    <a
-                      href={course.link.href}
-                      target={course.link.external ? "_blank" : undefined}
-                      rel={course.link.external ? "noreferrer" : undefined}
-                      className="mt-6 inline-block rounded-full border border-brand-green px-5 py-2 text-sm font-semibold text-brand-green transition hover:bg-brand-green hover:text-white"
-                    >
-                      {course.link.label}
-                    </a>
-                  )}
-                </article>
-              ))}
-            </div>
-          </section>
-        ))}
-      </Container>
-
-      <section className="bg-black/[0.03] py-16">
-        <Container className="text-center">
-          <h2 className="text-2xl font-bold text-ink">想邀請阿普蛙入班授課？</h2>
-          <p className="mt-3 text-ink/70">
-            歡迎填寫邀約表單，我們會盡快與您聯繫，討論適合的主題與時段。
-          </p>
-          <div className="mt-6">
-            <a
-              href={INVITE_FORM_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block rounded-full bg-brand-green px-6 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-            >
-              邀約課程
-            </a>
-          </div>
-        </Container>
-      </section>
-    </>
+    </section>
   );
 }

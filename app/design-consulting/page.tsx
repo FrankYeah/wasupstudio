@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SiteImage as Image } from "@/app/_components/SiteImage";
+import { SiteImage as Image, withBasePath } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
 import { PageBanner } from "@/app/_components/PageBanner";
 import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
@@ -10,103 +10,157 @@ export const metadata: Metadata = {
     "阿普蛙協助基金會、公部門、學校、企業與內容團隊，將教育議題、倡議理念、地方文化或組織需求，轉化為桌遊、實境遊戲、遊戲化活動與推廣教材。",
 };
 
-const serviceScopes = [
+// 「我們設計遊戲，也深入教學現場」底下的兩個數字。
+//
+// ⚠️ 2026-08-26 更正：前一輪寫成「.counter-number 渲染出來是空的（客戶當初沒填數字），
+// 所以只做標籤、要不要補數字要問客戶」——這是錯的。原站這兩個是 Weebly 的 counter
+// 平台元件，數字**不在 HTML 裡**，是 JS 讀元件設定後跑動畫寫進 DOM 的；靜態抓下來的
+// page.html 裡 `<div class="counter-number"><div></div></div>` 當然是空的。
+// 真正的值就在同一份 HTML 的元件設定 JSON 裡：`"end":60` / `"end":3000`。
+// 查法：`python3 -c 'import html;print(html.unescape(open("page.html").read()))' | grep -o '"end":[0-9]*'`
+// 見 ~/.claude/skills/site-migration-audit/references/visual-fidelity-audit.md 陷阱 11。
+//
+// 原站數字會在捲到畫面內時從 0 跑動畫到目標值（Weebly CounterElement）；這裡只做靜態
+// 數字，沒有還原那個 count-up 動畫（要做得多一個 client component，視覺結果一樣）。
+const counters = [
   {
-    title: "個 up",
-    subtitle: "議題遊戲與教材設計專案",
-    groups: [
+    number: "60",
+    unit: "個up",
+    label: "議題遊戲與教材設計專案",
+    // 原站兩個 counter 用的綠色不一樣：60 是亮綠 #00ab84、3000 是深綠 #007854
+    color: "text-brand-green-bright",
+  },
+  {
+    number: "3000",
+    unit: "場up",
+    label: "課程、工作坊與推廣活動",
+    color: "text-brand-green",
+  },
+];
+
+// 「協助合作單位進行議題遊戲化」的 4 個分類。
+//
+// ⚠️ 2026-08-26 更正版面：原站每一個分類是**獨立一列（一個 wsite-multicol）**，欄寬
+// 19% / 41% / 40%——左欄是綠色圓角色塊（只放分類標題，18px 白字置中）、色塊**下方**
+// 另外有一段置中的分類標籤（16px 黑字，不在色塊裡），右邊兩欄各是一張白色 10px 圓角
+// 卡片，裡面放**大張**產品照（實際渲染 155～366px 寬）＋置中的合作單位說明。
+// 前一輪重建成「2×2 網格、標題+標籤都塞在綠色 header 裡、產品照縮成 48px 小圖示」，
+// 跟原站完全是兩種版面。
+const partnerGroups = [
+  {
+    titleLines: ["社會情緒", "與人際溝通"],
+    tagLines: ["情緒教育｜人際關係", "職場溝通｜家庭互動"],
+    clients: [
       {
-        title: "社會情緒與人際溝通",
-        titleLines: ["社會情緒", "與人際溝通"],
-        tags: ["情緒教育｜人際關係", "職場溝通｜家庭互動"],
-        clients: [
-          {
-            name: "勵馨基金會｜桌遊",
-            photo: "/images/design-consulting/client-family-topics.png",
-          },
-          {
-            name: "勞動部｜桌遊",
-            photo: "/images/design-consulting/client-honest-honor.png",
-          },
-        ],
+        name: "勵馨基金會｜桌遊",
+        photo: "/images/design-consulting/client-family-topics.png",
+        width: 242,
+        height: 230,
       },
       {
-        title: "教育與人權",
-        titleLines: ["教育與人權"],
-        tags: ["兒童權利｜校園霸凌", "民主參與｜性別平等"],
-        clients: [
-          {
-            name: "兒福聯盟｜桌遊",
-            photo: "/images/design-consulting/client-future-parliament.png",
-          },
-          {
-            name: "RC 基金會｜數位教材",
-            photo: "/images/design-consulting/client-rc-digital.png",
-          },
-        ],
-      },
-      {
-        title: "環境永續與公共議題",
-        titleLines: ["環境永續", "與公共議題"],
-        tags: ["SDGs｜媒體識讀", "公民參與｜社會倡議"],
-        clients: [
-          {
-            name: "金車文教基金會｜桌遊",
-            photo: "/images/design-consulting/client-workplace-crisis.png",
-          },
-          {
-            name: "公視主題之夜 SHOW｜影視節目",
-            photo: "/images/design-consulting/client-political-correct.png",
-          },
-        ],
-      },
-      {
-        title: "地方文化與實境體驗",
-        titleLines: ["地方文化", "與實境體驗"],
-        tags: ["地方文化｜城市探索", "實境遊戲｜展覽互動"],
-        clients: [
-          {
-            name: "台南文化局｜桌遊",
-            photo: "/images/design-consulting/client-pin-zhentou.png",
-          },
-          {
-            name: "星濱山共創工作室｜實境遊戲",
-            photo: "/images/design-consulting/client-star-beach.png",
-          },
-        ],
+        name: "勞動部｜桌遊",
+        photo: "/images/design-consulting/client-honest-honor.png",
+        width: 276,
+        height: 233,
       },
     ],
   },
   {
-    title: "場 up",
-    subtitle: "課程、工作坊與推廣活動",
-    groups: [],
+    titleLines: ["教育與人權"],
+    tagLines: ["兒童權利｜校園霸凌", "民主參與｜性別平等"],
+    clients: [
+      {
+        name: "兒福聯盟｜桌遊",
+        photo: "/images/design-consulting/client-future-parliament.png",
+        width: 316,
+        height: 257,
+      },
+      {
+        name: "RC 基金會｜數位教材",
+        photo: "/images/design-consulting/client-rc-digital.png",
+        width: 366,
+        height: 260,
+      },
+    ],
+  },
+  {
+    titleLines: ["環境永續", "與公共議題"],
+    tagLines: ["SDGs｜媒體識讀", "公民參與｜社會倡議"],
+    clients: [
+      {
+        name: "金車文教基金會｜桌遊",
+        photo: "/images/design-consulting/client-workplace-crisis.png",
+        width: 267,
+        height: 207,
+      },
+      {
+        name: "公視主題之夜 SHOW｜影視節目",
+        photo: "/images/design-consulting/client-political-correct.png",
+        width: 1050,
+        height: 600,
+      },
+    ],
+  },
+  {
+    titleLines: ["地方文化", "與實境體驗"],
+    tagLines: ["地方文化｜城市探索", "實境遊戲｜展覽互動"],
+    clients: [
+      {
+        name: "台南文化局｜桌遊",
+        photo: "/images/design-consulting/client-pin-zhentou.png",
+        width: 155,
+        height: 231,
+      },
+      {
+        name: "星濱山共創工作室｜實境遊戲",
+        photo: "/images/design-consulting/client-star-beach.png",
+        width: 247,
+        height: 229,
+      },
+    ],
   },
 ];
 
 // 原站在「從一個想法，到一套能被使用的遊戲教材」深綠色區塊裡，用純圖片（web20/21/22_orig.png）
-// 呈現這 3 張服務範圍卡片，文字是畫在圖片裡的，擷取腳本抓不到，這裡依圖片內容重建成一般文字卡片。
+// 呈現這 3 張服務範圍卡片，文字是畫在圖片裡的，擷取腳本抓不到，這裡依圖片內容重建成一般文字卡片
+// （保留成文字而不是直接貼原圖，是為了讓內容可被搜尋、可選取、可在手機上重排）。
+//
+// ⚠️ 2026-08-26 更正配色：既然決定重建成文字，就要照著原圖的樣子做。原圖是**淺灰卡片**
+// （#e6e6e7，圓角約佔卡寬 5%）＋綠色標題（#008e66）＋深灰內文（#535151）＋綠框綠字的
+// 標籤（#007855，值跟標籤**同一列**排在右邊）＋整塊實心綠的「適合對象」（#007855 白字，
+// 10px 圓角）。前一輪憑印象做成「深綠底半透明深色卡＋白標題＋金色標籤＋值換行在標籤下面」，
+// 明暗完全相反。色值是把原圖用 `magick ... -format %c histogram:info:` 取樣出來的。
+// 標題與「適合對象」的斷行位置也照原圖（原圖是手動斷行，不是自動 wrap）。
 const pricingTiers = [
   {
-    title: "議題桌遊設計",
+    titleLines: ["議題桌遊設計"],
     desc: "將教育議題、倡議理念或培訓需求，轉化成可遊玩、可討論、可帶領的桌遊體驗。",
     budget: "20 萬元起，完整開發與印刷製作多落在 40 萬元以上",
     timeline: "3–6 個月起",
-    audience: "基金會、公部門、學校、社福組織、企業培訓、出版社、教育單位",
+    audienceLines: [
+      "基金會、公部門、學校、社福組織",
+      "企業培訓、出版社、教育單位",
+    ],
   },
   {
-    title: "實境遊戲與遊戲化活動",
+    titleLines: ["實境遊戲", "與遊戲化活動"],
     desc: "依場域、故事、任務與參與者動線，設計展覽互動、地方探索、活動闖關或城市走讀體驗。",
     budget: "15 萬元起，依場域、道具與互動規模調整",
     timeline: "2–4 個月起",
-    audience: "文化單位、圖書館、博物館、學校、地方創生團隊、活動策畫單位",
+    audienceLines: [
+      "文化單位、圖書館、博物館、學校",
+      "地方創生團隊、活動策畫單位",
+    ],
   },
   {
-    title: "內容企劃與節目遊戲化",
+    titleLines: ["內容企劃", "與節目遊戲化"],
     desc: "協助內容團隊設計節目單元、互動橋段、遊戲規則、討論題與觀眾參與機制。",
     budget: "單次企劃 5 萬元起，系列合作另行評估",
     timeline: "2–8 週起",
-    audience: "電視台、Podcast、活動製作團隊、影音團隊、內容平台、教育媒體",
+    audienceLines: [
+      "電視台、Podcast、活動製作團隊",
+      "影音團隊、內容平台、教育媒體",
+    ],
   },
 ];
 
@@ -157,17 +211,41 @@ const designSteps = [
   },
 ];
 
-const cases = [
+// 代表案例。
+//
+// ⚠️ 2026-08-26 更正版面：原站每一則案例是**獨立一列**、欄寬 23% / 41% / 36%——
+// 左欄是案例標題（32px 粗體黑）＋一組「標籤在上、值在下」的欄位（標籤 16px 粗體 #00573f），
+// 中欄是白色 10px 圓角卡片（大圖或 YouTube 影片＋置中的合作單位名稱），
+// 右欄才是合作重點／案例目標／實際應用。列與列之間、以及標題底下都有一條
+// 1px rgba(0,0,0,0.13) 的分隔線。
+// 前一輪重建成「兩欄卡片網格、圖片在卡片頂端、所有欄位擠在卡片內文」，版面完全不同。
+// 另外「合作類型」在原站是左欄的第一個欄位，不是卡片上方的小標籤。
+type CaseFact = { label: string; values: string[]; note?: string };
+const cases: {
+  title: string;
+  image: string | null;
+  imageWidth: number;
+  imageHeight: number;
+  video: string | null;
+  facts: CaseFact[];
+  partner: string;
+  scope: string;
+  goal: string;
+  result: string;
+}[] = [
   {
     title: "抓誑新聞",
-    type: "媒體識讀桌遊",
     image: "/images/design-consulting/case-crazy-news.png",
+    imageWidth: 382,
+    imageHeight: 274,
     video: null,
-    stats: [
-      { label: "桌遊銷售", value: "達 3000 盒" },
+    facts: [
+      { label: "合作類型", values: ["媒體識讀桌遊"] },
+      { label: "桌遊銷售", values: ["達 3000 盒"] },
       {
         label: "授課場次",
-        value: "200 場（含教師研習、入班授課、一般民眾媒體識讀課程）",
+        values: ["200 場"],
+        note: "（含教師研習、入班授課、一般民眾媒體識讀課程）",
       },
     ],
     partner: "台灣少年權益與福利促進聯盟",
@@ -178,14 +256,21 @@ const cases = [
   },
   {
     title: "誰是政治正確王",
-    type: "影視節目遊戲化企劃",
     // 原站這則案例的媒體是 YouTube 影片（不是靜態圖）——重建站原本把這支影片放到頁面上方
     // 「你有個重要議題」那段（原站那裡根本沒有影片），這裡才是它真正的位置。
     image: null,
+    imageWidth: 0,
+    imageHeight: 0,
     video: "TZBL1wHPi8Y",
-    stats: [
-      { label: "第一集 YouTube 觀看次數", value: "27 萬" },
-      { label: "第二集 YouTube 觀看次數", value: "6.7 萬" },
+    facts: [
+      { label: "合作類型", values: ["影視節目遊戲化企劃"] },
+      {
+        label: "觀看次數",
+        values: [
+          "第一集 Youtube 觀看次數 27 萬",
+          "第二集 Youtube 觀看次數 6.7 萬",
+        ],
+      },
     ],
     partner: "公視主題之夜 SHOW",
     scope: "節目主題轉譯、討論題設計、互動橋段設計、觀眾參與機制",
@@ -296,7 +381,8 @@ export default function DesignConsultingPage() {
           內容全部畫在圖片裡，擷取腳本沒抓到文字，這裡依圖片內容重建） */}
       <section className="bg-[#00573f] py-16 text-white">
         <Container>
-          <h2 className="text-2xl font-bold md:text-3xl">
+          {/* 原站這個區塊的兩個標題量測起來都是 32px 白色粗體 */}
+          <h2 className="text-[28px] font-bold md:text-[32px]">
             從一個想法，到一套能被使用的遊戲教材
           </h2>
 
@@ -325,41 +411,64 @@ export default function DesignConsultingPage() {
             ))}
           </div>
 
-          <h2 className="mt-16 text-2xl font-bold md:text-3xl">
+          <h2 className="mt-16 text-[28px] font-bold md:text-[32px]">
             我們提供的不只是遊戲，而是一套讓議題落地的設計服務
           </h2>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
+          <div className="mt-8 grid items-stretch gap-6 md:grid-cols-3">
+            {/* 原圖右上角有一塊很淡的幾何裝飾（#fafafa 之於 #e6e6e7 底），CSS 畫不出來，
+                直接把原圖上緣裁下來當底圖：`magick web20_orig.png -crop 788x264+0+0 ...`。
+                三張卡的裝飾一模一樣，共用同一張；寬度 100% 讓它跟著卡片等比縮放。 */}
             {pricingTiers.map((t) => (
               <div
-                key={t.title}
-                className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10"
+                key={t.titleLines.join("")}
+                style={{
+                  backgroundImage: `url(${withBasePath(
+                    "/images/design-consulting/pricing-card-decor.png",
+                  )})`,
+                }}
+                className="flex h-full flex-col rounded-[18px] bg-[#e6e6e7] bg-[length:100%_auto] bg-top bg-no-repeat p-8"
               >
-                <h3 className="text-lg font-bold text-white">{t.title}</h3>
-                <p className="mt-2 text-sm text-white/70">{t.desc}</p>
-                <dl className="mt-4 space-y-2 text-sm">
-                  <div>
-                    <dt className="inline rounded border border-[#f5cf7e]/60 px-2 py-0.5 text-xs text-[#f5cf7e]">
-                      常見預算
-                    </dt>
-                    <dd className="mt-1 text-white/80">{t.budget}</dd>
-                  </div>
-                  <div>
-                    <dt className="inline rounded border border-[#f5cf7e]/60 px-2 py-0.5 text-xs text-[#f5cf7e]">
-                      常見時程
-                    </dt>
-                    <dd className="mt-1 text-white/80">{t.timeline}</dd>
-                  </div>
+                <h3 className="text-[26px] font-bold leading-[1.35] text-[#008e66] md:text-[28px]">
+                  {t.titleLines.map((line, i) => (
+                    <span key={line}>
+                      {i > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
+                </h3>
+                <p className="mt-5 text-[15px] leading-[1.9] text-[#535151]">
+                  {t.desc}
+                </p>
+                <dl className="mt-7 space-y-3">
+                  {[
+                    { label: "常見預算", value: t.budget },
+                    { label: "常見時程", value: t.timeline },
+                  ].map((row) => (
+                    <div key={row.label} className="flex items-start gap-3">
+                      <dt className="shrink-0 rounded-md border border-[#007855] px-2 py-1 text-[13px] leading-none text-[#007855]">
+                        {row.label}
+                      </dt>
+                      <dd className="text-[15px] leading-[1.6] text-[#007855]">
+                        {row.value}
+                      </dd>
+                    </div>
+                  ))}
                 </dl>
-                <div className="mt-4 rounded-xl bg-black/20 p-4 text-sm">
-                  <p className="font-semibold text-white">適合對象：</p>
-                  <p className="mt-1 text-white/80">{t.audience}</p>
+                <div className="mt-auto pt-8">
+                  <div className="rounded-[10px] bg-[#007855] px-6 py-5 text-[15px] leading-[1.8] text-white">
+                    <p>適合對象：</p>
+                    {t.audienceLines.map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
 
-          <p className="mt-8 text-sm text-white/60">
+          {/* 原站量測：13px 純白（不是淡化的白），不是重建站原本的 14px white/60 */}
+          <p className="mt-8 text-[13px] leading-[1.75] text-white">
             以上為常見合作區間，實際費用與時程會依議題複雜度、設計範圍、測試次數、視覺美術規格、印刷數量與推廣需求調整。若目前還不確定適合做成什麼形式，也歡迎先與我們討論。
           </p>
         </Container>
@@ -367,9 +476,10 @@ export default function DesignConsultingPage() {
 
       {/* 合作領域：2026-08-25 逐頁核對才發現原站這裡也是 colored-box 元件（跟首頁「情緒謎語」
           那次踩的坑同一種），每個分類各自一個綠色（#007854，四角 20px 圓角）標題色塊，
-          底下才是白色（#ffffff，四角 10px 圓角）логo 卡片——量測 15 個 colored-box-content 的
-          background-color／border-radius 抓到規律：綠、白、白，重複 4 次。重建站原本把每個分類
-          直接畫成一張白卡（標題+logo 都在同一張卡裡），沒有綠色標題色塊，一併補上。 */}
+          底下才是白色（#ffffff，四角 10px 圓角）卡片——量測 15 個 colored-box-content 的
+          background-color／border-radius 抓到規律：綠、白、白，重複 4 次。
+          2026-08-26 補正：那個「綠、白、白」其實是**同一列的三個欄位**（左標題、右兩張卡），
+          不是「一張卡的 header + body」，見上面 partnerGroups 的註解。 */}
       <section className="bg-[#e6e6e6] py-16">
         <Container>
           {/* 標題是「我們設計遊戲／也深入教學現場」兩行、品牌綠 32px。
@@ -379,68 +489,93 @@ export default function DesignConsultingPage() {
               中文字串直接 grep 本來就一定找不到，是查證方法壞掉、不是內容不存在。
               （text.txt 裡其實看得到這段，當時也沒交叉核對。）已還原。
               查證原始碼一律要先 html.unescape() 再搜尋，見 skill 陷阱 9。 */}
-          <h2 className="text-3xl font-bold text-brand-green md:text-4xl">
+          <h2 className="text-[28px] font-bold text-brand-green md:text-[32px]">
             我們設計遊戲
             <br />
             也深入教學現場
           </h2>
-          <p className="mt-6 max-w-3xl text-ink/70">
-            阿普蛙長期耕耘校園、教師研習、社福與公共議題現場。
-            我們理解不同年齡、對象與帶領者的使用需求，除了考慮「好不好玩」，也在意遊戲能否被理解、被帶領，並真正進入課堂與活動現場。
-          </p>
 
-          {/* 原站這兩項是 Weebly 的 counter 元件，但 .counter-number 實際渲染出來是空的
-              （客戶當初沒填數字），畫面上就只看得到「個up／議題遊戲與教材設計專案」這兩組標籤，
-              所以這裡照原樣只做標籤。要不要補上實際數字，要問客戶。 */}
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 sm:max-w-2xl">
-            {[
-              { unit: "個up", label: "議題遊戲與教材設計專案" },
-              { unit: "場up", label: "課程、工作坊與推廣活動" },
-            ].map((c) => (
-              <div key={c.unit}>
-                <p className="text-2xl font-bold text-brand-green">{c.unit}</p>
-                <p className="mt-1 text-sm text-ink/70">{c.label}</p>
+          {/* 原站這段文字跟兩個數字是**同一列**的 4 個欄位（39% 文字 / 8.5% 空欄 /
+              21% 個up / 31.7% 場up），不是重建站原本的「文字整段在上、數字另起一列」。
+              數字 120px、line-height 130px、置中；標籤 24px 粗體、說明 16px #515151。 */}
+          <div className="mt-8 flex flex-col gap-10 md:flex-row md:items-center md:gap-0">
+            <p className="text-ink/70 md:w-[39%] md:pr-8">
+              阿普蛙長期耕耘校園、教師研習、社福與公共議題現場。
+              我們理解不同年齡、對象與帶領者的使用需求，除了考慮「好不好玩」，也在意遊戲能否被理解、被帶領，並真正進入課堂與活動現場。
+            </p>
+            <div aria-hidden className="hidden md:block md:w-[8.5%]" />
+            {counters.map((c, i) => (
+              <div
+                key={c.unit}
+                className={`text-center ${i === 0 ? "md:w-[21%]" : "md:w-[31.5%]"}`}
+              >
+                <p
+                  className={`text-[80px] leading-none md:text-[120px] md:leading-[130px] ${c.color}`}
+                >
+                  {c.number}
+                </p>
+                <p className={`text-2xl font-bold ${c.color}`}>{c.unit}</p>
+                <p className="mt-1 text-base text-[#515151]">{c.label}</p>
               </div>
             ))}
           </div>
 
-          <h2 className="mt-10 text-3xl font-bold text-brand-green md:text-4xl">
+          <h2 className="mt-16 text-[28px] font-bold text-brand-green md:text-[32px]">
             協助合作單位
             <br />
             進行議題遊戲化
           </h2>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {serviceScopes[0].groups.map((g) => (
-              <div key={g.title} className="overflow-hidden rounded-[20px]">
-                <div className="bg-brand-green px-6 py-4">
-                  <h3 className="font-bold text-white">
-                    {g.titleLines.map((line, i) => (
+          <div className="mt-10 space-y-10">
+            {partnerGroups.map((g) => (
+              <div
+                key={g.titleLines.join("")}
+                className="grid gap-6 md:grid-cols-[19fr_41fr_40fr] md:items-start md:gap-8"
+              >
+                <div className="text-center">
+                  <div className="flex min-h-[110px] items-center justify-center rounded-[20px] bg-brand-green px-5 py-6">
+                    <h3 className="text-lg font-bold text-white">
+                      {g.titleLines.map((line, i) => (
+                        <span key={line}>
+                          {i > 0 && <br />}
+                          {line}
+                        </span>
+                      ))}
+                    </h3>
+                  </div>
+                  {/* 分類標籤在原站是綠色色塊**外面**、置中的 16px 黑字 */}
+                  <p className="mt-6 text-base leading-[28px] text-ink">
+                    {g.tagLines.map((line, i) => (
                       <span key={line}>
                         {i > 0 && <br />}
                         {line}
                       </span>
                     ))}
-                  </h3>
-                  <p className="mt-1 text-xs text-white/70">
-                    {g.tags.join("　")}
                   </p>
                 </div>
-                <ul className="space-y-3 rounded-b-[10px] bg-white p-6 shadow-sm">
-                  {g.clients.map((c) => (
-                    <li key={c.name} className="flex items-center gap-3">
-                      <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-black/5">
-                        <Image
-                          src={c.photo}
-                          alt={c.name}
-                          fill
-                          className="object-cover"
-                        />
-                      </span>
-                      <span className="text-sm text-brand-green">{c.name}</span>
-                    </li>
-                  ))}
-                </ul>
+                {g.clients.map((c) => (
+                  <div
+                    key={c.name}
+                    className="flex h-full flex-col rounded-[10px] bg-white px-5 py-6"
+                  >
+                    <div className="flex flex-1 items-center justify-center">
+                      {/* w-auto 會讓 next/image 在載入完成前量不到寬度、整張塌成 0x0
+                          （版面跳動）。改成 w-full + maxWidth=原圖寬：小圖停在原尺寸，
+                          比卡片寬的（政治正確王 1050px）才縮到卡片寬，跟原站一致。 */}
+                      <Image
+                        src={c.photo}
+                        alt={c.name}
+                        width={c.width}
+                        height={c.height}
+                        style={{ maxWidth: c.width }}
+                        className="h-auto w-full"
+                      />
+                    </div>
+                    <p className="mt-5 text-center text-base text-ink">
+                      {c.name}
+                    </p>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
@@ -451,62 +586,86 @@ export default function DesignConsultingPage() {
           （不是重建站原本以為的白底），維持兩個 <section> 各自套色就好，顏色一致銜接處不會有接縫。 */}
       <section className="bg-[#e6e6e6] py-16">
         <Container>
-          {/* 量測 font 得到 48px、品牌綠，不是重建站原本的 24px 黑字。 */}
-          <h2 className="text-4xl font-bold text-brand-green md:text-5xl">
-            代表案例
-          </h2>
-          <div className="mt-8 grid gap-8 md:grid-cols-2">
-            {cases.map((c) => (
-              <div
-                key={c.title}
-                className="overflow-hidden rounded-2xl border border-black/5"
-              >
-                {c.video ? (
-                  <YouTubeEmbed id={c.video} title={c.title} />
-                ) : (
-                  <div className="relative aspect-video w-full bg-black/5">
-                    <Image
-                      src={c.image as string}
-                      alt={c.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-                <div className="p-6">
-                  <p className="text-xs font-semibold text-brand-green">
-                    {c.type}
-                  </p>
-                  <h3 className="mt-1 text-xl font-bold text-ink">{c.title}</h3>
-                  <p className="mt-1 text-sm text-ink/50">
-                    合作單位：{c.partner}
-                  </p>
-                  <dl className="mt-4 space-y-1 text-sm text-ink/70">
-                    {c.stats.map((s) => (
-                      <div key={s.label}>
-                        <dt className="inline font-semibold text-ink">
-                          {s.label}：
-                        </dt>
-                        <dd className="inline">{s.value}</dd>
+          {/* 量測 font 得到 36px、品牌綠，不是重建站原本的 24px 黑字。 */}
+          <h2 className="text-4xl font-bold text-brand-green">代表案例</h2>
+
+          {cases.map((c, i) => (
+            <div key={c.title}>
+              {/* 原站的 hr：1px、rgba(0,0,0,0.13)。標題底下一條、案例之間一條 */}
+              <hr
+                className={`h-px border-0 bg-black/[0.13] ${
+                  i === 0 ? "mt-8 mb-14" : "mt-10 mb-20"
+                }`}
+              />
+              <div className="grid gap-8 md:grid-cols-[23fr_41fr_36fr] md:items-start">
+                <div>
+                  <h3 className="text-2xl font-bold text-ink md:text-[32px]">
+                    {c.title}
+                  </h3>
+                  <dl className="mt-6 space-y-5 text-base">
+                    {c.facts.map((f) => (
+                      <div key={f.label}>
+                        <dt className="font-bold text-[#00573f]">{f.label}</dt>
+                        {f.values.map((v) => (
+                          <dd key={v} className="text-ink">
+                            {v}
+                          </dd>
+                        ))}
+                        {f.note && (
+                          <dd className="text-[13px] leading-relaxed text-ink">
+                            {f.note}
+                          </dd>
+                        )}
                       </div>
                     ))}
                   </dl>
-                  <p className="mt-4 text-sm text-ink/70">
-                    <span className="font-semibold text-ink">合作重點｜</span>
+                </div>
+
+                {/* 中欄：白色 10px 圓角卡片，裡面是大圖或影片＋置中的合作單位名稱。
+                    原站影片那張卡的底色是 #f4f7f8（跟圖片卡的純白不同），照抄。 */}
+                <div
+                  className={`flex h-full flex-col rounded-[10px] px-5 py-6 ${
+                    c.video ? "bg-[#f4f7f8]" : "bg-white"
+                  }`}
+                >
+                  <div className="flex flex-1 items-center justify-center">
+                    {c.video ? (
+                      <div className="w-full">
+                        <YouTubeEmbed id={c.video} title={c.title} />
+                      </div>
+                    ) : (
+                      <Image
+                        src={c.image as string}
+                        alt={c.title}
+                        width={c.imageWidth}
+                        height={c.imageHeight}
+                        style={{ maxWidth: c.imageWidth }}
+                        className="h-auto w-full"
+                      />
+                    )}
+                  </div>
+                  <p className="mt-5 text-center text-base text-ink">
+                    {c.partner}
+                  </p>
+                </div>
+
+                <div className="space-y-5 text-base text-ink">
+                  <p>
+                    <span className="font-bold text-[#00573f]">合作重點｜</span>
                     {c.scope}
                   </p>
-                  <p className="mt-2 text-sm text-ink/70">
-                    <span className="font-semibold text-ink">案例目標｜</span>
+                  <p>
+                    <span className="font-bold text-[#00573f]">案例目標｜</span>
                     {c.goal}
                   </p>
-                  <p className="mt-2 text-sm text-ink/70">
-                    <span className="font-semibold text-ink">實際應用｜</span>
+                  <p>
+                    <span className="font-bold text-[#00573f]">實際應用｜</span>
                     {c.result}
                   </p>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </Container>
       </section>
 
@@ -592,7 +751,7 @@ export default function DesignConsultingPage() {
               href="https://forms.gle/gipvxKXwpi1iFizs8"
               target="_blank"
               rel="noreferrer"
-              className="inline-block shrink-0 self-start bg-black px-[30px] py-3.5 text-sm font-bold text-white transition hover:bg-ink/80 sm:self-auto"
+              className="inline-block shrink-0 self-start bg-black px-[30px] py-3.5 text-sm font-bold text-white transition hover:bg-ink/80"
             >
               填寫合作需求
             </a>

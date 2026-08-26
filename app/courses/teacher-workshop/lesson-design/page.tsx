@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
-import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
+import { CourseFacts } from "@/app/_components/CourseFacts";
+import { CourseImage } from "@/app/_components/CourseImage";
+import {
+  TabbedBox,
+  TabPane,
+  WeeblyOutlineButton,
+} from "@/app/_components/TabbedBox";
 
 export const metadata: Metadata = {
   title: "教案、教材設計",
@@ -12,43 +18,73 @@ const CTA_HREF =
   "https://docs.google.com/forms/d/e/1FAIpQLScTpdFbaeh221rvaEMgG_1vrh0RC_9rOEx1j8ActjGE4PiM7A/viewform";
 
 const gamification = {
-  title: "一、遊戲化教學（六大策略）",
+  title: "遊戲化教學（六大策略）",
   audience: "國小、國中、高中、大學階段教師",
   subject: "所有科目",
   hours: "2~6 小時",
   lead: "遊戲不只是娛樂，更是一種強大的教學工具！本課程將引領您探索遊戲化教學的六大策略，讓您能在課堂中融入遊戲元素，激發學生的學習動機。透過遊戲化的體驗，您將學會如何巧妙地結合知識點，提升學生參與度。",
   experience: [
-    { label: "遊戲體驗", desc: "實際參與簡單而有趣的遊戲模組，輕鬆掌握如何將遊戲元素融入不同科目的教學。" },
-    { label: "引導反思", desc: "深入理解遊戲化與遊戲的區別，並探討如何激發學生的動機，使其熱衷於學習。" },
+    {
+      label: "遊戲體驗",
+      desc: "實際參與簡單而有趣的遊戲模組，輕鬆掌握如何將遊戲元素融入不同科目的教學。",
+    },
+    {
+      label: "引導反思",
+      desc: "深入理解遊戲化與遊戲的區別，並探討如何激發學生的動機，使其熱衷於學習。",
+    },
   ],
   outline: [
-    { label: "遊戲化六大設計策略", desc: "深入探討 2~6 個遊戲化設計策略，為您的課堂注入新鮮元素。" },
-    { label: "簡單模組體驗", desc: "實際體驗已設計好的簡單模組，理解遊戲化在不同學科的靈活運用。" },
-    { label: "系統化概念", desc: "有系統地探討遊戲化的核心概念，打開更多教學可能性。" },
+    {
+      label: "遊戲化六大設計策略",
+      desc: "深入探討 2~6 個遊戲化設計策略，為您的課堂注入新鮮元素。",
+    },
+    {
+      label: "簡單模組體驗",
+      desc: "實際體驗已設計好的簡單模組，理解遊戲化在不同學科的靈活運用。",
+    },
+    {
+      label: "系統化概念",
+      desc: "有系統地探討遊戲化的核心概念，打開更多教學可能性。",
+    },
   ],
 };
 
 const workshop = {
-  title: "二、遊戲化教案工作坊",
+  title: "遊戲化教案工作坊",
   audience: "國小、國中、高中、大學階段教師",
   subject: "所有科目",
   hours: "3 小時",
   lead: "讓我們一同打破傳統教學框架，進入充滿趣味與挑戰的遊戲教學世界！本工作坊將帶您深入了解遊戲化與遊戲的微妙區別，並實際演練遊戲教案的設計，讓您在教學中增添更多元的元素。",
   experience: [
     { label: "遊戲體驗", desc: "深入體驗簡單遊戲模組，理解遊戲化的核心思維。" },
-    { label: "引導反思", desc: "探討遊戲化與遊戲的區別，學習如何激發學生參與的動機。" },
-    { label: "實作練習", desc: "利用所學知識，實際動手設計教學遊戲，並即時獲得專業回饋。" },
+    {
+      label: "引導反思",
+      desc: "探討遊戲化與遊戲的區別，學習如何激發學生參與的動機。",
+    },
+    {
+      label: "實作練習",
+      desc: "利用所學知識，實際動手設計教學遊戲，並即時獲得專業回饋。",
+    },
   ],
   outline: [
-    { label: "遊戲化六大設計策略", desc: "深入探討 2~6 個遊戲化設計策略，為您的課堂注入新鮮元素。" },
-    { label: "簡單模組體驗", desc: "實際體驗已設計好的簡單模組，理解遊戲化在不同學科的靈活運用。" },
-    { label: "系統化概念", desc: "有系統地探討遊戲化的核心概念，打開更多教學可能性。" },
+    {
+      label: "遊戲化六大設計策略",
+      desc: "深入探討 2~6 個遊戲化設計策略，為您的課堂注入新鮮元素。",
+    },
+    {
+      label: "簡單模組體驗",
+      desc: "實際體驗已設計好的簡單模組，理解遊戲化在不同學科的靈活運用。",
+    },
+    {
+      label: "系統化概念",
+      desc: "有系統地探討遊戲化的核心概念，打開更多教學可能性。",
+    },
     { label: "實作練習", desc: "學員進行教案設計，並獲得即時回饋。" },
   ],
 };
 
 const designWorkshop = {
-  title: "三、教育桌遊設計工作坊",
+  title: "教育桌遊設計工作坊",
   audience: "國小、國中、高中、大學階段教師",
   subject: "所有科目",
   lead: "探索桌遊設計的魅力，讓您不僅是教育者，更是一位遊戲設計師！本工作坊將從遊戲的基本概念出發，透過實際案例分析、遊戲體驗和設計練習，引導您完成一款屬於自己的教育桌遊。",
@@ -88,166 +124,123 @@ const designWorkshop = {
   ],
 };
 
-function InfoRow({ audience, subject, hours }: { audience: string; subject: string; hours?: string }) {
+// 原站分頁籤 pane 的右欄格式：導言 →「研習內容：」→ 條列 →「研習大綱：」→ 條列，
+// 條列都是「粗體標籤： 說明」。左欄則是圖片＋適合對象／適合科目／授課時數。
+function Outline({ items }: { items: { label: string; desc: string }[] }) {
   return (
-    <dl className="mt-3 grid grid-cols-1 gap-y-1 text-sm text-ink/70 sm:grid-cols-3 sm:gap-x-4">
-      <div>
-        <dt className="inline font-semibold text-ink">適合對象：</dt>
-        <dd className="inline">{audience}</dd>
-      </div>
-      <div>
-        <dt className="inline font-semibold text-ink">適合科目：</dt>
-        <dd className="inline">{subject}</dd>
-      </div>
-      {hours && (
-        <div>
-          <dt className="inline font-semibold text-ink">授課時數：</dt>
-          <dd className="inline">{hours}</dd>
-        </div>
-      )}
-    </dl>
-  );
-}
-
-function OutlineList({ items }: { items: { label: string; desc: string }[] }) {
-  return (
-    <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink/70">
+    <ul className="list-disc pl-6 text-[#2a3140]">
       {items.map((o) => (
         <li key={o.label}>
-          <span className="font-semibold text-ink">{o.label}：</span>
-          {o.desc}
+          <strong>{o.label}：</strong> {o.desc}
         </li>
       ))}
     </ul>
   );
 }
 
+const tabs = [
+  {
+    label: "遊戲化教學（六大策略）",
+    image: "/images/courses/lesson-design-1.jpg",
+    alt: "教師分組進行遊戲化教學研習",
+    course: gamification,
+  },
+  {
+    label: "遊戲化教案工作坊",
+    image: "/images/courses/lesson-design-2.jpg",
+    alt: "教師分組進行遊戲化教案工作坊實作練習",
+    course: workshop,
+  },
+];
+
 export default function LessonDesignPage() {
   return (
-    <>
-      <section className="bg-black/[0.03] py-20">
-        <Container className="grid gap-10 md:grid-cols-2 md:items-center">
-          <div>
-            <p className="text-sm font-semibold text-brand-green">教師研習</p>
-            <h1 className="mt-2 text-3xl font-bold text-ink md:text-4xl">📖 教案、教材設計</h1>
-            <p className="mt-6 text-ink/70">
-              從掌握遊戲化教學策略、動手設計遊戲教案，到完成一款屬於自己的教育桌遊，帶老師一步步把「遊戲化」內化成可以帶回課堂的能力。
-            </p>
-            <a
-              href={CTA_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-8 inline-block rounded-full bg-brand-green px-8 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-            >
+    // ⚠️ 2026-08-26 重做版面。原站這頁只有 1 個 wsite-section（白底），裡面兩塊：
+    // ①一列兩欄「71.6% 標題（33.6px 置中）／28.4% 邀約課程按鈕（黑框直角）」
+    // ②一組**三個籤**的分頁籤（遊戲化教學（六大策略）／遊戲化教案工作坊／教育桌遊設計工作坊）。
+    // 重建站原本把三個籤攤成三段深淺交錯的獨立區塊、標題自己加了「一、二、三、」編號、
+    // 還多了一張 hero 圖、一段自己寫的導言、以及結尾自製 CTA——原站都沒有。
+    <section className="py-16">
+      <Container>
+        <div className="grid items-center gap-8 md:grid-cols-[72fr_28fr]">
+          <h1 className="text-center text-[28px] font-bold text-ink md:text-[34px]">
+            📖 教案、教材設計
+          </h1>
+          <div className="text-center">
+            <WeeblyOutlineButton href={CTA_HREF} external>
               邀約課程
-            </a>
+            </WeeblyOutlineButton>
           </div>
-          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.05]">
-            <Image
-              src="/images/courses/lesson-design-1.jpg"
-              alt="教師分組進行遊戲化教案設計工作坊"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </Container>
-      </section>
+        </div>
 
-      <section className="py-16">
-        <Container>
-          <h2 className="text-2xl font-bold text-ink">{gamification.title}</h2>
-          <InfoRow audience={gamification.audience} subject={gamification.subject} hours={gamification.hours} />
-          <p className="mt-4 text-ink/70">{gamification.lead}</p>
-
-          <h3 className="mt-6 text-sm font-bold text-ink">研習內容</h3>
-          <ul className="mt-1 space-y-2 text-sm text-ink/70">
-            {gamification.experience.map((e) => (
-              <li key={e.label}>
-                <span className="font-semibold text-ink">{e.label}：</span>
-                {e.desc}
-              </li>
-            ))}
-          </ul>
-
-          <h3 className="mt-6 text-sm font-bold text-ink">研習大綱</h3>
-          <OutlineList items={gamification.outline} />
-        </Container>
-      </section>
-
-      <section className="bg-black/[0.03] py-16">
-        <Container className="grid gap-8 md:grid-cols-[280px_1fr] md:items-start">
-          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.05]">
-            <Image
-              src="/images/courses/lesson-design-2.jpg"
-              alt="教師分組進行遊戲化教案工作坊實作練習"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold text-ink">{workshop.title}</h2>
-            <InfoRow audience={workshop.audience} subject={workshop.subject} hours={workshop.hours} />
-            <p className="mt-4 text-ink/70">{workshop.lead}</p>
-
-            <h3 className="mt-6 text-sm font-bold text-ink">研習內容</h3>
-            <ul className="mt-1 space-y-2 text-sm text-ink/70">
-              {workshop.experience.map((e) => (
-                <li key={e.label}>
-                  <span className="font-semibold text-ink">{e.label}：</span>
-                  {e.desc}
-                </li>
-              ))}
-            </ul>
-
-            <h3 className="mt-6 text-sm font-bold text-ink">研習大綱</h3>
-            <OutlineList items={workshop.outline} />
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-16">
-        <Container className="grid gap-8 md:grid-cols-[280px_1fr] md:items-start">
-          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-black/[0.05]">
-            <Image
-              src="/images/courses/lesson-design-3.jpg"
-              alt="學員分組進行教育桌遊設計工作坊實作練習"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold text-ink">{designWorkshop.title}</h2>
-            <InfoRow audience={designWorkshop.audience} subject={designWorkshop.subject} />
-            <p className="mt-4 max-w-3xl text-ink/70">{designWorkshop.lead}</p>
-
-            <div className="mt-8 grid gap-6 sm:grid-cols-3">
-              {designWorkshop.tiers.map((tier) => (
-                <div key={tier.title} className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-                  <h3 className="font-bold text-ink">{tier.title}</h3>
-                  <p className="mt-1 text-sm text-ink/60">授課時數：{tier.hours}</p>
-                  <h4 className="mt-4 text-sm font-bold text-ink">研習大綱</h4>
-                  <OutlineList items={tier.outline} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-black/[0.03] py-16 text-center">
-        <Container>
-          <h2 className="text-2xl font-bold text-ink">想邀請阿普蛙帶教案／教材設計工作坊？</h2>
-          <p className="mt-3 text-ink/70">依教師需求與可用時數，選擇合適的課程規格，我們會協助安排研習內容。</p>
-          <a
-            href={CTA_HREF}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-block rounded-full bg-brand-green px-8 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-          >
-            邀約課程
-          </a>
-        </Container>
-      </section>
-    </>
+        <div className="mt-12">
+          <TabbedBox
+            tabs={[
+              ...tabs.map(({ label, image, alt, course }) => ({
+                label,
+                content: (
+                  <TabPane media={<CourseImage src={image} alt={alt} />}>
+                    <CourseFacts
+                      facts={[
+                        { label: "適合對象", value: course.audience },
+                        { label: "適合科目", value: course.subject },
+                        { label: "授課時數", value: course.hours },
+                      ]}
+                    />
+                    <div className="mt-3 text-base leading-[30px] text-ink">
+                      <p>{course.lead}</p>
+                      <p className="mt-2">
+                        <strong className="text-[#0e121d]">研習內容：</strong>
+                      </p>
+                      <Outline items={course.experience} />
+                      <p className="mt-2">
+                        <strong className="text-[#0e121d]">研習大綱：</strong>
+                      </p>
+                      <Outline items={course.outline} />
+                    </div>
+                  </TabPane>
+                ),
+              })),
+              {
+                label: "教育桌遊設計工作坊",
+                content: (
+                  <TabPane
+                    media={
+                      <CourseImage
+                        src="/images/courses/lesson-design-3.jpg"
+                        alt="學員分組進行教育桌遊設計工作坊實作練習"
+                      />
+                    }
+                  >
+                    <CourseFacts
+                      facts={[
+                        { label: "適合對象", value: designWorkshop.audience },
+                        { label: "適合科目", value: designWorkshop.subject },
+                      ]}
+                    />
+                    <div className="mt-3 text-base leading-[30px] text-ink">
+                      <p>{designWorkshop.lead}</p>
+                      {/* 原站這一籤是三種規格上下排列（不是重建站原本的三張並排卡片） */}
+                      {designWorkshop.tiers.map((tier) => (
+                        <div key={tier.title} className="mt-4">
+                          <p className="font-bold">{tier.title}</p>
+                          <p>授課時數：{tier.hours}</p>
+                          <p>
+                            <strong className="text-[#0e121d]">
+                              研習大綱：
+                            </strong>
+                          </p>
+                          <Outline items={tier.outline} />
+                        </div>
+                      ))}
+                    </div>
+                  </TabPane>
+                ),
+              },
+            ]}
+          />
+        </div>
+      </Container>
+    </section>
   );
 }

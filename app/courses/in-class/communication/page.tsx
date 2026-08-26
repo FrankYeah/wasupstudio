@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
-import { SiteImage as Image } from "@/app/_components/SiteImage";
 import { Container } from "@/app/_components/Container";
+import { CourseFacts } from "@/app/_components/CourseFacts";
+import { CourseImage } from "@/app/_components/CourseImage";
+import {
+  TabbedBox,
+  TabPane,
+  WeeblyOutlineButton,
+} from "@/app/_components/TabbedBox";
 
 export const metadata: Metadata = {
   title: "提升溝通力｜入班授課",
@@ -33,7 +39,11 @@ const courses = [
     image: "/images/courses/communication-2.jpg",
     grade: "國小中高年級、國中、高中、大學",
     hours: "3-18 小時",
-    goals: ["覺察並改善個人的溝通方式與盲點", "學習正向溝通的四大要素", "提升溝通效能，有效化解衝突"],
+    goals: [
+      "覺察並改善個人的溝通方式與盲點",
+      "學習正向溝通的四大要素",
+      "提升溝通效能，有效化解衝突",
+    ],
     content: [
       "透過遊戲，學員反思個人的溝通方式及盲點",
       "講師帶領學員掌握正向溝通的四要素：觀察、感受、需求、請求",
@@ -44,80 +54,53 @@ const courses = [
 
 export default function CommunicationPage() {
   return (
-    <>
-      <section className="bg-black/[0.03] py-16">
-        <Container>
-          <p className="text-sm font-semibold text-brand-green">入班授課｜青少年培力課程</p>
-          <h1 className="mt-2 text-3xl font-bold text-ink md:text-4xl">
+    // ⚠️ 2026-08-26 重做版面。原站這頁量起來只有 1 個 wsite-section、背景透明（＝白），
+    // 裡面只有兩塊：①「80.3% 標題 / 19.7% 按鈕」一列 ②一組分頁籤。
+    // 重建站原本自己加了淡灰 hero 底、「入班授課｜青少年培力課程」小標籤、一張 21:9 橫幅
+    // 大圖（拿課程照去裁的）、綠色圓角按鈕，並把兩個課程攤平成上下兩張卡——原站都沒有。
+    <section className="py-16">
+      <Container>
+        <div className="grid items-center gap-8 md:grid-cols-[80fr_20fr]">
+          {/* 原站量測：24px 粗體黑字、置中 */}
+          <h1 className="text-center text-2xl font-bold text-ink">
             🚀 提升溝通力，啟發潛能！ 🗣️
           </h1>
-          <div className="mt-8">
-            <a
-              href={INVITE_FORM_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block rounded-full bg-brand-green px-6 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-            >
+          <div className="text-center">
+            <WeeblyOutlineButton href={INVITE_FORM_URL} external>
               邀約課程
-            </a>
+            </WeeblyOutlineButton>
           </div>
-        </Container>
-      </section>
+        </div>
 
-      <Container className="py-16">
-        <div className="relative aspect-21/9 w-full overflow-hidden rounded-2xl bg-black/[0.03]">
-          <Image
-            src="/images/courses/communication-1.jpg"
-            alt="提升溝通力 課程實況"
-            fill
-            className="object-cover"
+        <div className="mt-12">
+          <TabbedBox
+            tabs={courses.map((course) => ({
+              label: course.title,
+              content: (
+                <TabPane
+                  media={
+                    <CourseImage
+                      src={course.image}
+                      alt={`《${course.title}》課程實況`}
+                    />
+                  }
+                >
+                  <CourseFacts
+                    facts={[
+                      { label: "適合年級", value: course.grade },
+                      { label: "授課時間", value: course.hours },
+                    ]}
+                    sections={[
+                      { label: "課程目標", items: course.goals },
+                      { label: "課程內容", items: course.content },
+                    ]}
+                  />
+                </TabPane>
+              ),
+            }))}
           />
         </div>
       </Container>
-
-      <Container className="space-y-8 pb-24">
-        {courses.map((course) => (
-          <article
-            key={course.title}
-            className="rounded-2xl border border-black/5 p-6 shadow-sm md:p-8"
-          >
-            <div className="relative mb-6 aspect-16/9 w-full overflow-hidden rounded-xl bg-black/[0.03]">
-              <Image
-                src={course.image}
-                alt={`《${course.title}》課程實況`}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <h2 className="text-xl font-bold text-ink">{course.title}</h2>
-
-            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-ink/70">
-              <span>
-                <span className="font-semibold text-ink">適合年級：</span>
-                {course.grade}
-              </span>
-              <span>
-                <span className="font-semibold text-ink">授課時間：</span>
-                {course.hours}
-              </span>
-            </div>
-
-            <h3 className="mt-5 text-sm font-bold text-ink">課程目標</h3>
-            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink/70">
-              {course.goals.map((goal) => (
-                <li key={goal}>{goal}</li>
-              ))}
-            </ul>
-
-            <h3 className="mt-5 text-sm font-bold text-ink">課程內容</h3>
-            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink/70">
-              {course.content.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </Container>
-    </>
+    </section>
   );
 }
