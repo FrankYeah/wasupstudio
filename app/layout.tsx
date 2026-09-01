@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { birdseye, montserrat } from "@/app/fonts";
 import { Header } from "@/app/_components/Header";
 import { Footer } from "@/app/_components/Footer";
+import { Analytics } from "@/app/_components/Analytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,6 +25,12 @@ export const metadata: Metadata = {
     "批判性思考",
     "議題桌遊",
   ],
+  // 原站首頁有這張 google-site-verification meta（值照抄），另外 DNS 上還有一筆
+  // 4muqbk3t4xrn 的 CNAME 也是 Google 網域驗證用的。兩種驗證方式都要保留，
+  // 否則 Search Console / Workspace 的網域驗證會失效。
+  verification: {
+    google: "6hxDApw91mv30j6kMZulR1XyVl6A93F3wSj7Z_k88uc",
+  },
   openGraph: {
     title: "阿普蛙 Wa's UP",
     description:
@@ -42,6 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

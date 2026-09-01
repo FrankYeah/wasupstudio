@@ -5,7 +5,7 @@ import {
 } from "@/app/_components/ProductGallery";
 import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 import { Container } from "@/app/_components/Container";
-import { withBasePath } from "@/app/_components/SiteImage";
+import { SiteImage, withBasePath } from "@/app/_components/SiteImage";
 
 export const metadata: Metadata = {
   title: "抓誑新聞 Crazy News",
@@ -120,17 +120,28 @@ export default function CrazyNewsPage() {
             左欄＝標語＋書名＋介紹＋亮點＋售價，右欄＝相簿＋購買/邀約/播報網頁按鈕。
             重建站原本把兩者上下疊成 max-w-3xl 置中單欄，相簿還縮成 max-w-md，跟原站不是同一種版面。
             見 MIGRATION-PLAN.md Phase 2「圖文左右順序」。
-            ⚠️ 原站左欄的文字之間還夾了兩張圖（2_2.png、2_4.png），右欄按鈕之間也有一張（2_2_orig.png），
-            這三張目前不在重建站上，屬於另一條「內容漏接」待辦，不在這次左右順序修正的範圍。 */}
+            2026-09-01：原站左欄夾的兩張圖（二刷印章、遊戲資訊圖示）與右欄的二刷說明圖已補齊，
+            位置與原站的巢狀兩欄結構一致，尺寸照原站 getBoundingClientRect 實測值。 */}
         <Container>
           <div className="grid gap-12 md:grid-cols-[45fr_55fr]">
             <div>
               <p className="text-sm font-semibold text-[#d5d5d5]">
                 全球第一款媒體識讀桌遊
               </p>
-              <h1 className="mt-2 text-3xl font-bold text-white">
-                抓誑新聞 Crazy News
-              </h1>
+              {/* 原站標題與二刷印章是一列兩欄（73.5% / 26.5%，讀原站 <td> style 取得），
+                  印章原尺寸 54x83、原站沒有縮放。 */}
+              <div className="mt-2 grid grid-cols-[73.5fr_26.5fr] items-center gap-4">
+                <h1 className="text-3xl font-bold text-white">
+                  抓誑新聞 Crazy News
+                </h1>
+                <SiteImage
+                  src="/images/board-games/crazy-news-2nd-print-seal.png"
+                  alt="二刷"
+                  width={54}
+                  height={83}
+                  className="h-auto w-[54px] justify-self-center"
+                />
+              </div>
               <p className="mt-4 text-[#d5d5d5]">
                 遊戲中，你將成為「識讀者」同盟的一員，聆聽報導並破除藏匿其中的四大毒物！在媒體徹底誑化之前，號召你的夥伴升級各種特殊技、打擊怪獸，一起讓誑化的媒體恢復正常！
               </p>
@@ -141,29 +152,59 @@ export default function CrazyNewsPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-4 text-[#d5d5d5]">售價：750元（消費滿2000免運）</p>
+              {/* 原站是一列兩欄（42.2% / 57.8%）：左邊遊戲資訊圖示、右邊售價兩行。
+                  圖示是深色透明 PNG 疊在 #323D3F 上，對比很低，2026-09-01 開原站實測確認
+                  原站就長這樣，不是重建站畫錯，不要自己調亮。
+                  ⚠️ 圖示上的數字（30~60min／3-6人／12+）跟本頁下方「遊戲資訊」的文字
+                  （30-50分鐘／3-7人／10＋）對不起來，這是原站自己的矛盾，
+                  已列入 MIGRATION-PLAN 待客戶確認，先照原站兩邊都保留。 */}
+              <div className="mt-4 grid grid-cols-[42.2fr_57.8fr] items-center gap-4">
+                <SiteImage
+                  src="/images/board-games/crazy-news-game-info-icons.png"
+                  alt="遊戲時間 30~60 分鐘、遊戲人數 3-6 人、建議年齡 12 歲以上"
+                  width={181}
+                  height={55}
+                  className="h-auto w-[181px] max-w-full"
+                />
+                <p className="text-[#d5d5d5]">
+                  售價：750元
+                  <br />
+                  *消費滿2000免運
+                </p>
+              </div>
             </div>
 
             <div>
               <ProductGallery images={galleryImages} />
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a
-                  href="https://forms.gle/n4eqD2xcKHgPUwrS7"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full bg-brand-green px-6 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
-                >
-                  購買桌遊
-                </a>
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLScTpdFbaeh221rvaEMgG_1vrh0RC_9rOEx1j8ActjGE4PiM7A/viewform"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-white px-6 py-3 font-semibold text-white"
-                >
-                  邀約課程
-                </a>
+              {/* 原站這裡也是一列兩欄（50% / 50%）：左邊兩顆按鈕、右邊二刷說明圖。
+                  說明圖原始檔 1076x349，原站縮到 278x90 顯示。 */}
+              <div className="mt-8 grid items-center gap-6 sm:grid-cols-2">
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href="https://forms.gle/n4eqD2xcKHgPUwrS7"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full bg-brand-green px-6 py-3 font-semibold text-white transition hover:bg-brand-green-bright"
+                  >
+                    購買桌遊
+                  </a>
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScTpdFbaeh221rvaEMgG_1vrh0RC_9rOEx1j8ActjGE4PiM7A/viewform"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full border border-white px-6 py-3 font-semibold text-white"
+                  >
+                    邀約課程
+                  </a>
+                </div>
+                <SiteImage
+                  src="/images/board-games/crazy-news-2nd-print-notes.png"
+                  alt="二刷調整：①使媒體玩家更容易召喚怪獸卡 ②使閱聽人玩家更容易使用成長卡 ③增添時事新聞文本 ④微幅介面修改"
+                  width={1076}
+                  height={349}
+                  className="h-auto w-[278px] max-w-full"
+                />
               </div>
 
               {/* 原站在「＊購買桌遊即可獲得線上播報新聞之功能」旁邊有一顆按鈕連到播報網頁登入頁，重建時漏掉 */}

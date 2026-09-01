@@ -1,0 +1,181 @@
+# 舊 Weebly 網址 → 新站的 301 對照。
+# 這個檔是產生出來的，不要手改：來源是 source repo 的 00-plan/301-redirects.tsv，
+# 改完跑 00-plan/gen-redirects.py 重新產生。
+# 涵蓋原站 sitemap.xml 全部 82 個 URL。
+
+# ── 1:1 對得上新站頁面（25 筆）
+#   想設計
+/248193537335336.html /design-consulting 301
+#   買桌遊總覽
+/360232670036938.html /board-games 301
+#   買數位教材
+/3602325976203012594526448.html /digital-materials 301
+#   找課程總覽
+/game.html /courses 301
+#   關於我們
+/about.html /about 301
+#   情緒謎語
+/247733221035598354866528838617354862925665289.html /board-games/riddle-me-feelings 301
+#   瞎掰王SDGs
+/306062552029579sdgs259453294629256.html /board-games/talk-nonsense-sdgs 301
+#   練愛猜心
+/practiceforlove.html /board-games/practice-for-love 301
+#   抓誑新聞
+/25235354732603232862.html /board-games/crazy-news 301
+#   未來議會
+/26410203583569626371.html /board-games/future-parliament 301
+#   玩一世人
+/29609199681999020154.html /board-games/play-a-lifetime 301
+#   拚陣頭
+/253063849938957.html /board-games/pin-zhentou 301
+#   十分機靈
+/21313209982723138728.html /board-games/sharp-ten 301
+#   家分題（已完售）
+/234782099838988.html /board-games/family-topics 301
+#   大政治家（已完售）
+/2282325919278352347836984251363908038642.html /board-games/great-politician 301
+#   教師研習
+/25945241073074032722.html /courses/teacher-workshop 301
+#   教材應用
+/25945264482503329992.html /courses/teacher-workshop/material-application 301
+#   教案設計
+/259452669625945264483537335336.html /courses/teacher-workshop/lesson-design 301
+#   入班授課總覽
+/8203208372967725480355066537238738235692418022521211473550631243.html /courses/in-class 301
+#   在遊戲中學議題
+/22312369382513820013234163569638988.html /courses/in-class/learn-through-play 301
+#   議題探究與實作
+/35696389882550631350332872352620316.html /courses/in-class/inquiry-practice 301
+#   提升溝通力
+/2555221319283173689021147.html /courses/in-class/communication 301
+#   民主從開會開始
+/27665200272447838283263713828322987.html /courses/in-class/democracy-in-meetings 301
+#   教育訓練
+/25945329463534732244.html /courses/corporate-training 301
+#   家庭教育課程
+/familyeducation.html /courses/family-education 301
+
+# ── 原站是獨立頁，內容已併進新站另一頁（2 筆）
+#   舊版桌遊設計服務頁，內容已併入想設計
+/2481935373353361.html /design-consulting 301
+#   大政治家完整版產品頁，已併入
+/greatpoliticians.html /board-games/great-politician 301
+
+# ── 舊版／備份／施工中頁，導到最接近的現行頁（10 筆）
+#   舊版首頁
+/index.html / 301
+#   空的舊版首頁
+/index2.html / 301
+#   首頁備份頁
+/3931838913backup.html / 301
+#   空的網站地圖頁（原站檔名就拼錯）
+/stiemap.html / 301
+#   買桌遊的新版草稿頁
+/360232670036938new.html /board-games 301
+#   議題遊戲介紹，內容等同找課程總覽
+/game-629883.html /courses 301
+#   教育/助人工作者工作坊，屬教師研習家族
+/349873534221421303402670036938.html /courses/teacher-workshop 301
+#   三大課程方案總覽，標題寫「施工區」
+/case-map.html /courses 301
+#   公民培養皿-施工中，只剩頁尾
+/2084427665225213917830399-260452403720013.html /courses 301
+#   遊戲化思維-施工中，內文全空
+/3693825138212702460532173-260452403720013.html /courses 301
+
+# ── Weebly 商店頁（線上本來就是空的）（3 筆）
+#   Weebly 商店分類頁，線上本來就是空的
+/store/c1/明星商品.html /board-games 301
+/store/c1/%E6%98%8E%E6%98%9F%E5%95%86%E5%93%81.html /board-games 301
+#   同上
+/store/c3/桌遊.html /board-games 301
+/store/c3/%E6%A1%8C%E9%81%8A.html /board-games 301
+#   商店商品明細頁
+/store/p1/大政治家：選戰風雲.html /board-games/great-politician 301
+/store/p1/%E5%A4%A7%E6%94%BF%E6%B2%BB%E5%AE%B6%EF%BC%9A%E9%81%B8%E6%88%B0%E9%A2%A8%E9%9B%B2.html /board-games/great-politician 301
+
+# ── 專欄／部落格／教學工具。新站目前沒有對應內容，全部先導首頁，見 MIGRATION-PLAN 偏離清單第 9 條（42 筆）
+#   專欄首頁
+/blog.html / 301
+#   專欄總覽
+/column.html / 301
+#   從228培養孩子的思辨能力
+/column1-6.html / 301
+#   淺談轉型正義
+/column3-2.html / 301
+#   教學工具總覽
+/teachingtools.html / 301
+#   專欄文章
+/blog/0001 / 301
+#   專欄文章
+/blog/0002 / 301
+#   專欄文章
+/blog/0003 / 301
+#   一張圖解釋媒體
+/blog/0004 / 301
+#   專欄文章
+/blog/1555804 / 301
+#   專欄文章
+/blog/1663807 / 301
+#   專欄文章
+/blog/2174566 / 301
+#   專欄文章
+/blog/2595453 / 301
+#   專欄文章
+/blog/3227017 / 301
+#   專欄文章
+/blog/4 / 301
+#   專欄文章
+/blog/4048259 / 301
+#   專欄文章
+/blog/4973463 / 301
+#   專欄文章
+/blog/5717879 / 301
+#   專欄文章
+/blog/5910907 / 301
+#   蛙馬麻時間,情緒崩潰
+/blog/6150183 / 301
+#   專欄文章
+/blog/6615473 / 301
+#   專欄文章
+/blog/7250229 / 301
+#   專欄文章
+/blog/7257268 / 301
+#   專欄文章
+/blog/7268586 / 301
+#   專欄文章
+/blog/7662624 / 301
+#   專欄文章
+/blog/8083650 / 301
+#   專欄文章
+/blog/8517875 / 301
+#   專欄文章
+/blog/8718503 / 301
+#   專欄文章
+/blog/8878915 / 301
+#   專欄文章
+/blog/8929717 / 301
+#   專欄文章
+/blog/9248536 / 301
+#   專欄文章
+/blog/august-04th-2021 / 301
+#   專欄文章
+/blog/bug / 301
+#   翻越冰山的勇者
+/blog/course01 / 301
+#   戴著思考帽來暢遊議想世界吧
+/blog/course02 / 301
+#   專欄文章
+/blog/media001 / 301
+#   ORID
+/blog/orid / 301
+#   教學工具系列
+/blog/teachingtools01 / 301
+#   蛙仔教你讀心術第二集
+/blog/teachingtools02 / 301
+#   阿普蛙成員衝突大公開
+/blog/teachingtools03 / 301
+#   納粹事件延燒
+/blog/teachingtools04 / 301
+#   是學習還是壓迫
+/blog/teachingtools049345570 / 301
