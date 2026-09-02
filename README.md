@@ -19,7 +19,7 @@ npm run lint    # ESLint，這個專案沒有自動化測試，驗收靠 build+l
 ## 技術棧與關鍵設定
 
 - **內容即程式碼**：不接 CMS，客戶內容/文案直接寫在各 `app/**/page.tsx` 裡，未來要改文字/擴功能就是直接改這些檔案（用 Claude Code）。共用結構資料（導覽選單、商品清單、課程清單）在 `app/_lib/site-data.ts`。
-- **靜態匯出**（`output: "export"`，見 `next.config.ts`）：目前沒有需要伺服器運算的頁面（聯絡表單後端還沒接，見 `app/_components/ContactForm.tsx` 的 TODO），整站是純 HTML/CSS/JS。
+- **靜態匯出**（`output: "export"`，見 `next.config.ts`）：沒有需要伺服器運算的頁面，整站是純 HTML/CSS/JS。**聯絡表單不是站內表單**，頁尾那顆按鈕連到客戶自己在營運的 Google 表單「阿普蛙聯絡資料填寫」（網址在 `app/_lib/site-data.ts` 的 `studioContact.contactForm`），所以不需要寄信後端。
 - **圖片一律從 `app/_components/SiteImage.tsx` 引入，不要直接 `import Image from "next/image"`**：靜態匯出 + `images.unoptimized: true` 的組合下，`public/` 資料夾的圖片不會自動套用 `basePath`（Next.js 官方文件裡的已知行為），`SiteImage` 補上這一層，全站的圖片元件都要走這裡，不然在子路徑部署下圖片會讀不到。**（2026-09-02 起 `basePath` 是空字串，所以這一層目前不做事；規則照舊要遵守，保留它是為了將來若要部署到子路徑時只改一個常數，不用把全站改回 `next/image`。）****CSS `background-image: url(...)` 這種非 `next/image` 的用法**（例如 [PageBanner.tsx](app/_components/PageBanner.tsx) 的 banner 底圖）**不能用 `SiteImage` 元件，要改用同一個檔案 export 出來的 `withBasePath()` 函式**包住路徑字串，邏輯跟 `SiteImage` 一致，只是給非 `<img>` 的場景用。
 - **設計系統**：品牌綠 `#007854`（`bg-brand-green`/`text-brand-green`）、亮綠 `#00ab84`（`-bright`，hover 用）、內文色 `#2a2a2a`（`text-ink`），字型見 `app/fonts/`（自架 Birdseye + Google Fonts Montserrat），容器寬度用 `<Container>` 元件（`app/_components/Container.tsx`），不要各頁自己重寫 max-width。
 

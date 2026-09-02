@@ -78,7 +78,12 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        {/* 橫向導覽的斷點是 lg（1024px）不是 md（768px）：768px 時光是 logo（251px）加上
+            導覽列就把容器（可用 688px）塞滿，每一項都被 flex 擠到折成兩行、「首頁」還會疊到
+            logo 上。2026-09-02 量測：768px 各項 offsetHeight 59px（單行約 37px），
+            這在導覽只有 6 項時就已經發生，加上「專欄」變 7 項只是更明顯。
+            768~1023px 一律走漢堡選單，項目本身再加 whitespace-nowrap 保險。 */}
+        <nav className="hidden items-center gap-1 lg:flex">
           {mainNav.map((item) => {
             const sub = dropdowns[item.href];
             const active = isActive(item.href);
@@ -87,7 +92,7 @@ export function Header() {
                 <Link
                   href={item.href}
                   className={
-                    "rounded border px-3 py-2 text-sm font-semibold transition " +
+                    "rounded border px-3 py-2 text-sm font-semibold whitespace-nowrap transition " +
                     (showOverlayStyle
                       ? active
                         ? "border-white text-white"
@@ -118,11 +123,15 @@ export function Header() {
         </nav>
 
         <button
-          className="flex h-10 w-10 items-center justify-center rounded md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded lg:hidden"
           aria-label="開啟選單"
           onClick={() => setMobileOpen((v) => !v)}
         >
           <span className="sr-only">選單</span>
+          {/* 線條固定深色。疊層模式下導覽文字是白的（照原站），但首頁／想設計／買桌遊／
+              找課程這幾頁的 banner 底圖在導覽列那一帶量到 #E1E3E4 的淺灰，白色線條會整個
+              看不見，而這是使用者要按的功能按鈕。斷點改成 lg 之後 768~1023px 也走這顆按鈕，
+              維持深色。 */}
           <div className="flex flex-col gap-1.5">
             <span className="h-0.5 w-6 bg-ink" />
             <span className="h-0.5 w-6 bg-ink" />
@@ -132,7 +141,7 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <nav className="border-t border-black/5 bg-white px-6 py-4 md:hidden">
+        <nav className="border-t border-black/5 bg-white px-6 py-4 lg:hidden">
           {mainNav.map((item) => (
             <div
               key={item.href}

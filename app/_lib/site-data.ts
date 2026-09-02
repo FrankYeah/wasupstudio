@@ -148,12 +148,14 @@ export const courseNav: CourseLink[] = [
   { title: "家庭教育課程", href: "/courses/family-education" },
 ];
 
+// 「專欄」是 2026-09-02 新增的第 7 個項目，見 MIGRATION-PLAN 偏離清單第 15 條。
 export const mainNav = [
   { title: "首頁", href: "/" },
   { title: "想設計", href: "/design-consulting" },
   { title: "買桌遊", href: "/board-games" },
   { title: "買數位教材", href: "/digital-materials" },
   { title: "找課程", href: "/courses" },
+  { title: "專欄", href: "/columns" },
   { title: "關於我們", href: "/about" },
 ];
 
@@ -166,4 +168,10 @@ export const studioContact = {
   courses: { name: "杜冠賢", phone: "0917-629597" },
   facebook: "https://facebook.com/Wasupstudio",
   blog: "http://wasupthink.blogspot.tw/",
+  // 客戶自己在營運的聯絡表單（Google 表單，標題「阿普蛙聯絡資料填寫-20170314」）。
+  // 原站多個頁面的「邀約課程」按鈕連的就是這一份，表單裡的「您的需求」有
+  // 課程邀約／產品設計／找蛙聊聊／單純留資料四個選項，涵蓋頁尾聯絡表單的用途。
+  // 見 MIGRATION-PLAN 偏離清單第 13 條。
+  contactForm:
+    "https://docs.google.com/forms/d/e/1FAIpQLScTpdFbaeh221rvaEMgG_1vrh0RC_9rOEx1j8ActjGE4PiM7A/viewform",
 };

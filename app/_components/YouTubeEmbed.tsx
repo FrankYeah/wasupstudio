@@ -4,7 +4,8 @@ export function YouTubeEmbed({ id, title }: { id: string; title: string }) {
   return (
     <div className="relative aspect-video overflow-hidden rounded-2xl bg-black/[0.03]">
       <iframe
-        src={`https://www.youtube.com/embed/${id}`}
+        // 見 MIGRATION-PLAN 偏離清單第 16 條。
+        src={`https://www.youtube-nocookie.com/embed/${id}`}
         title={title}
         className="absolute inset-0 h-full w-full"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

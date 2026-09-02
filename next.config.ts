@@ -1,11 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // 目前站上沒有真正需要伺服器運算的頁面（聯絡表單後端還沒接，見
-  // app/_components/ContactForm.tsx 的 TODO），所以先整站用純靜態匯出：
-  // 一次 build 產出純 HTML/CSS/JS，GitHub Pages、Cloudflare Pages 都能直接當靜態站放。
-  // 之後如果聯絡表單要接 Server Action 或其他需要伺服器運算的功能，要回來改這裡
-  // （改用 Cloudflare Pages Functions 補一支獨立的 API，或改用 OpenNext 讓整個 Next app 跑在 Workers 上）。
+  // 站上沒有需要伺服器運算的頁面，整站純靜態匯出：一次 build 產出純 HTML/CSS/JS。
+  // 聯絡表單走客戶自己的 Google 表單（見 MIGRATION-PLAN 偏離清單第 13 條），所以不需要後端。
+  // 之後如果真的要加需要伺服器運算的功能（線上計分系統、課程報名），要回來改這裡：
+  // 在 wrangler.jsonc 加一個 main 入口讓 Workers 靜態資產旁邊掛一支 Worker，
+  // 或改用 OpenNext 讓整個 Next app 跑在 Workers 上。
   output: "export",
 
   // 部署目標是 Cloudflare Workers 靜態資產（設定在 wrangler.jsonc）。

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Container } from "@/app/_components/Container";
-import { ContactForm } from "@/app/_components/ContactForm";
 import { studioContact } from "@/app/_lib/site-data";
 
 export function Footer() {
@@ -33,10 +32,7 @@ export function Footer() {
             <a href={studioContact.blog} target="_blank" rel="noreferrer" className="underline">
               部落格
             </a>
-            {/* 2026-09-02 新增：站內專欄。原站的 39 篇專欄沒有掛在導覽列上，
-                所以 Phase 0 建頁面清單時整區漏掉。搬過來之後至少要有一個入口，
-                否則會重蹈原站「內容存在但沒人找得到」的覆轍。
-                要不要一併放進主導覽是產品決定，見 MIGRATION-PLAN 偏離清單第 9 條。 */}
+            {/* 站內專欄。主導覽也有同一個入口，見 MIGRATION-PLAN 偏離清單第 15 條。 */}
             <Link href="/columns" className="underline">
               專欄
             </Link>
@@ -49,18 +45,39 @@ export function Footer() {
               2026-08-25 還原被改掉的語氣詞「呦」跟強調字「更」——這兩個是品牌語氣，不是錯字，
               先前重建時一併「校正」掉了，屬於不該動的改寫。
               最後那句「我們會進一步。」原站就是斷在這裡、句子沒寫完（客戶自己的疏漏），
-              照抄會讓新站看起來像壞掉，先維持不放，已列入待跟客戶確認的清單。 */}
-          <p className="mt-1 text-xs text-ink/60">
+              照抄會讓新站看起來像壞掉，先維持不放。 */}
+          <p className="mt-1 text-xs leading-relaxed text-ink/60">
             歡迎留下聯絡資料，我們將主動通知您最新活動資訊呦。如果對我們的課程有興趣，或想跟我們合作，更請務必填寫。
           </p>
-          <div className="mt-4">
-            <ContactForm />
-          </div>
+          {/* 見 MIGRATION-PLAN 偏離清單第 13 條。 */}
+          <a
+            href={studioContact.contactForm}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-4 inline-block rounded-full bg-brand-green px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-green-bright"
+          >
+            填寫聯絡表單
+          </a>
+          <p className="mt-3 text-xs leading-relaxed text-ink/60">
+            表單會在新分頁開啟，共 10 題，包含您的聯絡方式與需求。
+            也可以直接來信{" "}
+            <a href={`mailto:${studioContact.email}`} className="underline">
+              {studioContact.email}
+            </a>
+            。填寫前請先閱讀
+            <Link href="/privacy" className="underline">
+              隱私權政策
+            </Link>
+            。
+          </p>
         </div>
       </Container>
 
-      <div className="border-t border-white/10 py-6 text-center text-xs text-white/50">
-        <Link href="/">Wa&apos;s up studio © Copyright {new Date().getFullYear()}</Link>
+      <div className="flex flex-col items-center gap-2 border-t border-white/10 py-6 text-center text-xs text-white/50 sm:flex-row sm:justify-center sm:gap-4">
+        <Link href="/">Wa&apos;s up studio &copy; Copyright {new Date().getFullYear()}</Link>
+        <Link href="/privacy" className="underline hover:text-white/80">
+          隱私權政策
+        </Link>
       </div>
     </footer>
   );
