@@ -41,7 +41,9 @@ export const boardGames: BoardGame[] = [
     title: "抓誑新聞",
     tagline: "全球第一款媒體識讀桌遊",
     price: 750,
-    image: "/images/products/crazy-news.png",
+    // 原站「買桌遊」總覽頁這張卡用的是 001_3.jpeg（桌遊實物照）。重建時誤用了
+    // 二刷修訂說明圖，2026-09-02 開原站實查後改回來。
+    image: "/images/products/crazy-news.jpg",
     href: "/board-games/crazy-news",
   },
   {

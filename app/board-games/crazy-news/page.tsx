@@ -47,8 +47,10 @@ const info = [
   ["共同出版", "台灣少年權益與福利促進聯盟"],
 ];
 
+// 原站相簿只有 6 張實物照（分頁籤就是 1~6）。重建時多塞了一張「二刷修訂說明」當第 1 張，
+// 而那張在原站是放在右欄按鈕旁邊、不在相簿裡，2026-09-02 已移到正確位置（見下方按鈕那一列），
+// 所以這裡把它拿掉，否則同一張圖會在同一頁出現兩次。
 const galleryImages: GalleryImage[] = [
-  { src: "/images/products/crazy-news.png", alt: "抓誑新聞二刷修訂說明" },
   {
     src: "/images/products/crazy-news/gallery-1.png",
     alt: "抓誑新聞桌遊實物照 1",
