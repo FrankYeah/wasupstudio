@@ -6,6 +6,7 @@ import {
 import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 import { Container } from "@/app/_components/Container";
 import { SiteImage, withBasePath } from "@/app/_components/SiteImage";
+import { studioContact } from "@/app/_lib/site-data";
 
 export const metadata: Metadata = {
   title: "抓誑新聞 Crazy News",
@@ -209,20 +210,22 @@ export default function CrazyNewsPage() {
                 />
               </div>
 
-              {/* 原站在「＊購買桌遊即可獲得線上播報新聞之功能」旁邊有一顆按鈕連到播報網頁登入頁，重建時漏掉 */}
-              <div className="mt-6 flex flex-wrap items-center gap-4">
-                <a
-                  href="http://crazynews.wasupstudio.com/user/sign_in"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-white px-6 py-3 font-semibold text-white"
-                >
-                  抓誑新聞媒體播報網頁
-                </a>
-                <p className="text-sm text-white/60">
-                  ＊購買桌遊即可獲得線上播報新聞之功能。
-                  <br />
-                  ＊第一刷買家，可來信索取註冊碼。
+              {/* 見 MIGRATION-PLAN 偏離清單第 12 條。 */}
+              <div className="mt-6 rounded-xl border border-white/25 bg-white/[0.04] px-5 py-4 text-sm leading-relaxed text-white/70">
+                <p>
+                  ＊「抓誑新聞媒體播報網頁」線上服務目前無法使用，原網址{" "}
+                  <span className="whitespace-nowrap">crazynews.wasupstudio.com</span>{" "}
+                  已停止運作。
+                </p>
+                <p className="mt-2">
+                  第一刷買家的註冊碼、以及播報功能的相關問題，請來信{" "}
+                  <a
+                    href={`mailto:${studioContact.email}`}
+                    className="underline underline-offset-2 hover:text-white"
+                  >
+                    {studioContact.email}
+                  </a>
+                  。
                 </p>
               </div>
             </div>
