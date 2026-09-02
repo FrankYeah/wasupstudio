@@ -24,6 +24,17 @@
     "not_found_handling": "404-page"
   },
 
+  // 保留 workers.dev 網址當備援與預覽用（wasupstudio.wasupstudio.workers.dev）。
+  // 不寫的話 wrangler 會在有 routes 時預設關掉它。
+  "workers_dev": true,
+
+  // 正式網域。custom_domain 會讓 Cloudflare 自動建立/接管對應的 DNS 記錄，
+  // 並簽發憑證，取代原本指向 Weebly IP 的 A 記錄。
+  "routes": [
+    { "pattern": "wasupstudio.com", "custom_domain": true },
+    { "pattern": "www.wasupstudio.com", "custom_domain": true }
+  ],
+
   "observability": {
     "enabled": true
   }
