@@ -7,7 +7,7 @@ import { YouTubeEmbed } from "@/app/_components/YouTubeEmbed";
 export const metadata: Metadata = {
   title: "教師研習",
   description:
-    "阿普蛙教師研習課程，分為「教材應用－議題桌遊應用於課堂」與「教案、教材設計」兩大類，協助教師掌握議題桌遊的引導技巧，或動手設計屬於自己的遊戲化教案。",
+    "教師研習的課程主題包含教材應用（議題桌遊遊戲應用於課堂）及桌遊教材設計，協助教師掌握議題桌遊的引導技巧，或動手設計屬於自己的遊戲化教案。",
 };
 
 const materialTopics = [

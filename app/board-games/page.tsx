@@ -7,7 +7,7 @@ import { boardGames, soldOutBoardGames } from "@/app/_lib/site-data";
 
 export const metadata: Metadata = {
   title: "買桌遊",
-  description: "桌遊，把議題變好玩了。阿普蛙設計的議題型桌遊作品一覽。",
+  description: "用桌遊，翻轉你的公民意識。阿普蛙設計的議題型桌遊作品一覽。",
 };
 
 // 原站「販售中」相簿的排列順序，跟導覽列下拉選單的順序不一樣：

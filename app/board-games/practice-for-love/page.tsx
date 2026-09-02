@@ -6,7 +6,7 @@ import { Container } from "@/app/_components/Container";
 export const metadata: Metadata = {
   title: "練愛猜心",
   description:
-    "性別平等 × 人際溝通。透過情緒卡與事件卡題庫，練習傾聽與同理，適合教師於課堂作為情感教育、性平教育教材使用。",
+    "本遊戲適合教師於課堂作為情感、性平教育教材使用，規則書特別說明課堂版操作方式。性別平等 × 人際溝通，透過情緒卡與事件卡題庫練習傾聽與同理。",
 };
 
 const features = [

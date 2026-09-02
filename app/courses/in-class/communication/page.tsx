@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "提升溝通力｜入班授課",
   description:
-    "認識並發揮個人的勇者風格，遊戲中培養團隊協作的技能。覺察並改善個人的溝通方式與盲點，學習正向溝通的四大步驟。",
+    "認識並發揮個人的勇者風格，遊戲中培養團隊協作的技能。覺察並改善個人的溝通方式與盲點，學習正向溝通的四大步驟",
 };
 
 const INVITE_FORM_URL =
