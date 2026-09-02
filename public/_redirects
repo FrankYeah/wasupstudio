@@ -94,88 +94,88 @@
 /store/p1/大政治家：選戰風雲.html /board-games/great-politician 301
 /store/p1/%E5%A4%A7%E6%94%BF%E6%B2%BB%E5%AE%B6%EF%BC%9A%E9%81%B8%E6%88%B0%E9%A2%A8%E9%9B%B2.html /board-games/great-politician 301
 
-# ── 專欄／部落格／教學工具。新站目前沒有對應內容，全部先導首頁，見 MIGRATION-PLAN 偏離清單第 9 條（42 筆）
+# ── 專欄／部落格／教學工具。2026-09-02 已全部搬到 /columns/，一對一導到對應文章（42 筆）
 #   專欄首頁
-/blog.html / 301
+/blog.html /columns 301
 #   專欄總覽
-/column.html / 301
+/column.html /columns 301
 #   從228培養孩子的思辨能力
-/column1-6.html / 301
+/column1-6.html /columns/column1-6 301
 #   淺談轉型正義
-/column3-2.html / 301
+/column3-2.html /columns/column3-2 301
 #   教學工具總覽
-/teachingtools.html / 301
+/teachingtools.html /columns 301
 #   專欄文章
-/blog/0001 / 301
+/blog/0001 /columns/0001 301
 #   專欄文章
-/blog/0002 / 301
+/blog/0002 /columns/0002 301
 #   專欄文章
-/blog/0003 / 301
+/blog/0003 /columns/0003 301
 #   一張圖解釋媒體
-/blog/0004 / 301
+/blog/0004 /columns/0004 301
 #   專欄文章
-/blog/1555804 / 301
+/blog/1555804 /columns/1555804 301
 #   專欄文章
-/blog/1663807 / 301
+/blog/1663807 /columns/1663807 301
 #   專欄文章
-/blog/2174566 / 301
+/blog/2174566 /columns/2174566 301
 #   專欄文章
-/blog/2595453 / 301
+/blog/2595453 /columns/2595453 301
 #   專欄文章
-/blog/3227017 / 301
+/blog/3227017 /columns/3227017 301
 #   專欄文章
-/blog/4 / 301
+/blog/4 /columns/4 301
 #   專欄文章
-/blog/4048259 / 301
+/blog/4048259 /columns/4048259 301
 #   專欄文章
-/blog/4973463 / 301
+/blog/4973463 /columns/4973463 301
 #   專欄文章
-/blog/5717879 / 301
+/blog/5717879 /columns/5717879 301
 #   專欄文章
-/blog/5910907 / 301
+/blog/5910907 /columns/5910907 301
 #   蛙馬麻時間,情緒崩潰
-/blog/6150183 / 301
+/blog/6150183 /columns/6150183 301
 #   專欄文章
-/blog/6615473 / 301
+/blog/6615473 /columns/6615473 301
 #   專欄文章
-/blog/7250229 / 301
+/blog/7250229 /columns/7250229 301
 #   專欄文章
-/blog/7257268 / 301
+/blog/7257268 /columns/7257268 301
 #   專欄文章
-/blog/7268586 / 301
+/blog/7268586 /columns/7268586 301
 #   專欄文章
-/blog/7662624 / 301
+/blog/7662624 /columns/7662624 301
 #   專欄文章
-/blog/8083650 / 301
+/blog/8083650 /columns/8083650 301
 #   專欄文章
-/blog/8517875 / 301
+/blog/8517875 /columns/8517875 301
 #   專欄文章
-/blog/8718503 / 301
+/blog/8718503 /columns/8718503 301
 #   專欄文章
-/blog/8878915 / 301
+/blog/8878915 /columns/8878915 301
 #   專欄文章
-/blog/8929717 / 301
+/blog/8929717 /columns/8929717 301
 #   專欄文章
-/blog/9248536 / 301
+/blog/9248536 /columns/9248536 301
 #   專欄文章
-/blog/august-04th-2021 / 301
+/blog/august-04th-2021 /columns/august-04th-2021 301
 #   專欄文章
-/blog/bug / 301
+/blog/bug /columns/bug 301
 #   翻越冰山的勇者
-/blog/course01 / 301
+/blog/course01 /columns/course01 301
 #   戴著思考帽來暢遊議想世界吧
-/blog/course02 / 301
+/blog/course02 /columns/course02 301
 #   專欄文章
-/blog/media001 / 301
+/blog/media001 /columns/media001 301
 #   ORID
-/blog/orid / 301
+/blog/orid /columns/orid 301
 #   教學工具系列
-/blog/teachingtools01 / 301
+/blog/teachingtools01 /columns/teachingtools01 301
 #   蛙仔教你讀心術第二集
-/blog/teachingtools02 / 301
+/blog/teachingtools02 /columns/teachingtools02 301
 #   阿普蛙成員衝突大公開
-/blog/teachingtools03 / 301
+/blog/teachingtools03 /columns/teachingtools03 301
 #   納粹事件延燒
-/blog/teachingtools04 / 301
+/blog/teachingtools04 /columns/teachingtools04 301
 #   是學習還是壓迫
-/blog/teachingtools049345570 / 301
+/blog/teachingtools049345570 /columns/teachingtools049345570 301

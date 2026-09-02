@@ -29,9 +29,17 @@ export function Footer() {
             <a href={studioContact.facebook} target="_blank" rel="noreferrer" className="underline">
               Facebook
             </a>
+            {/* 原站頁尾這顆「部落格」連的是外部 Blogspot，照抄保留。 */}
             <a href={studioContact.blog} target="_blank" rel="noreferrer" className="underline">
               部落格
             </a>
+            {/* 2026-09-02 新增：站內專欄。原站的 39 篇專欄沒有掛在導覽列上，
+                所以 Phase 0 建頁面清單時整區漏掉。搬過來之後至少要有一個入口，
+                否則會重蹈原站「內容存在但沒人找得到」的覆轍。
+                要不要一併放進主導覽是產品決定，見 MIGRATION-PLAN 偏離清單第 9 條。 */}
+            <Link href="/columns" className="underline">
+              專欄
+            </Link>
           </div>
         </div>
 

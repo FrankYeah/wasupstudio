@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { boardGames, courseNav } from "@/app/_lib/site-data";
+import { columns } from "@/app/_lib/columns";
 
 // 靜態匯出（output: "export"）要求所有 route handler 明確標成靜態，
 // sitemap/robots 這種內建產生器也不例外。
@@ -36,7 +37,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const productPaths = boardGames.map((g) => g.href);
   const coursePaths = flattenCourseHrefs();
 
-  const allPaths = [...staticPaths, ...productPaths, ...coursePaths];
+  // 專欄：總覽頁 ＋ 每篇文章。2026-09-02 從原站的 /blog/ 搬過來，
+  // slug 沿用原站的，這樣舊網址可以一對一 301 過來。
+  const columnPaths = ["/columns", ...columns.map((c) => `/columns/${c.slug}`)];
+
+  const allPaths = [...staticPaths, ...productPaths, ...coursePaths, ...columnPaths];
 
   return allPaths.map((path) => ({
     url: `${BASE_URL}${path}`,
