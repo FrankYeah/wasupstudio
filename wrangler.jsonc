@@ -1,0 +1,30 @@
+{
+  // 正式站部署設定：Cloudflare Workers 靜態資產。
+  //
+  // 為什麼是 Workers 不是 Pages：Cloudflare 官方文件現在每一頁 Pages 都掛著
+  // 「Are you sure you want to use Pages?」，新專案一律建議走 Workers。這個站目前是
+  // 純靜態匯出（next.config.ts 的 output: "export"），兩邊都跑得起來，選 Workers 是為了
+  // 之後要加 API / D1 / R2 的時候不用再搬一次家。
+  //
+  // 部署在**客戶名下**的 Cloudflare 帳號（見 00-plan/MIGRATION-PLAN.md 帳號歸屬原則），
+  // 接案方用 Super Administrator 成員身分操作。
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "wasupstudio",
+  "compatibility_date": "2026-09-02",
+
+  "assets": {
+    // next build（output: "export"）的產物目錄。
+    "directory": "./out",
+
+    // 靜態匯出產生的是 about.html 這種檔案，但站上的連結寫的是 /about。
+    // auto-trailing-slash 會自動對應，不用改任何連結。
+    "html_handling": "auto-trailing-slash",
+
+    // 找不到的路徑吐 Next.js 產生的 404 頁，而不是 Workers 的預設純文字。
+    "not_found_handling": "404-page"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+}
