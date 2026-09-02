@@ -6,7 +6,8 @@
 
 ## 動程式碼之前
 
-- **圖片一律用 [app/_components/SiteImage.tsx](app/_components/SiteImage.tsx)，不要直接 `import Image from "next/image"`**——靜態匯出 ＋ basePath（GitHub Pages 子路徑）的組合下，直接用 `next/image` 會讓圖片在子路徑部署時讀不到。**CSS `background-image: url(...)` 這種非 `next/image` 的用法不能套 `SiteImage` 元件**，要改用同一個檔案 export 的 `withBasePath()` 包住路徑字串。
+- **部署：`main` 的程式碼要上線，是在 `site/` 跑 `CLOUDFLARE_ACCOUNT_ID=4d4c15bc9ad90313751279aa516bf6a6 npx wrangler deploy`**（客戶名下的 Cloudflare 帳號，接案方是 Super Administrator）。正式站 `www.wasupstudio.com`，備援預覽 `wasupstudio.wasupstudio.workers.dev`。**push 到 GitHub 不會自動部署**，GitHub Pages 的 workflow 已於 2026-09-02 移除。
+- **圖片一律用 [app/_components/SiteImage.tsx](app/_components/SiteImage.tsx)，不要直接 `import Image from "next/image"`。** 目前 `basePath` 是空字串所以這層不做事，保留是為了將來若要部署到子路徑時只改一個常數。**CSS `background-image: url(...)` 這種非 `next/image` 的用法不能套 `SiteImage` 元件**，要改用同一個檔案 export 的 `withBasePath()` 包住路徑字串。
 - **`app/globals.css` 的全域規則一定要包在 `@layer base` 裡。** 沒有 layer 的規則會贏過 Tailwind 的 utilities layer，靜默蓋掉元素上的 utility（`font-medium` 曾整個沒作用）。驗收要看 computed style，不要看到 class 就當作套上了。
 - **刻意跟原站不同的地方，註解只寫「見 MIGRATION-PLAN 偏離清單第 N 條」，不要在註解裡複述原站長什麼樣**——註解會跟著後續改動被改寫成「原站就是這樣」，本案 9 個商品頁裡有 7 個就是這樣讓假前提傳了好幾輪稽核。
 - 這個專案**沒有自動化測試**，改完用 `npm run build` ＋ `npm run lint` 驗收。視覺改動還要另外跟原站並排比對，build 過了不等於做對了。
