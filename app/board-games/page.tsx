@@ -119,7 +119,9 @@ export default function BoardGamesPage() {
               <div className="flex flex-1 flex-col p-5">
                 <p className="text-xs text-ink/50">{game.tagline}</p>
                 <h2 className="mt-1 text-lg font-bold text-ink">{game.title}</h2>
-                <p className="mt-auto pt-4 text-brand-green font-semibold">NT$ {game.price}</p>
+                <p className="mt-auto pt-4 text-brand-green font-semibold">
+                  {game.price === undefined ? "預購中" : `NT$ ${game.price}`}
+                </p>
               </div>
             </Link>
           ))}

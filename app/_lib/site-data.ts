@@ -6,12 +6,21 @@ export type BoardGame = {
   slug: string;
   title: string;
   tagline: string;
-  price: number;
+  price?: number; // 沒有值＝客戶頁面上沒寫售價（預購中），總覽卡片顯示「預購中」
   image: string | null; // 少數幾款原站就沒有專屬產品照，null 代表照實維持沒有圖
   href: string;
 };
 
 export const boardGames: BoardGame[] = [
+  {
+    // 2026-09-04 從 Weebly 未發布的草稿頁補進來，客戶在 Weebly 導覽裡把它排在第一個。
+    // 草稿沒寫售價、只有一顆「預購連結」按鈕。見 MIGRATION-PLAN 偏離清單第 17 條。
+    slug: "words-collide",
+    title: "異言不合｜我就說兩句",
+    tagline: "人際溝通 × 社會情緒學習",
+    image: "/images/products/words-collide.jpg",
+    href: "/board-games/words-collide",
+  },
   {
     slug: "riddle-me-feelings",
     title: "情緒謎語（雙語版）",
