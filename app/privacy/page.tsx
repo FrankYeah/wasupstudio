@@ -38,6 +38,8 @@ const thirdParties = [
 ];
 
 export default function PrivacyPage() {
+  // 流量統計那一段跟 Analytics.tsx 綁同一個環境變數：沒設 NEXT_PUBLIC_GA_ID 就兩邊都不出現，
+  // 政策不會宣告一個實際上沒在跑的東西。**要移除 GA 的話這頁會自動跟著變，不用手動改文案。**
   const gaEnabled = Boolean(process.env.NEXT_PUBLIC_GA_ID);
 
   return (
