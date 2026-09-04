@@ -7,11 +7,11 @@ import { Container } from "@/app/_components/Container";
 
 // 內容來源：Weebly 編輯器裡從未發布的草稿頁（2026-09-04 擷取，
 // 見 source repo 的 01-content-raw/pages-draft-2026-09-04/words-collide/）。
-// 客戶在導覽名稱與預購表單用「異言不合」、在頁面標題與 H2 用「一言不合」，兩邊都照抄，
-// 沒有替他統一。
+// 草稿裡導覽名稱與預購表單用「異言不合」、頁面標題與 H2 用「一言不合」，
+// 客戶 2026-09-04 裁示正確文字是「異言不合」，全頁統一。
 export const metadata: Metadata = {
-  // 客戶在 Weebly 填的 SEO 標題原文。
-  title: "人際溝通Ｘ社會情緒學習 桌遊《一言不合｜我就說兩句》",
+  // 客戶在 Weebly 填的 SEO 標題，「一言」依客戶裁示改成「異言」。
+  title: "人際溝通Ｘ社會情緒學習 桌遊《異言不合｜我就說兩句》",
   // 草稿沒填 meta description，這裡是補缺口，內容從頁面內文整理。
   description:
     "以職場情境為核心的溝通練習桌遊。玩家輪流扮演衝突或尷尬處境中的當事人，其他人組成智囊團提出應對方式並票選最合適的回應。中英對照，適合人際溝通、社會情緒學習（SEL）、非暴力溝通（NVC）與班級經營教學使用。",
@@ -58,7 +58,7 @@ export default function WordsCollidePage() {
       <div className="grid gap-12 md:grid-cols-2">
         <div>
           <p className="text-sm font-semibold text-brand-green">人際溝通Ｘ社會情緒學習</p>
-          <h1 className="mt-2 text-3xl font-bold text-ink">《一言不合｜我就說兩句》</h1>
+          <h1 className="mt-2 text-3xl font-bold text-ink">《異言不合｜我就說兩句》</h1>
           {/* 草稿這段是 #248d6c 綠字、前後各三個星號，照抄。 */}
           <p className="mt-4 text-[#248d6c]">
             ***本遊戲適合教師、講師、企業培訓者與團體帶領者，作為人際溝通、社會情緒學習（SEL）、非暴力溝通（NVC）、班級經營、職場溝通與關係教育教材使用，說明書有另外說明課堂操作模式。***

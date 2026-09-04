@@ -15,6 +15,8 @@ export const metadata: Metadata = {
 // 導覽列是 …抓誑新聞→未來議會→玩一世人→拚陣頭→十分機靈。
 // site-data.ts 的 boardGames 依導覽列排（Header/sitemap 都吃它），所以這頁另外指定相簿順序。
 const gridOrder = [
+  // 2026-09-04 新品，客戶在 Weebly 導覽裡把它排第一，總覽也排第一。
+  "words-collide",
   "riddle-me-feelings",
   "talk-nonsense-sdgs",
   "practice-for-love",
